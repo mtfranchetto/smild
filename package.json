@@ -1,7 +1,7 @@
 {
   "name": "smild",
-  "version": "0.0.1",
-  "description": "Javascript complete build system",
+  "version": "0.1.0",
+  "description": "The Javascript development environment",
   "repository": {
     "type": "git",
     "url": "https://github.com/mtfranchetto/smild"
@@ -35,7 +35,6 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "lodash": "^2.4.1",
     "minimist": "^1.1.0",
-    "mothership": "^0.3.0",
     "tiny-lr": "0.0.7",
     "vinyl-source-stream": "^0.1.1",
     "watchify": "^1.0.2"
