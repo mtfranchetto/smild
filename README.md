@@ -1,4 +1,6 @@
-#ng-boilerplate-app
+#Smild
+
+##The Javascript development environment
 
 ###Why
 The idea behind it's simple: enable **code reuse** and maximize **efficiency**.
@@ -18,6 +20,13 @@ To wrap up, here's a list of the things available:
 * TDD/BDD support
 * Code coverage
 * JSHint support
+
+###Usage
+
+Create a gulpfile.js in the root of your project with the following contents:
+
+`require('smild')(require('gulp'));`
+
 
 ###CLI reference:
 
@@ -58,9 +67,6 @@ Packages Compass files.
 `$ gulp images`
 
 Packages images.
-
-###Modules
-External NPM modules are based on **[ng-boilerplate-module](https://github.com/mtfranchetto/ng-boilerplate-module)**.
 
 ##Contribute
 
