@@ -1,6 +1,6 @@
 #Smild
 
-##The Javascript development environment
+##The Javascript development system
 
 ###Why
 The idea behind it's simple: enable **code reuse** and maximize **efficiency**.
@@ -27,6 +27,23 @@ Create a gulpfile.js in the root of your project with the following contents:
 
 `require('smild')(require('gulp'));`
 
+###Options
+
+Create a _smild_ field into package.json to customize smild. The default options are:
+
+    {
+  		"module": false,
+       "serverPort": 5000,
+       "bundleFilename": "main",
+       "distribution": "dist",
+       "bootstrappers": "boot",
+       "test": "test/*",
+       "coverage": smildOptions && smildOptions.module? "lib/*": "scripts/*",
+       "coverageOutput": "coverage/",
+       "runCoverage": true,
+       "testLauncher": "PhantomJS",
+       "testTransforms": ["browserify-shim", "browserify-istanbul"]
+    }
 
 ###CLI reference:
 
