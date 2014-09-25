@@ -32,7 +32,7 @@ Create a gulpfile.js in the root of your project with the following contents:
 Create a _smild_ field into package.json to customize smild. The default options are:
 
     {
-  		"module": false,
+  	   "module": false,
        "serverPort": 5000,
        "bundleFilename": "main",
        "distribution": "dist",
