@@ -32,6 +32,7 @@ module.exports = function (gulp, options) {
         BUNDLE_FILENAME = options.bundleFilename,
         COVERAGE = options.coverageOutput,
         watching = options.module,
+        cwd = process.cwd(),
         currentVariant = getVariantOption("debug-main");
 
     if (!options.module) {
@@ -51,7 +52,7 @@ module.exports = function (gulp, options) {
         } else if (variant !== 'all') {
             variants = [variant];
         } else {
-            variants = getDirectories(__dirname + "/boot");
+            variants = getDirectories(cwd + "/boot");
             variants = _.flatten(_.map(variants, function (variant) {
                 return ['release-' + variant, 'debug-' + variant];
             }));
@@ -90,7 +91,7 @@ module.exports = function (gulp, options) {
 
         var browserifyOptions = {
             entries: ['./boot/' + getVariantPart() + '/bootstrapper.js'],
-            basedir: process.cwd(),
+            basedir: cwd,
             debug: !isRelease(),
             cache: {},
             packageCache: {},
