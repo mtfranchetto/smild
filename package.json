@@ -1,7 +1,7 @@
 {
   "name": "smild",
-  "version": "0.1.0",
-  "description": "The Javascript development environment",
+  "version": "0.1.1",
+  "description": "The Javascript development system",
   "repository": {
     "type": "git",
     "url": "https://github.com/mtfranchetto/smild"
