@@ -23,7 +23,6 @@ module.exports = function (gulp, options) {
         refresh = require('gulp-livereload'),
         livereload = require('connect-livereload'),
         lrserver = require('tiny-lr')(),
-        gutil = require('gulp-util'),
         livereloadport = 35729,
         serverport = options.serverPort,
         server = express();
@@ -31,6 +30,7 @@ module.exports = function (gulp, options) {
     var DIST_FOLDER = options.distribution,
         KARMA_CONFIG = '/karma.conf.js',
         BUNDLE_FILENAME = options.bundleFilename,
+        COVERAGE = options.coverageOutput,
         watching = options.module,
         currentVariant = getVariantOption("debug-main");
 
@@ -63,7 +63,7 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('clean', function () {
-        return gulp.src([DIST_FOLDER, 'coverage/'], { read: false })
+        return gulp.src([DIST_FOLDER, COVERAGE], { read: false })
             .pipe(plumber())
             .pipe(rimraf({force: true}));
     });
@@ -104,7 +104,7 @@ module.exports = function (gulp, options) {
 
         function rebundle() {
             bundleStream.bundle()
-                .on('error', gutil.log)
+                .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
                 .pipe(gulp.dest(getDistDirectory() + 'js'))
