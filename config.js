@@ -12,6 +12,9 @@ var Config = new (function () {
                 "bundleFilename": "main",
                 "distribution": "dist",
                 "bootstrappers": "boot",
+                "test": "test/*",
+                "coverage": smildOptions && smildOptions.module? "lib/*": "scripts/*",
+                "coverageOutput": "coverage/",
                 "runCoverage": true,
                 "testLauncher": "PhantomJS",
                 "testTransforms": ["browserify-shim", "browserify-istanbul"]

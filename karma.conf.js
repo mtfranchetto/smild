@@ -1,6 +1,10 @@
 var cwd = process.cwd(),
     options = require('./config').options(),
-    reporters = ['progress'];
+    reporters = ['progress'],
+    preprocessors = {};
+
+preprocessors[options.test] = ['browserify'];
+preprocessors[options.coverage] = ['coverage'];
 
 if (options.runCoverage)
     reporters.push('coverage');
@@ -10,7 +14,7 @@ module.exports = function (config) {
         basePath: cwd,
         frameworks: ['jasmine', 'browserify'],
         files: [
-            'test/*'
+            { pattern: options.test }
         ],
         reporters: reporters,
         port: 9876,
@@ -26,13 +30,10 @@ module.exports = function (config) {
             debug: true,
             transform: options.testTransforms
         },
-        preprocessors: {
-            'test/*': ['browserify'],
-            'scripts/*': ['coverage']
-        },
+        preprocessors: preprocessors,
         coverageReporter: {
             type: 'html',
-            dir: 'coverage/'
+            dir: options.coverageOutput
         }
     });
 };
