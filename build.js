@@ -23,7 +23,6 @@ module.exports = function (gulp, options) {
         refresh = require('gulp-livereload'),
         livereload = require('connect-livereload'),
         lrserver = require('tiny-lr')(),
-        gutil = require('gulp-util'),
         livereloadport = 35729,
         serverport = options.serverPort,
         server = express();
@@ -31,7 +30,9 @@ module.exports = function (gulp, options) {
     var DIST_FOLDER = options.distribution,
         KARMA_CONFIG = '/karma.conf.js',
         BUNDLE_FILENAME = options.bundleFilename,
+        COVERAGE = options.coverageOutput,
         watching = options.module,
+        cwd = process.cwd(),
         currentVariant = getVariantOption("debug-main");
 
     if (!options.module) {
@@ -51,7 +52,7 @@ module.exports = function (gulp, options) {
         } else if (variant !== 'all') {
             variants = [variant];
         } else {
-            variants = getDirectories(__dirname + "/boot");
+            variants = getDirectories(cwd + "/boot");
             variants = _.flatten(_.map(variants, function (variant) {
                 return ['release-' + variant, 'debug-' + variant];
             }));
@@ -63,7 +64,7 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('clean', function () {
-        return gulp.src([DIST_FOLDER, 'coverage/'], { read: false })
+        return gulp.src([DIST_FOLDER, COVERAGE], { read: false })
             .pipe(plumber())
             .pipe(rimraf({force: true}));
     });
@@ -90,7 +91,7 @@ module.exports = function (gulp, options) {
 
         var browserifyOptions = {
             entries: ['./boot/' + getVariantPart() + '/bootstrapper.js'],
-            basedir: process.cwd(),
+            basedir: cwd,
             debug: !isRelease(),
             cache: {},
             packageCache: {},
@@ -104,7 +105,7 @@ module.exports = function (gulp, options) {
 
         function rebundle() {
             bundleStream.bundle()
-                .on('error', gutil.log)
+                .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
                 .pipe(gulp.dest(getDistDirectory() + 'js'))
