@@ -42,7 +42,8 @@ Create a _smild_ field into package.json to customize smild. The default options
        "coverageOutput": "coverage/",
        "runCoverage": true,
        "testLauncher": "PhantomJS",
-       "testTransforms": ["browserify-shim", "browserify-istanbul"]
+       "testTransforms": ["browserify-shim", "browserify-istanbul"],
+       "bundleNoParse": []
     }
 
 ###CLI reference:

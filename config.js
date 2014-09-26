@@ -17,7 +17,8 @@ var Config = new (function () {
                 "coverageOutput": "coverage/",
                 "runCoverage": true,
                 "testLauncher": "PhantomJS",
-                "testTransforms": ["browserify-shim", "browserify-istanbul"]
+                "testTransforms": ["browserify-shim", "browserify-istanbul"],
+                "bundleNoParse": [ ]
             };
 
         return _.assign(defaultOptions, smildOptions);
