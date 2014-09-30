@@ -21,6 +21,9 @@ To wrap up, here's a list of the things available:
 * Code coverage
 * JSHint support
 
+###Install
+`npm install smild --save-dev`
+
 ###Usage
 
 Create a gulpfile.js in the root of your project with the following contents:
