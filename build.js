@@ -20,6 +20,7 @@ module.exports = function (gulp, options) {
         sass = require('gulp-sass'),
         plumber = require('gulp-plumber'),
         karma = require('karma').server,
+        markdox = require('gulp-markdox'),
         uglify = require('gulp-uglify'),
         express = require('express'),
         refresh = require('gulp-livereload'),
@@ -78,6 +79,13 @@ module.exports = function (gulp, options) {
             .pipe(jshint.reporter('default'));
     });
 
+    gulp.task('doc', function () {
+        return gulp.src(options.coverage + "*/*.js")
+            .pipe(markdox())
+            .pipe(concat("doc.md"))
+            .pipe(gulp.dest("./doc"));
+    });
+
     !options.module && gulp.task('styles', function () {
         return gulp.src('./boot/' + getVariantPart() + '/bootstrapper.scss')
             .pipe(concat(BUNDLE_FILENAME + '.css'))
@@ -94,7 +102,9 @@ module.exports = function (gulp, options) {
 
         var browserifyOptions = {
             entries: ['./boot/' + getVariantPart() + '/bootstrapper.js'],
-            noParse: _.map(options.bundleNoParse, function (package) { return require.resolve(package); }),
+            noParse: _.map(options.bundleNoParse, function (package) {
+                return require.resolve(package);
+            }),
             basedir: cwd,
             debug: !isRelease(),
             cache: {},
