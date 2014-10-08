@@ -119,6 +119,10 @@ module.exports = function (gulp, options) {
 
         function rebundle() {
             return bundleStream.bundle()
+			    .on('error', function(err){
+			      console.log(err.message);
+			      this.end();
+			    })
                 .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
