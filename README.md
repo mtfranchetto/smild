@@ -89,6 +89,10 @@ Packages Compass files.
 
 Packages images.
 
+`$ gulp doc`
+
+Generate documentation with *markdox*.
+
 ##Contribute
 
 I am using [Git Flow](https://github.com/nvie/gitflow).
