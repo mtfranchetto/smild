@@ -35,18 +35,19 @@ Create a gulpfile.js in the root of your project with the following contents:
 Create a _smild_ field into package.json to customize smild. The default options are:
 
     {
-  	   "module": false,
-       "serverPort": 5000,
-       "bundleFilename": "main",
-       "distribution": "dist",
-       "bootstrappers": "boot",
-       "test": "test/*",
+  	   "module": false, //reduced tasks set for module
+       "serverPort": 5000, //express server port to listen on
+       "bundleFilename": "main", //filename of produced files
+       "distribution": "dist", //build folder
+       "bootstrappers": "boot", //bootstrappers/flavors folder
+       "test": "test/*", //
        "coverage": smildOptions && smildOptions.module? "lib/*": "scripts/*",
+       "autoprefixerRules": ["last 2 versions", "> 1%", "ie 8"], //custom rules for autoprefixer
        "coverageOutput": "coverage/",
        "runCoverage": true,
-       "testLauncher": "PhantomJS",
-       "testTransforms": ["browserify-shim", "browserify-istanbul"],
-       "bundleNoParse": []
+       "testLauncher": "PhantomJS", //or Chrome
+       "testTransforms": ["browserify-shim", "browserify-istanbul"], //browsery transforms to apply before test
+       "bundleNoParse": [] //exclude this files from parsing
     }
 
 ###CLI reference:
@@ -88,6 +89,10 @@ Packages Compass files.
 `$ gulp images`
 
 Packages images.
+
+`$ gulp doc`
+
+Generate documentation with *markdox*.
 
 ##Contribute
 

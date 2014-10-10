@@ -91,7 +91,7 @@ module.exports = function (gulp, options) {
             .pipe(concat(BUNDLE_FILENAME + '.css'))
             .pipe(plumber())
             .pipe(sass({ includePaths: ['./'] }))
-            .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
+            .pipe(autoprefixer({ browsers: options.autoprefixerRules}))
             .pipe(gulpif(isRelease(), minify()))
             .pipe(gulp.dest(getDistDirectory() + 'css/'))
             .pipe(gulpif(watching, refresh(lrserver)));
