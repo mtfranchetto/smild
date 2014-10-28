@@ -44,7 +44,7 @@ module.exports = function (gulp, options) {
         server.use(livereload({port: livereloadport}));
 
         server.all('/*', function (req, res) {
-            res.sendfile('index.html', { root: getDistDirectory() });
+            res.sendfile('index.html', {root: getDistDirectory()});
         });
     }
 
@@ -68,7 +68,7 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('clean', function () {
-        return gulp.src([DIST_FOLDER, COVERAGE], { read: false })
+        return gulp.src([DIST_FOLDER, COVERAGE], {read: false})
             .pipe(plumber())
             .pipe(rimraf({force: true}));
     });
@@ -90,8 +90,8 @@ module.exports = function (gulp, options) {
         return gulp.src('./boot/' + getVariantPart() + '/bootstrapper.scss')
             .pipe(concat(BUNDLE_FILENAME + '.css'))
             .pipe(plumber())
-            .pipe(sass({ includePaths: ['./'] }))
-            .pipe(autoprefixer({ browsers: options.autoprefixerRules}))
+            .pipe(sass({includePaths: ['./']}))
+            .pipe(autoprefixer({browsers: options.autoprefixerRules}))
             .pipe(gulpif(isRelease(), minify()))
             .pipe(gulp.dest(getDistDirectory() + 'css/'))
             .pipe(gulpif(watching, refresh(lrserver)));
@@ -119,10 +119,10 @@ module.exports = function (gulp, options) {
 
         function rebundle() {
             return bundleStream.bundle()
-			    .on('error', function(err){
-			      console.log(err.message);
-			      this.end();
-			    })
+                .on('error', function (err) {
+                    console.log(err.message);
+                    this.end();
+                })
                 .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
@@ -146,14 +146,17 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('views', function () {
-        return merge(
-            gulp.src('index.html')
-                .pipe(gulpif(watching, embedlr()))
-                .pipe(gulp.dest(getDistDirectory())),
+        var streams = [
             gulp.src('views/**/*')
                 .pipe(gulp.dest(getDistDirectory() + 'views/'))
-                .pipe(gulpif(watching, refresh(lrserver)))
-        );
+                .pipe(gulpif(watching, refresh(lrserver)))];
+        if (options.copyIndex) {
+            streams.push(
+                gulp.src('index.html')
+                    .pipe(gulpif(watching, embedlr()))
+                    .pipe(gulp.dest(getDistDirectory())));
+        }
+        return merge(streams);
     });
 
     !options.module && gulp.task('images', function () {
@@ -169,10 +172,10 @@ module.exports = function (gulp, options) {
         gulp.start('build', 'serve', function () {
             gulp.watch(['./boot/' + getVariantPart() + '/bootstrapper.scss',
                     './boot/base.scss',
-                    './styles/**/*.scss'], { maxListeners: 999 },
+                    './styles/**/*.scss'], {maxListeners: 999},
                 ['styles']);
 
-            gulp.watch(['views/**/*.html'], { maxListeners: 999 }, ['views']);
+            gulp.watch(['views/**/*.html'], {maxListeners: 999}, ['views']);
 
             watch(['images/*'], function () {
                 gulp.start('images');
@@ -222,7 +225,7 @@ module.exports = function (gulp, options) {
     function getVariantOption(defaultOption) {
         return minimist(process.argv.slice(2), {
             string: 'variant',
-            default: { variant: defaultOption || 'release-main' }
+            default: {variant: defaultOption || 'release-main'}
         }).variant;
     }
 };

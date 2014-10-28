@@ -19,6 +19,7 @@ var Config = new (function () {
                 "runCoverage": true,
                 "testLauncher": "PhantomJS",
                 "testTransforms": ["browserify-shim", "browserify-istanbul"],
+                "copyIndex": true,
                 "bundleNoParse": [ ]
             };
 
