@@ -20,7 +20,8 @@ var Config = new (function () {
                 "testLauncher": "PhantomJS",
                 "testTransforms": ["browserify-shim", "browserify-istanbul"],
                 "copyIndex": true,
-                "bundleNoParse": [ ]
+                "expandDistribution": false,
+                "bundleNoParse": []
             };
 
         return _.assign(defaultOptions, smildOptions);
