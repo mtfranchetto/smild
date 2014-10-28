@@ -146,14 +146,17 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('views', function () {
-        return merge(
-            gulp.src('index.html')
-                .pipe(gulpif(watching, embedlr()))
-                .pipe(gulp.dest(getDistDirectory())),
+        var streams = [
             gulp.src('views/**/*')
                 .pipe(gulp.dest(getDistDirectory() + 'views/'))
-                .pipe(gulpif(watching, refresh(lrserver)))
-        );
+                .pipe(gulpif(watching, refresh(lrserver)))];
+        if (options.copyIndex) {
+            streams.push(
+                gulp.src('index.html')
+                    .pipe(gulpif(watching, embedlr()))
+                    .pipe(gulp.dest(getDistDirectory())));
+        }
+        return merge(streams);
     });
 
     !options.module && gulp.task('images', function () {
