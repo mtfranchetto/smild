@@ -41,6 +41,7 @@ Create a _smild_ field into package.json to customize smild. The default options
        "distribution": "dist", //build folder
        "bootstrappers": "boot", //bootstrappers/flavors folder
        "test": "test/*", //
+       "externalTestFiles": [],
        "coverage": smildOptions && smildOptions.module? "lib/*": "scripts/*",
        "autoprefixerRules": ["last 2 versions", "> 1%", "ie 8"], //custom rules for autoprefixer
        "coverageOutput": "coverage/",

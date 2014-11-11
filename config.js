@@ -13,6 +13,7 @@ var Config = new (function () {
                 "distribution": "dist",
                 "bootstrappers": "boot",
                 "test": "test/*",
+                "externalTestFiles": [],
                 "autoprefixerRules": ["last 2 versions", "> 1%", "ie 8"],
                 "coverage": smildOptions && smildOptions.module ? "lib/*" : "scripts/*",
                 "coverageOutput": "coverage/",

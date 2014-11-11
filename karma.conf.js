@@ -1,10 +1,13 @@
-var cwd = process.cwd(),
+var _ = require('lodash'),
+    cwd = process.cwd(),
     options = require('./config').options(),
     reporters = ['progress'],
-    preprocessors = {};
+    preprocessors = {},
+    files = [{pattern: options.test}];
 
 preprocessors[options.test] = ['browserify'];
 preprocessors[options.coverage] = ['coverage'];
+files = _.flatten(files.push(options.externalTestFiles));
 
 if (options.runCoverage)
     reporters.push('coverage');
@@ -13,9 +16,7 @@ module.exports = function (config) {
     config.set({
         basePath: cwd,
         frameworks: ['jasmine', 'browserify'],
-        files: [
-            { pattern: options.test }
-        ],
+        files: files,
         reporters: reporters,
         port: 9876,
         runnerPort: 9100,
