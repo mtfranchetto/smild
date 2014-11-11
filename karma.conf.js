@@ -3,11 +3,10 @@ var _ = require('lodash'),
     options = require('./config').options(),
     reporters = ['progress'],
     preprocessors = {},
-    files = [{pattern: options.test}];
+    files = _.flatten([{pattern: options.test}, options.externalTestFiles]);
 
 preprocessors[options.test] = ['browserify'];
 preprocessors[options.coverage] = ['coverage'];
-files = _.flatten(files.push(options.externalTestFiles));
 
 if (options.runCoverage)
     reporters.push('coverage');
