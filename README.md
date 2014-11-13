@@ -50,7 +50,8 @@ Create a _smild_ field into package.json to customize smild. The default options
        "testTransforms": ["browserify-shim", "browserify-istanbul"], //browsery transforms to apply before test
        "copyIndex": true, //copy or not index.html to the distribution folder
        "expandDistribution": false, //move build files one level up (to remove release-main folder)
-       "bundleNoParse": [] //exclude this files from parsing
+       "bundleNoParse": [], //exclude this files from parsing
+       "harmonyTransformer": false //convert es6 to es5
     }
 
 ###CLI reference:

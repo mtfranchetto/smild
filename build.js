@@ -6,6 +6,7 @@ module.exports = function (gulp, options) {
         _ = require('lodash'),
         runSequence = require('run-sequence').use(gulp),
         browserify = require('browserify'),
+        to5Browserify = require("6to5-browserify"),
         source = require('vinyl-source-stream'),
         streamify = require('gulp-streamify'),
         watchify = require('watchify'),
@@ -116,6 +117,8 @@ module.exports = function (gulp, options) {
             browserify(browserifyOptions);
         if (watching)
             bundleStream.on('update', rebundle);
+        if (options.harmonyTransformer)
+            bundleStream = bundleStream.transform(to5Browserify);
 
         function rebundle() {
             return bundleStream.bundle()
