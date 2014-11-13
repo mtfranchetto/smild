@@ -22,7 +22,8 @@ var Config = new (function () {
                 "testTransforms": ["browserify-shim", "browserify-istanbul"],
                 "copyIndex": true,
                 "expandDistribution": false,
-                "bundleNoParse": []
+                "bundleNoParse": [],
+                "harmonyTransformer": false
             };
 
         return _.assign(defaultOptions, smildOptions);
