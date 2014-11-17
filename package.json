@@ -1,6 +1,6 @@
 {
     "name": "smild",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "description": "The Javascript development system",
     "repository": {
         "type": "git",
@@ -16,6 +16,7 @@
         "express": "~4.1.1",
         "gulp": "~3.8.7",
         "gulp-autoprefixer": "~1.0.1",
+        "gulp-changed": "^1.0.0",
         "gulp-concat": "~2.3.4",
         "gulp-embedlr": "~0.5.2",
         "gulp-if": "~1.2.4",

@@ -16,6 +16,7 @@ module.exports = function (gulp, options) {
         minify = require('gulp-minify-css'),
         concat = require('gulp-concat'),
         embedlr = require('gulp-embedlr'),
+        changed = require('gulp-changed'),
         minimist = require('minimist'),
         watch = require('gulp-watch'),
         sass = require('gulp-sass'),
@@ -151,6 +152,7 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('views', function () {
         var streams = [
             gulp.src('views/**/*')
+                .pipe(changed(getDistDirectory() + 'views/'))
                 .pipe(gulp.dest(getDistDirectory() + 'views/'))
                 .pipe(gulpif(watching, refresh(lrserver)))];
         if (options.copyIndex) {
@@ -164,6 +166,7 @@ module.exports = function (gulp, options) {
 
     !options.module && gulp.task('images', function () {
         return gulp.src('images/**/*')
+            .pipe(changed(getDistDirectory() + 'images/'))
             .pipe(gulp.dest(getDistDirectory() + 'images/'))
             .pipe(gulpif(watching, refresh(lrserver)));
     });
