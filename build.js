@@ -65,7 +65,7 @@ module.exports = function (gulp, options) {
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
-            runSequence(['views', 'styles', 'images', 'browserify'], callback);
+            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], callback);
         });
     });
 
@@ -171,6 +171,13 @@ module.exports = function (gulp, options) {
             .pipe(gulpif(watching, refresh(lrserver)));
     });
 
+    !options.module && gulp.task('assets', function () {
+        return gulp.src('assets/**/*')
+            .pipe(changed(getDistDirectory() + 'assets/'))
+            .pipe(gulp.dest(getDistDirectory() + 'assets/'))
+            .pipe(gulpif(watching, refresh(lrserver)));
+    });
+
     !options.module && gulp.task('watch', function () {
         watching = true;
         currentVariant = getVariantOption("debug-main");
@@ -185,6 +192,10 @@ module.exports = function (gulp, options) {
 
             watch(['images/*'], function () {
                 gulp.start('images');
+            });
+
+            watch(['assets/*'], function () {
+                gulp.start('assets');
             });
         });
     });
