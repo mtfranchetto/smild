@@ -50,7 +50,7 @@ module.exports = function (gulp, options) {
         });
     }
 
-    !options.module && gulp.task('build', ['clean'], function () {
+    !options.module && gulp.task('build', ['clean', 'pre-build'], function () {
         var variant = getVariantOption(),
             variants = [];
         if (watching) {
@@ -65,7 +65,7 @@ module.exports = function (gulp, options) {
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
-            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], callback);
+            runSequence(['views', 'styles', 'images', 'assets', 'browserify', 'post-build'], callback);
         });
     });
 
@@ -176,6 +176,24 @@ module.exports = function (gulp, options) {
             .pipe(changed(getDistDirectory() + 'assets/'))
             .pipe(gulp.dest(getDistDirectory() + 'assets/'))
             .pipe(gulpif(watching, refresh(lrserver)));
+    });
+
+    !options.module && gulp.task('pre-build', function () {
+        return merge(
+            _.map(options.preBuild, function (action) {
+                return gulp.src(action.source)
+                    .pipe(gulp.dest(action.dest));
+            })
+        );
+    });
+
+    !options.module && gulp.task('post-build', function () {
+        return merge(
+            _.map(options.postBuild, function (action) {
+                return gulp.src(action.source)
+                    .pipe(gulp.dest(getDistDirectory() + action.dest));
+            })
+        );
     });
 
     !options.module && gulp.task('watch', function () {

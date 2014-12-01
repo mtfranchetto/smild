@@ -23,7 +23,9 @@ var Config = new (function () {
                 "copyIndex": true,
                 "expandDistribution": false,
                 "bundleNoParse": [],
-                "harmonyTransformer": false
+                "harmonyTransformer": false,
+                "preBuild": [], // { source: "", dest: ""}
+                "postBuild": [] // { source: "", dest: ""}
             };
 
         return _.assign(defaultOptions, smildOptions);
