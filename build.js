@@ -180,6 +180,7 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('pre-build', function () {
+        if (!options.preBuild.length) return;
         return merge(
             _.map(options.preBuild, function (action) {
                 return gulp.src(action.source)
@@ -192,6 +193,7 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('post-build', function () {
+        if (!options.postBuild.length) return;
         return merge(
             _.map(options.postBuild, function (action) {
                 return gulp.src(action.source)
