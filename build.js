@@ -16,6 +16,7 @@ module.exports = function (gulp, options) {
         minify = require('gulp-minify-css'),
         concat = require('gulp-concat'),
         embedlr = require('gulp-embedlr'),
+        rename = require('gulp-rename'),
         changed = require('gulp-changed'),
         minimist = require('minimist'),
         watch = require('gulp-watch'),
@@ -182,6 +183,9 @@ module.exports = function (gulp, options) {
         return merge(
             _.map(options.preBuild, function (action) {
                 return gulp.src(action.source)
+                    .pipe(gulpif(!!action.ext, rename(function (path) {
+                        path.extname = "." + action.ext;
+                    })))
                     .pipe(gulp.dest(action.dest));
             })
         );
@@ -191,6 +195,9 @@ module.exports = function (gulp, options) {
         return merge(
             _.map(options.postBuild, function (action) {
                 return gulp.src(action.source)
+                    .pipe(gulpif(!!action.ext, rename(function (path) {
+                        path.extname = "." + action.ext;
+                    })))
                     .pipe(gulp.dest(getDistDirectory() + action.dest));
             })
         );

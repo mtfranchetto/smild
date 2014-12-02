@@ -24,8 +24,8 @@ var Config = new (function () {
                 "expandDistribution": false,
                 "bundleNoParse": [],
                 "harmonyTransformer": false,
-                "preBuild": [], // { source: "", dest: ""}
-                "postBuild": [] // { source: "", dest: ""}
+                "preBuild": [], // { source: "", ext: "", dest: ""}
+                "postBuild": [] // { source: "", ext: "", dest: ""}
             };
 
         return _.assign(defaultOptions, smildOptions);
