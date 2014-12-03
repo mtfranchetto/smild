@@ -66,7 +66,7 @@ module.exports = function (gulp, options) {
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
-            runSequence(['views', 'styles', 'images', 'assets', 'browserify', 'post-build'], callback);
+            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], 'post-build', callback);
         });
     });
 
