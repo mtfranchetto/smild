@@ -152,9 +152,9 @@ module.exports = function (gulp, options) {
 
     !options.module && gulp.task('views', function () {
         var streams = [
-            gulp.src('views/**/*')
-                .pipe(changed(getDistDirectory() + 'views/'))
-                .pipe(gulp.dest(getDistDirectory() + 'views/'))
+            gulp.src(options.views + '/**/*')
+                .pipe(changed(getDistDirectory() + options.views + '/'))
+                .pipe(gulp.dest(getDistDirectory() + options.views + '/'))
                 .pipe(gulpif(watching, refresh(lrserver)))];
         if (options.copyIndex) {
             streams.push(
@@ -166,16 +166,16 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('images', function () {
-        return gulp.src('images/**/*')
-            .pipe(changed(getDistDirectory() + 'images/'))
-            .pipe(gulp.dest(getDistDirectory() + 'images/'))
+        return gulp.src(options.images + '/**/*')
+            .pipe(changed(getDistDirectory() + options.images + '/'))
+            .pipe(gulp.dest(getDistDirectory() + options.images + '/'))
             .pipe(gulpif(watching, refresh(lrserver)));
     });
 
     !options.module && gulp.task('assets', function () {
-        return gulp.src('assets/**/*')
-            .pipe(changed(getDistDirectory() + 'assets/'))
-            .pipe(gulp.dest(getDistDirectory() + 'assets/'))
+        return gulp.src(options.assets + '/**/*')
+            .pipe(changed(getDistDirectory() + options.assets + '/'))
+            .pipe(gulp.dest(getDistDirectory() + options.assets + '/'))
             .pipe(gulpif(watching, refresh(lrserver)));
     });
 
@@ -215,13 +215,13 @@ module.exports = function (gulp, options) {
                     './styles/**/*.scss'], {maxListeners: 999},
                 ['styles']);
 
-            gulp.watch(['views/**/*.html'], {maxListeners: 999}, ['views']);
+            gulp.watch([options.views + '/**/*.html'], {maxListeners: 999}, ['views']);
 
-            watch(['images/*'], function () {
+            watch([options.images + '/*'], function () {
                 gulp.start('images');
             });
 
-            watch(['assets/*'], function () {
+            watch([options.assets + '/*'], function () {
                 gulp.start('assets');
             });
         });
