@@ -152,7 +152,7 @@ module.exports = function (gulp, options) {
 
     !options.module && gulp.task('views', function () {
         var streams = [
-            gulp.src(options.views + '/**/*')
+            gulp.src(options.views + '/**/*.html')
                 .pipe(changed(getDistDirectory() + options.views + '/'))
                 .pipe(gulp.dest(getDistDirectory() + options.views + '/'))
                 .pipe(gulpif(watching, refresh(lrserver)))];
