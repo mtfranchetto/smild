@@ -228,6 +228,8 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('watch-test', ['watch', 'test']);
 
     !options.module && gulp.task('serve', function () {
+        if (!options.copyIndex) return; //non single page application
+
         if (!currentVariant)
             currentVariant = getVariantOption("debug-main");
 
