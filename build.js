@@ -208,8 +208,8 @@ module.exports = function (gulp, options) {
         currentVariant = getVariantOption("debug-main");
 
         gulp.start('build', 'serve', function () {
-            gulp.watch(['./boot/' + getVariantPart() + '/bootstrapper.scss',
-                    './boot/base.scss',
+            gulp.watch([path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'),
+                    path.resolve(options.bootstrappers, 'base.scss'),
                     './styles/**/*.scss'], {maxListeners: 999},
                 ['styles']);
 
