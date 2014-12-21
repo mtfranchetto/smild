@@ -59,10 +59,10 @@ module.exports = function (gulp, options) {
         } else if (variant !== 'all') {
             variants = [variant];
         } else {
-            variants = getDirectories(cwd + "/boot");
-            variants = _.flatten(_.map(variants, function (variant) {
-                return ['release-' + variant, 'debug-' + variant];
-            }));
+            variants = getDirectories(path.resolve(cwd, options.bootstrappers));
+            variants = _.map(variants, function (variant) {
+                return 'release-' + variant;
+            });
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
@@ -208,8 +208,8 @@ module.exports = function (gulp, options) {
         currentVariant = getVariantOption("debug-main");
 
         gulp.start('build', 'serve', function () {
-            gulp.watch(['./boot/' + getVariantPart() + '/bootstrapper.scss',
-                    './boot/base.scss',
+            gulp.watch([path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'),
+                    path.resolve(options.bootstrappers, 'base.scss'),
                     './styles/**/*.scss'], {maxListeners: 999},
                 ['styles']);
 
@@ -267,7 +267,7 @@ module.exports = function (gulp, options) {
     }
 
     function getVariantPart() {
-        return currentVariant.split('-')[1];
+        return currentVariant.slice(currentVariant.indexOf('-') + 1);
     }
 
     function getVariantOption(defaultOption) {
