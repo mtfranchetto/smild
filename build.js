@@ -40,7 +40,8 @@ module.exports = function (gulp, options) {
         COVERAGE = options.coverageOutput,
         watching = options.module,
         cwd = process.cwd(),
-        currentVariant = getVariantOption("debug-main");
+        currentVariant = getVariantOption("debug-main"),
+        variantToRemove = "";
 
     if (!options.module) {
         server.use(express.static(getDistDirectory()));
@@ -52,12 +53,11 @@ module.exports = function (gulp, options) {
     }
 
     !options.module && gulp.task('build', ['clean', 'pre-build'], function () {
-        var variant = getVariantOption(),
-            variants = [];
+        var variants = [];
         if (watching) {
             variants = [currentVariant];
-        } else if (variant !== 'all') {
-            variants = [variant];
+        } else if (currentVariant !== 'all') {
+            variants = [currentVariant];
         } else {
             variants = getDirectories(path.resolve(cwd, options.bootstrappers));
             variants = _.map(variants, function (variant) {
@@ -71,7 +71,7 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('clean', function () {
-        return gulp.src([DIST_FOLDER, COVERAGE], {read: false})
+        return gulp.src([path.resolve(DIST_FOLDER, variantToRemove), COVERAGE], {read: false})
             .pipe(plumber())
             .pipe(rimraf({force: true}));
     });
@@ -206,6 +206,7 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('watch', function () {
         watching = true;
         currentVariant = getVariantOption("debug-main");
+        variantToRemove = currentVariant;
 
         gulp.start('build', 'serve', function () {
             gulp.watch([path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'),
