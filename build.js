@@ -119,8 +119,6 @@ module.exports = function (gulp, options) {
             browserify(browserifyOptions);
         if (watching)
             bundleStream.on('update', rebundle);
-        if (options.harmonyTransformer)
-            bundleStream = bundleStream.transform(to5Browserify);
 
         function rebundle() {
             return bundleStream.bundle()
