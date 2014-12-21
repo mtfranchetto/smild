@@ -3,10 +3,10 @@ module.exports = function (gulp, options) {
     var jshint = require('gulp-jshint'),
         rimraf = require('gulp-rimraf'),
         fs = require('fs'),
+        path = require('path'),
         _ = require('lodash'),
         runSequence = require('run-sequence').use(gulp),
         browserify = require('browserify'),
-        to5Browserify = require("6to5-browserify"),
         source = require('vinyl-source-stream'),
         streamify = require('gulp-streamify'),
         watchify = require('watchify'),
@@ -90,7 +90,7 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('styles', function () {
-        return gulp.src('./boot/' + getVariantPart() + '/bootstrapper.scss')
+        return gulp.src(path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'))
             .pipe(concat(BUNDLE_FILENAME + '.css'))
             .pipe(plumber())
             .pipe(sass({includePaths: ['./']}))
@@ -104,7 +104,7 @@ module.exports = function (gulp, options) {
         process.env.DEBUG = currentVariant.indexOf('debug') > -1;
 
         var browserifyOptions = {
-            entries: ['./boot/' + getVariantPart() + '/bootstrapper.js'],
+            entries: [path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.js')],
             noParse: _.map(options.bundleNoParse, function (package) {
                 return require.resolve(package);
             }),
@@ -119,8 +119,6 @@ module.exports = function (gulp, options) {
             browserify(browserifyOptions);
         if (watching)
             bundleStream.on('update', rebundle);
-        if (options.harmonyTransformer)
-            bundleStream = bundleStream.transform(to5Browserify);
 
         function rebundle() {
             return bundleStream.bundle()
@@ -230,6 +228,8 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('watch-test', ['watch', 'test']);
 
     !options.module && gulp.task('serve', function () {
+        if (!options.copyIndex) return; //non single page application
+
         if (!currentVariant)
             currentVariant = getVariantOption("debug-main");
 

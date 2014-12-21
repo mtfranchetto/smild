@@ -26,7 +26,6 @@ var Config = new (function () {
                 "copyIndex": true,
                 "expandDistribution": false,
                 "bundleNoParse": [],
-                "harmonyTransformer": false,
                 "preBuild": [], // { source: "", ext: "", dest: ""}
                 "postBuild": [] // { source: "", ext: "", dest: ""}
             };
