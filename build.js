@@ -59,10 +59,10 @@ module.exports = function (gulp, options) {
         } else if (variant !== 'all') {
             variants = [variant];
         } else {
-            variants = getDirectories(cwd + "/boot");
-            variants = _.flatten(_.map(variants, function (variant) {
-                return ['release-' + variant, 'debug-' + variant];
-            }));
+            variants = getDirectories(path.resolve(cwd, options.bootstrappers));
+            variants = _.map(variants, function (variant) {
+                return 'release-' + variant;
+            });
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
