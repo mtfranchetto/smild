@@ -267,7 +267,7 @@ module.exports = function (gulp, options) {
     }
 
     function getVariantPart() {
-        return currentVariant.split('-')[1];
+        return currentVariant.slice(currentVariant.indexOf('-') + 1);
     }
 
     function getVariantOption(defaultOption) {
