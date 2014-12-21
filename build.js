@@ -154,7 +154,7 @@ module.exports = function (gulp, options) {
                 .pipe(changed(getDistDirectory() + options.views + '/'))
                 .pipe(gulp.dest(getDistDirectory() + options.views + '/'))
                 .pipe(gulpif(watching, refresh(lrserver)))];
-        if (options.copyIndex) {
+        if (options.singlePage) {
             streams.push(
                 gulp.src('index.html')
                     .pipe(gulpif(watching, embedlr()))
@@ -228,7 +228,7 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('watch-test', ['watch', 'test']);
 
     !options.module && gulp.task('serve', function () {
-        if (!options.copyIndex) return; //non single page application
+        if (!options.singlePage) return; //non single page application
 
         if (!currentVariant)
             currentVariant = getVariantOption("debug-main");

@@ -48,7 +48,7 @@ Create a _smild_ field into package.json to customize smild. The default options
        "runCoverage": true,
        "testLauncher": "PhantomJS", //or Chrome
        "testTransforms": ["browserify-shim", "browserify-istanbul"], //browsery transforms to apply before test
-       "copyIndex": true, //copy or not index.html to the distribution folder
+       "singlePage": true,
        "bundleNoParse": [], //exclude this files from parsing
     }
 
