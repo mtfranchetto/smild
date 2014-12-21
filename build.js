@@ -259,6 +259,8 @@ module.exports = function (gulp, options) {
     }
 
     function getDistDirectory() {
+        if (!options.singlePage)
+            return path.resolve(DIST_FOLDER, getVariantPart()) + '/';
         return path.resolve(DIST_FOLDER, currentVariant) + '/';
     }
 
