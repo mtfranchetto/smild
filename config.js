@@ -24,7 +24,6 @@ var Config = new (function () {
                 "testLauncher": "PhantomJS",
                 "testTransforms": ["browserify-shim", "browserify-istanbul"],
                 "copyIndex": true,
-                "expandDistribution": false,
                 "bundleNoParse": [],
                 "preBuild": [], // { source: "", ext: "", dest: ""}
                 "postBuild": [] // { source: "", ext: "", dest: ""}

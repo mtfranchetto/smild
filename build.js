@@ -259,11 +259,7 @@ module.exports = function (gulp, options) {
     }
 
     function getDistDirectory() {
-        if (!options.expandDistribution) {
-            return DIST_FOLDER + '/' + currentVariant + '/';
-        } else {
-            return DIST_FOLDER + '/';
-        }
+        return path.resolve(DIST_FOLDER, currentVariant) + '/';
     }
 
     function getVariantPart() {
