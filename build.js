@@ -211,7 +211,7 @@ module.exports = function (gulp, options) {
         gulp.start('build', 'serve', function () {
             gulp.watch([path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'),
                     path.resolve(options.bootstrappers, 'base.scss'),
-                    './styles/**/*.scss'], {maxListeners: 999},
+                    './' + options.styles + '/**/*.scss'], {maxListeners: 999},
                 ['styles']);
 
             gulp.watch([options.views + '/**/*.html'], {maxListeners: 999}, ['views']);
