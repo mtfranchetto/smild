@@ -56,12 +56,12 @@ module.exports = function (gulp, options) {
         var variants = [];
         if (watching) {
             variants = [currentVariant];
-        } else if (currentVariant !== 'all') {
+        } else if (currentVariant !== 'all' && currentVariant !== 'all-debug') {
             variants = [currentVariant];
         } else {
             variants = getDirectories(path.resolve(cwd, options.bootstrappers));
             variants = _.map(variants, function (variant) {
-                return 'release-' + variant;
+                return (currentVariant === 'all' ? 'release-' : 'debug-') + variant;
             });
         }
         async.mapSeries(variants, function (variant, callback) {
