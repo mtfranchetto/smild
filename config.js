@@ -12,6 +12,7 @@ var Config = new (function () {
                 "bundleFilename": "main",
                 "distribution": "dist",
                 "bootstrappers": "boot",
+                "styles": "styles",
                 "test": "test/*",
                 "images": "images",
                 "views": "views",
