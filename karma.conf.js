@@ -1,7 +1,7 @@
 var _ = require('lodash'),
     cwd = process.cwd(),
     options = require('./config').options(),
-    reporters = ['progress'],
+    reporters = ['progress', 'junit'],
     preprocessors = {},
     files = _.flatten([{pattern: options.test}, options.externalTestFiles]);
 
@@ -29,6 +29,10 @@ module.exports = function (config) {
             watch: true,
             debug: true,
             transform: options.testTransforms
+        },
+        junitReporter: {
+            outputFile: 'test-results.xml',
+            suite: ''
         },
         preprocessors: preprocessors,
         coverageReporter: {
