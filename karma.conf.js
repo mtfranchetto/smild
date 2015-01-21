@@ -38,6 +38,7 @@ module.exports = function (config) {
         coverageReporter: {
             type: 'html',
             dir: options.coverageOutput
-        }
+        },
+        browserNoActivityTimeout: 3 * 60 * 1000
     });
 };
