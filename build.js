@@ -140,12 +140,7 @@ module.exports = function (gulp, options) {
         karma.start({
             configFile: __dirname + KARMA_CONFIG,
             singleRun: !watching
-        }, function () {
-            if (watching)
-                gulp.start('test');
-            else
-                done();
-        });
+        }, watching ? done: null);
     });
 
     !options.module && gulp.task('views', function () {
