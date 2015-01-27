@@ -1,6 +1,6 @@
 {
     "name": "smild",
-    "version": "0.6.7",
+    "version": "0.6.8",
     "description": "The Javascript development system",
     "repository": {
         "type": "git",
@@ -33,7 +33,7 @@
         "karma": "~0.12.28",
         "karma-browserify": "~3.0.1",
         "karma-chrome-launcher": "~0.1.4",
-        "karma-coverage": "~0.2.6",
+        "karma-coverage": "0.2.6",
         "karma-jasmine": "~0.2.0",
         "karma-junit-reporter": "~0.2.2",
         "karma-phantomjs-launcher": "~0.1.4",
