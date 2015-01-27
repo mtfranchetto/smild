@@ -28,7 +28,8 @@ module.exports = function (config) {
         browserify: {
             watch: true,
             debug: true,
-            transform: options.testTransforms
+            transform: options.testTransforms,
+            bundleDelay: 750
         },
         junitReporter: {
             outputFile: 'test-results.xml',
