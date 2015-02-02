@@ -102,6 +102,7 @@ module.exports = function (gulp, options) {
 
     !options.module && gulp.task('browserify', function () {
         process.env.DEBUG = currentVariant.indexOf('debug') > -1;
+        process.env.TARGET = getVariantPart();
 
         var browserifyOptions = {
             entries: [path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.js')],
