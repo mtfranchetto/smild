@@ -11,6 +11,7 @@ module.exports = function (gulp, options) {
         streamify = require('gulp-streamify'),
         watchify = require('watchify'),
         gulpif = require('gulp-if'),
+        to5ify = require('6to5ify'),
         merge = require('merge-stream'),
         autoprefixer = require('gulp-autoprefixer'),
         minify = require('gulp-minify-css'),
@@ -118,6 +119,12 @@ module.exports = function (gulp, options) {
 
         var bundleStream = watching ? watchify(browserify(browserifyOptions)) :
             browserify(browserifyOptions);
+
+        bundleStream = bundleStream.transform(to5ify.configure({
+            extensions: [".es6"],
+            sourceMapRelative: '.'
+        }));
+
         if (watching)
             bundleStream.on('update', rebundle);
 
