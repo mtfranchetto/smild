@@ -72,7 +72,7 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('clean', function () {
-        return gulp.src([path.resolve(DIST_FOLDER, variantToRemove), COVERAGE], {read: false})
+        return gulp.src([path.resolve(DIST_FOLDER, variantToRemove)], {read: false})
             .pipe(plumber())
             .pipe(rimraf({force: true}));
     });
