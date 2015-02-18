@@ -37,8 +37,11 @@ module.exports = function (config) {
         },
         preprocessors: preprocessors,
         coverageReporter: {
-            type: 'html',
-            dir: options.coverageOutput
+            dir: options.coverageOutput,
+            reporters: [
+                {type: 'html', subdir: '.'},
+                {type: 'cobertura', subdir: '.', file: 'cobertura.xml'}
+            ]
         },
         browserNoActivityTimeout: 3 * 60 * 1000
     });
