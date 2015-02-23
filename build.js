@@ -175,9 +175,7 @@ module.exports = function (gulp, options) {
 
     !options.module && gulp.task('assets', function () {
         return gulp.src(options.assets + '/**/*')
-            .pipe(changed(getDistDirectory() + options.assets + '/'))
-            .pipe(gulp.dest(getDistDirectory() + options.assets + '/'))
-            .pipe(gulpif(watching, refresh(lrserver)));
+            .pipe(gulp.dest(getDistDirectory() + options.assets + '/'));
     });
 
     !options.module && gulp.task('pre-build', function () {
@@ -221,10 +219,6 @@ module.exports = function (gulp, options) {
 
             watch([options.images + '/*'], function () {
                 gulp.start('images');
-            });
-
-            watch([options.assets + '/*'], function () {
-                gulp.start('assets');
             });
         });
     });
