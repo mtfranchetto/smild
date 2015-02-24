@@ -20,7 +20,6 @@ module.exports = function (gulp, options) {
         rename = require('gulp-rename'),
         changed = require('gulp-changed'),
         minimist = require('minimist'),
-        watch = require('gulp-watch'),
         sass = require('gulp-sass'),
         plumber = require('gulp-plumber'),
         karma = require('karma').server,
@@ -168,9 +167,7 @@ module.exports = function (gulp, options) {
 
     !options.module && gulp.task('images', function () {
         return gulp.src(options.images + '/**/*')
-            .pipe(changed(getDistDirectory() + options.images + '/'))
-            .pipe(gulp.dest(getDistDirectory() + options.images + '/'))
-            .pipe(gulpif(watching, refresh(lrserver)));
+            .pipe(gulp.dest(getDistDirectory() + options.images + '/'));
     });
 
     !options.module && gulp.task('assets', function () {
@@ -216,10 +213,6 @@ module.exports = function (gulp, options) {
                 ['styles']);
 
             gulp.watch([options.views + '/**/*.html'], {maxListeners: 999}, ['views']);
-
-            watch([options.images + '/*'], function () {
-                gulp.start('images');
-            });
         });
     });
 
