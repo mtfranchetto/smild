@@ -11,7 +11,7 @@ module.exports = function (gulp, options) {
         streamify = require('gulp-streamify'),
         watchify = require('watchify'),
         gulpif = require('gulp-if'),
-        to5ify = require('6to5ify'),
+        babelify = require('babelify'),
         merge = require('merge-stream'),
         autoprefixer = require('gulp-autoprefixer'),
         minify = require('gulp-minify-css'),
@@ -37,7 +37,6 @@ module.exports = function (gulp, options) {
     var DIST_FOLDER = options.distribution,
         KARMA_CONFIG = '/karma.conf.js',
         BUNDLE_FILENAME = options.bundleFilename,
-        COVERAGE = options.coverageOutput,
         watching = options.module,
         cwd = process.cwd(),
         currentVariant = getVariantOption("debug-main"),
@@ -119,7 +118,7 @@ module.exports = function (gulp, options) {
         var bundleStream = watching ? watchify(browserify(browserifyOptions)) :
             browserify(browserifyOptions);
 
-        bundleStream = bundleStream.transform(to5ify.configure({
+        bundleStream = bundleStream.transform(babelify.configure({
             extensions: [".es6"],
             sourceMapRelative: '.'
         }));
