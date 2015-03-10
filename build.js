@@ -37,7 +37,7 @@ module.exports = function (gulp, options) {
     var DIST_FOLDER = options.distribution,
         KARMA_CONFIG = '/karma.conf.js',
         BUNDLE_FILENAME = options.bundleFilename,
-        watching = options.module,
+        watching = false,
         cwd = process.cwd(),
         currentVariant = getVariantOption("debug-main"),
         variantToRemove = "";
@@ -216,6 +216,11 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('watch-test', ['watch', 'test']);
+
+    options.module && gulp.task('watch-test', function () {
+        watching = true;
+        gulp.start('test');
+    });
 
     !options.module && gulp.task('serve', function () {
         if (!options.singlePage) return; //non single page application

@@ -1,7 +1,7 @@
 var _ = require('lodash'),
     cwd = process.cwd(),
     options = require('./config').options(),
-    reporters = ['progress', 'junit'],
+    reporters = ['spec', 'junit'],
     preprocessors = {},
     files = _.flatten([{pattern: options.test}, options.externalTestFiles]);
 
