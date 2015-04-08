@@ -1,6 +1,6 @@
 {
     "name": "smild",
-    "version": "0.10.0",
+    "version": "0.10.1",
     "description": "The Javascript development system",
     "repository": {
         "type": "git",
@@ -38,9 +38,10 @@
         "karma-junit-reporter": "~0.2.2",
         "karma-phantomjs-launcher": "~0.1.4",
         "karma-spec-reporter": "0.0.16",
-        "lodash": "~2.4.1",
+        "lodash": "~3.5.0",
         "merge-stream": "~0.1.6",
         "minimist": "~1.1.0",
+        "plato": "~1.4.0",
         "run-sequence": "~0.3.7",
         "tiny-lr": "0.0.7",
         "vinyl-source-stream": "~0.1.1",

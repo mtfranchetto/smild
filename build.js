@@ -25,6 +25,7 @@ module.exports = function (gulp, options) {
         karma = require('karma').server,
         markdox = require('gulp-markdox'),
         uglify = require('gulp-uglify'),
+        plato = require('plato'),
         express = require('express'),
         refresh = require('gulp-livereload'),
         async = require('async'),
@@ -119,7 +120,7 @@ module.exports = function (gulp, options) {
             browserify(browserifyOptions);
 
         bundleStream = bundleStream.transform(babelify.configure({
-            extensions: [".es6"],
+            extensions: [".es6", ".es"],
             sourceMapRelative: '.'
         }));
 
@@ -146,7 +147,7 @@ module.exports = function (gulp, options) {
         karma.start({
             configFile: __dirname + KARMA_CONFIG,
             singleRun: !watching
-        }, watching ? done: null);
+        }, watching ? done : null);
     });
 
     !options.module && gulp.task('views', function () {
@@ -231,6 +232,12 @@ module.exports = function (gulp, options) {
         server.listen(serverport);
         refresh.listen(livereloadport);
         console.log('Variant ' + currentVariant + ' listening on http://localhost:' + serverport);
+    });
+
+    gulp.task('analysis', function (done) {
+        plato.inspect(options.analysis, options.analysisOutput, {
+            recurse: true
+        }, _.ary(done, 0));
     });
 
     gulp.task('default', [!options.module ? 'build' : 'test']);
