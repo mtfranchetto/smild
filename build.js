@@ -119,7 +119,7 @@ module.exports = function (gulp, options) {
             browserify(browserifyOptions);
 
         bundleStream = bundleStream.transform(babelify.configure({
-            extensions: [".es6"],
+            extensions: [".es6", ".es"],
             sourceMapRelative: '.'
         }));
 
