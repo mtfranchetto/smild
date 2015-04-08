@@ -41,6 +41,7 @@
         "lodash": "~3.5.0",
         "merge-stream": "~0.1.6",
         "minimist": "~1.1.0",
+        "plato": "~1.4.0",
         "run-sequence": "~0.3.7",
         "tiny-lr": "0.0.7",
         "vinyl-source-stream": "~0.1.1",
