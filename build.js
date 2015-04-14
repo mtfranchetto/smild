@@ -17,6 +17,7 @@ module.exports = function (gulp, options) {
         minify = require('gulp-minify-css'),
         concat = require('gulp-concat'),
         embedlr = require('gulp-embedlr'),
+        header = require('gulp-header'),
         rename = require('gulp-rename'),
         changed = require('gulp-changed'),
         minimist = require('minimist'),
@@ -139,6 +140,10 @@ module.exports = function (gulp, options) {
                 .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
+                .pipe(gulpif(isRelease(), header('/*\n\n${name} : ${version}\n\n*/\n\n', {
+                    name: options.projectPackage.name,
+                    version: options.projectPackage.version
+                })))
                 .pipe(gulp.dest(getDistDirectory() + 'js'))
                 .pipe(gulpif(watching, refresh(lrserver)));
         }

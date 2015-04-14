@@ -32,7 +32,9 @@ var Config = new (function () {
                 "postBuild": [] // { source: "", ext: "", dest: ""}
             };
 
-        return _.assign(defaultOptions, smildOptions);
+        return _.assign(defaultOptions, smildOptions, {
+            projectPackage: packageJson
+        });
     };
 });
 
