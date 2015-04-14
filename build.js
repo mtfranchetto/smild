@@ -1,7 +1,7 @@
 module.exports = function (gulp, options) {
 
     var jshint = require('gulp-jshint'),
-        rimraf = require('gulp-rimraf'),
+        del = require('del'),
         fs = require('fs'),
         path = require('path'),
         _ = require('lodash'),
@@ -17,6 +17,7 @@ module.exports = function (gulp, options) {
         minify = require('gulp-minify-css'),
         concat = require('gulp-concat'),
         embedlr = require('gulp-embedlr'),
+        header = require('gulp-header'),
         rename = require('gulp-rename'),
         changed = require('gulp-changed'),
         minimist = require('minimist'),
@@ -70,10 +71,8 @@ module.exports = function (gulp, options) {
         });
     });
 
-    gulp.task('clean', function () {
-        return gulp.src([path.resolve(DIST_FOLDER, variantToRemove)], {read: false})
-            .pipe(plumber())
-            .pipe(rimraf({force: true}));
+    gulp.task('clean', function (done) {
+        del([path.resolve(DIST_FOLDER, variantToRemove)], {force: true}, done);
     });
 
     gulp.task('lint', function () {
@@ -93,7 +92,12 @@ module.exports = function (gulp, options) {
         return gulp.src(path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'))
             .pipe(concat(BUNDLE_FILENAME + '.css'))
             .pipe(plumber())
-            .pipe(sass({includePaths: ['./']}))
+            .pipe(sass({
+                includePaths: ['./'],
+                onError: function (error) {
+                    console.log(error)
+                }
+            }))
             .pipe(autoprefixer({browsers: options.autoprefixerRules}))
             .pipe(gulpif(isRelease(), minify()))
             .pipe(gulp.dest(getDistDirectory() + 'css/'))
@@ -136,6 +140,10 @@ module.exports = function (gulp, options) {
                 .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
+                .pipe(gulpif(isRelease(), header('/*\n\n${name} : ${version}\n\n*/\n\n', {
+                    name: options.projectPackage.name,
+                    version: options.projectPackage.version
+                })))
                 .pipe(gulp.dest(getDistDirectory() + 'js'))
                 .pipe(gulpif(watching, refresh(lrserver)));
         }
