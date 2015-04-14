@@ -1,7 +1,7 @@
 module.exports = function (gulp, options) {
 
     var jshint = require('gulp-jshint'),
-        rimraf = require('gulp-rimraf'),
+        del = require('del'),
         fs = require('fs'),
         path = require('path'),
         _ = require('lodash'),
@@ -70,10 +70,8 @@ module.exports = function (gulp, options) {
         });
     });
 
-    gulp.task('clean', function () {
-        return gulp.src([path.resolve(DIST_FOLDER, variantToRemove)], {read: false})
-            .pipe(plumber())
-            .pipe(rimraf({force: true}));
+    gulp.task('clean', function (done) {
+        del([path.resolve(DIST_FOLDER, variantToRemove)], {force: true}, done);
     });
 
     gulp.task('lint', function () {
