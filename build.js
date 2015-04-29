@@ -224,9 +224,7 @@ module.exports = function (gulp, options) {
         });
     });
 
-    !options.module && gulp.task('watch-test', ['watch', 'test']);
-
-    options.module && gulp.task('watch-test', function () {
+    gulp.task('watch-test', function () {
         watching = true;
         gulp.start('test');
     });
