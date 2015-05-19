@@ -29,7 +29,8 @@ var Config = new (function () {
                 "singlePage": true,
                 "bundleNoParse": [],
                 "preBuild": [], // { source: "", ext: "", dest: ""}
-                "postBuild": [] // { source: "", ext: "", dest: ""}
+                "postBuild": [], // { source: "", ext: "", dest: ""}
+                "manifest": null
             };
 
         return _.assign(defaultOptions, smildOptions, {
