@@ -25,6 +25,7 @@ module.exports = function (gulp, options) {
         plumber = require('gulp-plumber'),
         karma = require('karma').server,
         markdox = require('gulp-markdox'),
+        manifest = require('gulp-manifest'),
         uglify = require('gulp-uglify'),
         plato = require('plato'),
         express = require('express'),
@@ -67,7 +68,7 @@ module.exports = function (gulp, options) {
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
-            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], 'post-build', callback);
+            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], 'manifest', 'post-build', callback);
         });
     });
 
@@ -76,13 +77,13 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('lint', function () {
-        gulp.src('scripts/*.js')
+        gulp.src(options.coverage + '**/*')
             .pipe(jshint())
             .pipe(jshint.reporter('default'));
     });
 
     gulp.task('doc', function () {
-        return gulp.src(options.coverage + "*/*.js")
+        return gulp.src(options.coverage + "**/*")
             .pipe(markdox())
             .pipe(concat("doc.md"))
             .pipe(gulp.dest("./doc"));
@@ -244,6 +245,14 @@ module.exports = function (gulp, options) {
         plato.inspect(options.analysis, options.analysisOutput, {
             recurse: true
         }, _.ary(done, 0));
+    });
+
+    !options.module && gulp.task('manifest', function () {
+        if (!isRelease() || !options.manifest)
+            return;
+        gulp.src([getDistDirectory() + '**/*'])
+            .pipe(manifest(options.manifest))
+            .pipe(gulp.dest(getDistDirectory()));
     });
 
     gulp.task('default', [!options.module ? 'build' : 'test']);
