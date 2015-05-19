@@ -76,13 +76,13 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('lint', function () {
-        gulp.src('scripts/*.js')
+        gulp.src(options.coverage + '**/*')
             .pipe(jshint())
             .pipe(jshint.reporter('default'));
     });
 
     gulp.task('doc', function () {
-        return gulp.src(options.coverage + "*/*.js")
+        return gulp.src(options.coverage + "**/*")
             .pipe(markdox())
             .pipe(concat("doc.md"))
             .pipe(gulp.dest("./doc"));
