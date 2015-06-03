@@ -147,9 +147,9 @@ module.exports = function (gulp, options) {
                     name: options.projectPackage.name,
                     version: options.projectPackage.version
                 })))
-                .pipe(transform(function () {
+                .pipe(gulpif(!isRelease(), transform(function () {
                     return exorcist(getDistDirectory() + 'js/' + BUNDLE_FILENAME + '.map.js');
-                }))
+                })))
                 .pipe(gulp.dest(getDistDirectory() + 'js'))
                 .pipe(gulpif(watching, refresh(lrserver)));
         }
