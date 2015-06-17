@@ -30,7 +30,8 @@ var Config = new (function () {
                 "bundleNoParse": [],
                 "preBuild": [], // { source: "", ext: "", dest: ""}
                 "postBuild": [], // { source: "", ext: "", dest: ""}
-                "manifest": null
+                "manifest": null,
+                "revisionExclude": []
             };
 
         return _.assign(defaultOptions, smildOptions, {

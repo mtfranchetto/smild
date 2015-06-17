@@ -76,7 +76,14 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('rev', function () {
-        var revTransform = new RevAll({dontGlobal: [/^\/favicon.ico$/g, 'index.html']});
+        var revTransform = new RevAll({
+            dontGlobal: _.union(
+                ['favicon.ico', 'index.html'],
+                _.map(options.revisionExclude, function (rule) {
+                    return rule.regexp ? new RegExp(rule.pattern) : rule.pattern;
+                })
+            )
+        });
         return gulp.src(getTemporaryDirectory() + '**')
             .pipe(revTransform.revision())
             .pipe(gulp.dest(getDistDirectory()))
