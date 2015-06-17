@@ -24,7 +24,7 @@ module.exports = function (gulp, options) {
         exorcist = require('exorcist'),
         transform = require('vinyl-transform'),
         sass = require('gulp-sass'),
-        plumber = require('gulp-plumber'),
+        RevAll = require('gulp-rev-all'),
         karma = require('karma').server,
         markdox = require('gulp-markdox'),
         manifest = require('gulp-manifest'),
@@ -45,7 +45,8 @@ module.exports = function (gulp, options) {
         watching = false,
         cwd = process.cwd(),
         currentVariant = getVariantOption("debug-main"),
-        variantToRemove = "";
+        variantToRemove = "",
+        TEMPORARY_FOLDER = "tmp";
 
     if (!options.module) {
         server.use(express.static(getDistDirectory()));
@@ -70,16 +71,33 @@ module.exports = function (gulp, options) {
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
-            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], 'manifest', 'post-build', callback);
+            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], 'rev', 'manifest', 'post-build', callback);
         });
     });
 
+    !options.module && gulp.task('rev', function () {
+        var revTransform = new RevAll({
+            dontGlobal: _.union(
+                ['favicon.ico', 'index.html'],
+                _.map(options.revisionExclude, function (rule) {
+                    return rule.regexp ? new RegExp(rule.pattern) : rule.pattern;
+                })
+            )
+        });
+        if (!isRelease()) return;
+        return gulp.src(getTemporaryDirectory() + '**')
+            .pipe(revTransform.revision())
+            .pipe(gulp.dest(getDistDirectory()))
+            .pipe(revTransform.manifestFile())
+            .pipe(gulp.dest(getDistDirectory()));
+    });
+
     gulp.task('clean', function (done) {
-        del([path.resolve(DIST_FOLDER, variantToRemove)], {force: true}, done);
+        del([path.resolve(DIST_FOLDER, variantToRemove, TEMPORARY_FOLDER)], {force: true}, done);
     });
 
     gulp.task('lint', function () {
-        gulp.src(options.coverage + '**/*')
+        return gulp.src(options.coverage + '**/*')
             .pipe(jshint())
             .pipe(jshint.reporter('default'));
     });
@@ -94,7 +112,6 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('styles', function () {
         return gulp.src(path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'))
             .pipe(concat(BUNDLE_FILENAME + '.css'))
-            .pipe(plumber())
             .pipe(sass({
                 includePaths: ['./'],
                 onError: function (error) {
@@ -103,7 +120,7 @@ module.exports = function (gulp, options) {
             }))
             .pipe(autoprefixer({browsers: options.autoprefixerRules}))
             .pipe(gulpif(isRelease(), minify()))
-            .pipe(gulp.dest(getDistDirectory() + 'css/'))
+            .pipe(gulp.dest(getTemporaryDirectory() + 'css/'))
             .pipe(gulpif(watching, refresh(lrserver)));
     });
 
@@ -140,7 +157,6 @@ module.exports = function (gulp, options) {
                     console.log(err.message);
                     this.end();
                 })
-                .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
                 .pipe(gulpif(isRelease(), header('/*\n\n${name} : ${version}\n\n*/\n\n', {
@@ -148,9 +164,9 @@ module.exports = function (gulp, options) {
                     version: options.projectPackage.version
                 })))
                 .pipe(gulpif(!isRelease(), transform(function () {
-                    return exorcist(getDistDirectory() + 'js/' + BUNDLE_FILENAME + '.map.js');
+                    return exorcist(getTemporaryDirectory() + 'js/' + BUNDLE_FILENAME + '.map.js');
                 })))
-                .pipe(gulp.dest(getDistDirectory() + 'js'))
+                .pipe(gulp.dest(getTemporaryDirectory() + 'js'))
                 .pipe(gulpif(watching, refresh(lrserver)));
         }
 
@@ -167,26 +183,26 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('views', function () {
         var streams = [
             gulp.src(options.views + '/**/*.html')
-                .pipe(changed(getDistDirectory() + options.views + '/'))
-                .pipe(gulp.dest(getDistDirectory() + options.views + '/'))
+                .pipe(changed(getTemporaryDirectory() + options.views + '/'))
+                .pipe(gulp.dest(getTemporaryDirectory() + options.views + '/'))
                 .pipe(gulpif(watching, refresh(lrserver)))];
         if (options.singlePage) {
             streams.push(
                 gulp.src('index.html')
                     .pipe(gulpif(watching, embedlr()))
-                    .pipe(gulp.dest(getDistDirectory())));
+                    .pipe(gulp.dest(getTemporaryDirectory())));
         }
         return merge(streams);
     });
 
     !options.module && gulp.task('images', function () {
         return gulp.src(options.images + '/**/*')
-            .pipe(gulp.dest(getDistDirectory() + options.images + '/'));
+            .pipe(gulp.dest(getTemporaryDirectory() + options.images + '/'));
     });
 
     !options.module && gulp.task('assets', function () {
         return gulp.src(options.assets + '/**/*')
-            .pipe(gulp.dest(getDistDirectory() + options.assets + '/'));
+            .pipe(gulp.dest(getTemporaryDirectory() + options.assets + '/'));
     });
 
     !options.module && gulp.task('pre-build', function () {
@@ -281,9 +297,18 @@ module.exports = function (gulp, options) {
     }
 
     function getDistDirectory() {
+        return getTargetFolder(DIST_FOLDER);
+    }
+
+    function getTemporaryDirectory() {
+        var folder = isRelease() ? TEMPORARY_FOLDER : DIST_FOLDER; //When running debug use always the dist folder (because revisioning is disabled)
+        return getTargetFolder(folder);
+    }
+
+    function getTargetFolder(folder) {
         if (!options.singlePage)
-            return path.resolve(DIST_FOLDER, getVariantPart()) + '/';
-        return path.resolve(DIST_FOLDER, currentVariant) + '/';
+            return path.resolve(folder, getVariantPart()) + '/';
+        return path.resolve(folder, currentVariant) + '/';
     }
 
     function getVariantPart() {
