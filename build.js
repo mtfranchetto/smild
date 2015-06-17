@@ -84,6 +84,7 @@ module.exports = function (gulp, options) {
                 })
             )
         });
+        if (!isRelease()) return;
         return gulp.src(getTemporaryDirectory() + '**')
             .pipe(revTransform.revision())
             .pipe(gulp.dest(getDistDirectory()))

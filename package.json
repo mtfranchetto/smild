@@ -1,6 +1,6 @@
 {
     "name": "smild",
-    "version": "0.12.1",
+    "version": "1.0.0",
     "description": "The Javascript development system",
     "repository": {
         "type": "git",
