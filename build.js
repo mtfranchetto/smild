@@ -24,7 +24,6 @@ module.exports = function (gulp, options) {
         exorcist = require('exorcist'),
         transform = require('vinyl-transform'),
         sass = require('gulp-sass'),
-        plumber = require('gulp-plumber'),
         karma = require('karma').server,
         markdox = require('gulp-markdox'),
         manifest = require('gulp-manifest'),
@@ -79,7 +78,7 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('lint', function () {
-        gulp.src(options.coverage + '**/*')
+        return gulp.src(options.coverage + '**/*')
             .pipe(jshint())
             .pipe(jshint.reporter('default'));
     });
@@ -94,7 +93,6 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('styles', function () {
         return gulp.src(path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'))
             .pipe(concat(BUNDLE_FILENAME + '.css'))
-            .pipe(plumber())
             .pipe(sass({
                 includePaths: ['./'],
                 onError: function (error) {
@@ -140,7 +138,6 @@ module.exports = function (gulp, options) {
                     console.log(err.message);
                     this.end();
                 })
-                .pipe(plumber())
                 .pipe(source(BUNDLE_FILENAME + '.js'))
                 .pipe(gulpif(isRelease(), streamify(uglify())))
                 .pipe(gulpif(isRelease(), header('/*\n\n${name} : ${version}\n\n*/\n\n', {

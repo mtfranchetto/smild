@@ -28,7 +28,6 @@
         "gulp-manifest": "0.0.6",
         "gulp-markdox": "~0.1.0",
         "gulp-minify-css": "~0.3.7",
-        "gulp-plumber": "~0.6.5",
         "gulp-rename": "^1.2.0",
         "gulp-sass": "~1.3.0",
         "gulp-streamify": "0.0.5",
