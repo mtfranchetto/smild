@@ -93,7 +93,7 @@ module.exports = function (gulp, options) {
     });
 
     gulp.task('clean', function (done) {
-        del([path.resolve(DIST_FOLDER, variantToRemove, TEMPORARY_FOLDER)], {force: true}, done);
+        del([path.resolve(DIST_FOLDER, variantToRemove), TEMPORARY_FOLDER], {force: true}, done);
     });
 
     gulp.task('lint', function () {
