@@ -76,13 +76,14 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('rev', function () {
+        var excludedFiles = _.union(
+            ['favicon.ico', 'index.html'],
+            _.map(options.revisionExclude, function (rule) {
+                return rule.regexp ? new RegExp(rule.pattern) : rule.pattern;
+            }));
         var revTransform = new RevAll({
-            dontGlobal: _.union(
-                ['favicon.ico', 'index.html'],
-                _.map(options.revisionExclude, function (rule) {
-                    return rule.regexp ? new RegExp(rule.pattern) : rule.pattern;
-                })
-            )
+            dontRenameFile: excludedFiles,
+            dontUpdateReference: excludedFiles
         });
         if (!isRelease()) return;
         return gulp.src(getTemporaryDirectory() + '**')
