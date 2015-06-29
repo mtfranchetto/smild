@@ -131,9 +131,6 @@ module.exports = function (gulp, options) {
 
         var browserifyOptions = {
             entries: [path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.js')],
-            noParse: _.map(options.bundleNoParse, function (package) {
-                return require.resolve(package);
-            }),
             basedir: cwd,
             debug: !isRelease(),
             cache: {},
