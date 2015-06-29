@@ -76,6 +76,7 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('rev', function () {
+        if (!isRelease() || options.revisionExclude === "*") return;
         var excludedFiles = _.union(
             ['favicon.ico', 'index.html'],
             _.map(options.revisionExclude, function (rule) {
@@ -85,7 +86,6 @@ module.exports = function (gulp, options) {
             dontRenameFile: excludedFiles,
             dontUpdateReference: excludedFiles
         });
-        if (!isRelease()) return;
         return gulp.src(getTemporaryDirectory() + '**')
             .pipe(revTransform.revision())
             .pipe(gulp.dest(getDistDirectory()))
