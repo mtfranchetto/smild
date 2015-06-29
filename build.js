@@ -28,6 +28,7 @@ module.exports = function (gulp, options) {
         karma = require('karma').server,
         markdox = require('gulp-markdox'),
         manifest = require('gulp-manifest'),
+        sourcemaps = require('gulp-sourcemaps'),
         uglify = require('gulp-uglify'),
         plato = require('plato'),
         express = require('express'),
@@ -112,9 +113,11 @@ module.exports = function (gulp, options) {
 
     !options.module && gulp.task('styles', function () {
         return gulp.src(path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'))
+            .pipe(gulpif(!isRelease(), sourcemaps.init()))
             .pipe(concat(BUNDLE_FILENAME + '.css'))
             .pipe(sass({includePaths: ['./']}).on('error', sass.logError))
             .pipe(autoprefixer({browsers: options.autoprefixerRules}))
+            .pipe(gulpif(!isRelease(), sourcemaps.write()))
             .pipe(gulpif(isRelease(), minify()))
             .pipe(gulp.dest(getTemporaryDirectory() + 'css/'))
             .pipe(gulpif(watching, refresh(lrserver)));
