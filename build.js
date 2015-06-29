@@ -113,12 +113,7 @@ module.exports = function (gulp, options) {
     !options.module && gulp.task('styles', function () {
         return gulp.src(path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'))
             .pipe(concat(BUNDLE_FILENAME + '.css'))
-            .pipe(sass({
-                includePaths: ['./'],
-                onError: function (error) {
-                    console.log(error)
-                }
-            }))
+            .pipe(sass({includePaths: ['./']}).on('error', sass.logError))
             .pipe(autoprefixer({browsers: options.autoprefixerRules}))
             .pipe(gulpif(isRelease(), minify()))
             .pipe(gulp.dest(getTemporaryDirectory() + 'css/'))

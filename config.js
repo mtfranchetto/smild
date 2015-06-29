@@ -25,7 +25,7 @@ var Config = new (function () {
                 "analysisOutput": "analysis/",
                 "runCoverage": true,
                 "testLauncher": "PhantomJS",
-                "testTransforms": ["browserify-shim", "browserify-istanbul"],
+                "testTransforms": [],
                 "preBuild": [], // { source: "", ext: "", dest: ""}
                 "postBuild": [], // { source: "", ext: "", dest: ""}
                 "manifest": null,
