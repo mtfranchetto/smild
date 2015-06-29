@@ -182,18 +182,15 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('views', function () {
-        var streams = [
+        return merge(
             gulp.src(options.views + '/**/*.html')
                 .pipe(changed(getTemporaryDirectory() + options.views + '/'))
                 .pipe(gulp.dest(getTemporaryDirectory() + options.views + '/'))
-                .pipe(gulpif(watching, refresh(lrserver)))];
-        if (options.singlePage) {
-            streams.push(
-                gulp.src('index.html')
-                    .pipe(gulpif(watching, embedlr()))
-                    .pipe(gulp.dest(getTemporaryDirectory())));
-        }
-        return merge(streams);
+                .pipe(gulpif(watching, refresh(lrserver))),
+            gulp.src('index.html')
+                .pipe(gulpif(watching, embedlr()))
+                .pipe(gulp.dest(getTemporaryDirectory()))
+        );
     });
 
     !options.module && gulp.task('images', function () {
@@ -253,8 +250,6 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('serve', function () {
-        if (!options.singlePage) return; //non single page application
-
         if (!currentVariant)
             currentVariant = getVariantOption("debug-main");
 
@@ -307,9 +302,7 @@ module.exports = function (gulp, options) {
     }
 
     function getTargetFolder(folder) {
-        if (!options.singlePage)
-            return path.resolve(folder, getVariantPart()) + '/';
-        return path.resolve(folder, currentVariant) + '/';
+        return path.resolve(folder, getVariantPart()) + '/';
     }
 
     function getVariantPart() {
