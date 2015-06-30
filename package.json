@@ -6,6 +6,7 @@
         "type": "git",
         "url": "https://github.com/mtfranchetto/smild"
     },
+    "bin": "./cli/smild",
     "dependencies": {
         "async": "~1.2.1",
         "babelify": "~6.1.2",

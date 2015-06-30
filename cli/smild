@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+    packageJson = require('../package.json');
+
+program
+    .version(packageJson.version)
+    .option('-r, --release', 'Enable release mode')
+    .arguments('<command> [target]')
+    .action(function (command, target) {
+        
+    });
+
+program.parse(process.argv);
