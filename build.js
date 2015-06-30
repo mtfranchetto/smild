@@ -112,7 +112,11 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('styles', function () {
-        return gulp.src(path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'))
+        var bootstrapperPath = path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss');
+        if (!fs.existsSync(bootstrapperPath)) {
+            console.warn("Styles bootstrapper not found at path", bootstrapperPath, ", skipping styles build process.");
+        }
+        return gulp.src(bootstrapperPath)
             .pipe(gulpif(!isRelease(), sourcemaps.init()))
             .pipe(concat(BUNDLE_FILENAME + '.css'))
             .pipe(sass({includePaths: ['./']}).on('error', sass.logError))
