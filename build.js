@@ -22,7 +22,6 @@ module.exports = function (gulp, options) {
         exorcist = require('exorcist'),
         transform = require('vinyl-transform'),
         sass = require('gulp-sass'),
-        RevAll = require('gulp-rev-all'),
         karma = require('karma').server,
         markdox = require('gulp-markdox'),
         manifest = require('gulp-manifest'),
@@ -75,21 +74,7 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('rev', function () {
-        if (!isRelease() || options.revisionExclude === "*") return;
-        var excludedFiles = _.union(
-            ['favicon.ico', 'index.html'],
-            _.map(options.revisionExclude, function (rule) {
-                return rule.regexp ? new RegExp(rule.pattern) : rule.pattern;
-            }));
-        var revTransform = new RevAll({
-            dontRenameFile: excludedFiles,
-            dontUpdateReference: excludedFiles
-        });
-        return gulp.src(getTemporaryDirectory() + '**')
-            .pipe(revTransform.revision())
-            .pipe(gulp.dest(getDistDirectory()))
-            .pipe(revTransform.manifestFile())
-            .pipe(gulp.dest(getDistDirectory()));
+
     });
 
     gulp.task('clean', function (done) {
