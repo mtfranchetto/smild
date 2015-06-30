@@ -12,7 +12,7 @@ _.forEach(availableTasks, function (TaskConstructor) {
     var task = new TaskConstructor();
     if (options.module && !task.availableToModule)
         return;
-    gulp.task(task.command, _.bind(task.action, task));
+    gulp.task(task.command, gulp.series.apply(_.union(tasks.dependsOn, _.bind(task.action, task))));
 });
 
 module.exports = {

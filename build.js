@@ -1,7 +1,6 @@
 module.exports = function (gulp, options) {
 
     var jshint = require('gulp-jshint'),
-        del = require('del'),
         fs = require('fs'),
         path = require('path'),
         _ = require('lodash'),
