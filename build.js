@@ -5,7 +5,6 @@ module.exports = function (gulp, options) {
         fs = require('fs'),
         path = require('path'),
         _ = require('lodash'),
-        runSequence = require('run-sequence').use(gulp),
         browserify = require('browserify'),
         source = require('vinyl-source-stream'),
         streamify = require('gulp-streamify'),
@@ -72,7 +71,7 @@ module.exports = function (gulp, options) {
         }
         async.mapSeries(variants, function (variant, callback) {
             currentVariant = variant;
-            runSequence(['views', 'styles', 'images', 'assets', 'browserify'], 'rev', 'manifest', 'post-build', callback);
+            gulp.series(gulp.parallel(['views', 'styles', 'images', 'assets', 'browserify']), 'rev', 'manifest', 'post-build', callback);
         });
     });
 
@@ -233,7 +232,7 @@ module.exports = function (gulp, options) {
         currentVariant = getVariantOption("debug-main");
         variantToRemove = currentVariant;
 
-        gulp.start('build', 'serve', function () {
+        gulp.series('build', 'serve', function () {
             gulp.watch([path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'),
                     path.resolve(options.bootstrappers, 'base.scss'),
                     './' + options.styles + '/**/*.scss'], {maxListeners: 999},
@@ -245,7 +244,7 @@ module.exports = function (gulp, options) {
 
     gulp.task('watch-test', function () {
         watching = true;
-        gulp.start('test');
+        gulp.series('test');
     });
 
     !options.module && gulp.task('serve', function () {
