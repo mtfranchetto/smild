@@ -23,7 +23,6 @@ module.exports = function (gulp, options) {
         transform = require('vinyl-transform'),
         sass = require('gulp-sass'),
         karma = require('karma').server,
-        markdox = require('gulp-markdox'),
         manifest = require('gulp-manifest'),
         sourcemaps = require('gulp-sourcemaps'),
         uglify = require('gulp-uglify'),
@@ -73,25 +72,10 @@ module.exports = function (gulp, options) {
         });
     });
 
-    !options.module && gulp.task('rev', function () {
-
-    });
-
-    gulp.task('clean', function (done) {
-        del([path.resolve(DIST_FOLDER, variantToRemove), TEMPORARY_FOLDER], {force: true}, done);
-    });
-
     gulp.task('hint', function () {
         return gulp.src(options.coverage + '**/*')
             .pipe(jshint(_.assign(options.jshint, {lookup: false})))
             .pipe(jshint.reporter('default'));
-    });
-
-    gulp.task('doc', function () {
-        return gulp.src(options.coverage + "**/*")
-            .pipe(markdox())
-            .pipe(concat("doc.md"))
-            .pipe(gulp.dest("./doc"));
     });
 
     !options.module && gulp.task('styles', function () {
