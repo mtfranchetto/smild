@@ -1,7 +1,6 @@
 module.exports = function (gulp, options) {
 
-    var jshint = require('gulp-jshint'),
-        fs = require('fs'),
+    var fs = require('fs'),
         path = require('path'),
         _ = require('lodash'),
         browserify = require('browserify'),
@@ -70,12 +69,6 @@ module.exports = function (gulp, options) {
             currentVariant = variant;
             gulp.series(gulp.parallel(['views', 'styles', 'images', 'assets', 'browserify']), 'rev', 'manifest', 'post-build', callback);
         });
-    });
-
-    gulp.task('hint', function () {
-        return gulp.src(options.coverage + '**/*')
-            .pipe(jshint(_.assign(options.jshint, {lookup: false})))
-            .pipe(jshint.reporter('default'));
     });
 
     !options.module && gulp.task('styles', function () {
