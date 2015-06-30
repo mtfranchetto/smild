@@ -98,9 +98,9 @@ module.exports = function (gulp, options) {
         del([path.resolve(DIST_FOLDER, variantToRemove), TEMPORARY_FOLDER], {force: true}, done);
     });
 
-    gulp.task('lint', function () {
+    gulp.task('hint', function () {
         return gulp.src(options.coverage + '**/*')
-            .pipe(jshint())
+            .pipe(jshint(_.assign(options.jshint, {lookup: false})))
             .pipe(jshint.reporter('default'));
     });
 
@@ -154,7 +154,7 @@ module.exports = function (gulp, options) {
         function rebundle() {
             return bundleStream.bundle()
                 .on('error', function (err) {
-                    console.log(err.message);
+                    console.error(err.message);
                     this.end();
                 })
                 .pipe(source(BUNDLE_FILENAME + '.js'))

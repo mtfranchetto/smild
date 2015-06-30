@@ -29,7 +29,28 @@ var Config = new (function () {
                 "preBuild": [], // { source: "", ext: "", dest: ""}
                 "postBuild": [], // { source: "", ext: "", dest: ""}
                 "manifest": null,
-                "revisionExclude": []
+                "revisionExclude": [],
+                "jshint": {
+                    "node": true,
+                    "browser": true,
+                    "esnext": true,
+                    "bitwise": true,
+                    "camelcase": true,
+                    "curly": true,
+                    "eqeqeq": true,
+                    "immed": true,
+                    "indent": 2,
+                    "latedef": true,
+                    "newcap": true,
+                    "noarg": true,
+                    "quotmark": "single",
+                    "regexp": true,
+                    "undef": true,
+                    "unused": true,
+                    "strict": true,
+                    "trailing": true,
+                    "smarttabs": true
+                }
             };
 
         return _.assign(defaultOptions, smildOptions, {
