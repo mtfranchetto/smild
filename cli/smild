@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 
-var program = require('commander'),
+var smild = require('../'), //Init smild
+    commander = require('commander'),
     packageJson = require('../package.json');
 
-program
+commander
     .version(packageJson.version)
     .option('-r, --release', 'Enable release mode')
     .arguments('<command> [target]')
     .action(function (command, target) {
-        
+        smild.buildHelper.setTarget(target);
+        smild.buildHelper.isRelease(options.release || false);
+        taskRunner.run()
     });
 
-program.parse(process.argv);
+commander.parse(process.argv);
