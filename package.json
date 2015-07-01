@@ -10,6 +10,7 @@
     "dependencies": {
         "async": "~1.2.1",
         "babelify": "~6.1.2",
+        "bluebird": "~2.9.30",
         "browserify": "~10.2.4",
         "browserify-shim": "~3.8.1",
         "chalk": "1.0.0",
