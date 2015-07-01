@@ -139,19 +139,6 @@ module.exports = function (gulp, options) {
         }, watching ? done : null);
     });
 
-    !options.module && gulp.task('post-build', function () {
-        if (!options.postBuild.length) return;
-        return merge(
-            _.map(options.postBuild, function (action) {
-                return gulp.src(action.source)
-                    .pipe(gulpif(!!action.ext, rename(function (path) {
-                        path.extname = "." + action.ext;
-                    })))
-                    .pipe(gulp.dest(getDistDirectory() + action.dest));
-            })
-        );
-    });
-
     !options.module && gulp.task('watch', function () {
         watching = true;
         currentVariant = getVariantOption("debug-main");
