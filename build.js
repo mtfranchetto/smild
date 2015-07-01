@@ -47,7 +47,7 @@ module.exports = function (gulp, options) {
         } else if (currentVariant !== 'all' && currentVariant !== 'all-debug') {
             variants = [currentVariant];
         } else {
-            variants = getDirectories(path.resolve(cwd, options.bootstrappers));
+            variants = getDirectories(path.resolve(cwd, options.targets));
             variants = _.map(variants, function (variant) {
                 return (currentVariant === 'all' ? 'release-' : 'debug-') + variant;
             });
@@ -59,7 +59,7 @@ module.exports = function (gulp, options) {
     });
 
     !options.module && gulp.task('styles', function () {
-        var bootstrapperPath = path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss');
+        var bootstrapperPath = path.resolve(options.targets, getVariantPart(), 'bootstrapper.scss');
         if (!fs.existsSync(bootstrapperPath)) {
             console.warn("Styles bootstrapper not found at path", bootstrapperPath, ", skipping styles build process.");
         }
@@ -79,7 +79,7 @@ module.exports = function (gulp, options) {
         process.env.TARGET = getVariantPart();
 
         var browserifyOptions = {
-            entries: [path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.js')],
+            entries: [path.resolve(options.targets, getVariantPart(), 'bootstrapper.js')],
             basedir: cwd,
             debug: !isRelease(),
             cache: {},

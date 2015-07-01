@@ -39,7 +39,7 @@ Create a _smild_ field into package.json to customize smild. The default options
        "serverPort": 5000, //express server port to listen on
        "bundleFilename": "main", //filename of produced files
        "distribution": "dist", //build folder
-       "bootstrappers": "boot", //bootstrappers/flavors folder
+       "targets": "boot", //targets/flavors folder
        "test": "test/*", //
        "externalTestFiles": [],
        "coverage": smildOptions && smildOptions.module? "lib/*": "scripts/*",
