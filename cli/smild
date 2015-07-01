@@ -7,10 +7,12 @@ var smild = require('../'), //Init smild
 program
     .version(packageJson.version)
     .option('-r, --release', 'Enable release mode')
+    .option('-m, --module', 'Creates a module on scaffolding')
     .arguments('<command> [target]')
     .action(function (command, target) {
         smild.buildHelper.setTarget(target || "main");
         smild.buildHelper.isRelease(program.release || false);
+        smild.buildHelper.setModule(program.module || false);
         smild.taskRunner.run(command);
     });
 
