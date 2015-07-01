@@ -9,7 +9,7 @@ commander
     .option('-r, --release', 'Enable release mode')
     .arguments('<command> [target]')
     .action(function (command, target) {
-        smild.buildHelper.setTarget(target);
+        smild.buildHelper.setTarget(target || "main");
         smild.buildHelper.isRelease(options.release || false);
         taskRunner.run()
     });

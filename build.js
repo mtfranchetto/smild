@@ -119,19 +119,4 @@ module.exports = function (gulp, options) {
 
         return rebundle();
     });
-
-    !options.module && gulp.task('watch', function () {
-        watching = true;
-        currentVariant = getVariantOption("debug-main");
-        variantToRemove = currentVariant;
-
-        gulp.series('build', 'serve', function () {
-            gulp.watch([path.resolve(options.bootstrappers, getVariantPart(), 'bootstrapper.scss'),
-                    path.resolve(options.bootstrappers, 'base.scss'),
-                    './' + options.styles + '/**/*.scss'], {maxListeners: 999},
-                ['styles']);
-
-            gulp.watch([options.views + '/**/*.html'], {maxListeners: 999}, ['views']);
-        });
-    });
 };
