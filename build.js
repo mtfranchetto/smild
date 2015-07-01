@@ -4,25 +4,18 @@ module.exports = function (gulp, options) {
         path = require('path'),
         _ = require('lodash'),
         browserify = require('browserify'),
-        source = require('vinyl-source-stream'),
         streamify = require('gulp-streamify'),
-        watchify = require('watchify'),
         gulpif = require('gulp-if'),
-        babelify = require('babelify'),
         merge = require('merge-stream'),
         autoprefixer = require('gulp-autoprefixer'),
         minify = require('gulp-minify-css'),
         concat = require('gulp-concat'),
         embedlr = require('gulp-embedlr'),
-        header = require('gulp-header'),
         rename = require('gulp-rename'),
         changed = require('gulp-changed'),
         minimist = require('minimist'),
-        exorcist = require('exorcist'),
-        transform = require('vinyl-transform'),
         sass = require('gulp-sass'),
         sourcemaps = require('gulp-sourcemaps'),
-        uglify = require('gulp-uglify'),
         express = require('express'),
         refresh = require('gulp-livereload'),
         async = require('async'),
@@ -72,51 +65,5 @@ module.exports = function (gulp, options) {
             .pipe(gulpif(isRelease(), minify()))
             .pipe(gulp.dest(getTemporaryDirectory() + 'css/'))
             .pipe(gulpif(watching, refresh(lrserver)));
-    });
-
-    !options.module && gulp.task('browserify', function () {
-        process.env.DEBUG = currentVariant.indexOf('debug') > -1;
-        process.env.TARGET = getVariantPart();
-
-        var browserifyOptions = {
-            entries: [path.resolve(options.targets, getVariantPart(), 'bootstrapper.js')],
-            basedir: cwd,
-            debug: !isRelease(),
-            cache: {},
-            packageCache: {},
-            fullPaths: true
-        };
-
-        var bundleStream = watching ? watchify(browserify(browserifyOptions)) :
-            browserify(browserifyOptions);
-
-        bundleStream = bundleStream.transform(babelify.configure({
-            extensions: [".es6", ".es"],
-            sourceMapRelative: '.'
-        }));
-
-        if (watching)
-            bundleStream.on('update', rebundle);
-
-        function rebundle() {
-            return bundleStream.bundle()
-                .on('error', function (err) {
-                    console.error(err.message);
-                    this.end();
-                })
-                .pipe(source(BUNDLE_FILENAME + '.js'))
-                .pipe(gulpif(isRelease(), streamify(uglify())))
-                .pipe(gulpif(isRelease(), header('/*\n\n${name} : ${version}\n\n*/\n\n', {
-                    name: options.projectPackage.name,
-                    version: options.projectPackage.version
-                })))
-                .pipe(gulpif(!isRelease(), transform(function () {
-                    return exorcist(getTemporaryDirectory() + 'js/' + BUNDLE_FILENAME + '.map.js');
-                })))
-                .pipe(gulp.dest(getTemporaryDirectory() + 'js'))
-                .pipe(gulpif(watching, refresh(lrserver)));
-        }
-
-        return rebundle();
     });
 };
