@@ -24,7 +24,6 @@ module.exports = function (gulp, options) {
         karma = require('karma').server,
         sourcemaps = require('gulp-sourcemaps'),
         uglify = require('gulp-uglify'),
-        plato = require('plato'),
         express = require('express'),
         refresh = require('gulp-livereload'),
         async = require('async'),
@@ -147,11 +146,5 @@ module.exports = function (gulp, options) {
     gulp.task('watch-test', function () {
         watching = true;
         gulp.series('test');
-    });
-
-    gulp.task('analysis', function (done) {
-        plato.inspect(options.analysis, options.analysisOutput, {
-            recurse: true
-        }, _.ary(done, 0));
     });
 };
