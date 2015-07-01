@@ -162,19 +162,6 @@ module.exports = function (gulp, options) {
             .pipe(gulp.dest(getTemporaryDirectory() + options.assets + '/'));
     });
 
-    !options.module && gulp.task('pre-build', function () {
-        if (!options.preBuild.length) return;
-        return merge(
-            _.map(options.preBuild, function (action) {
-                return gulp.src(action.source)
-                    .pipe(gulpif(!!action.ext, rename(function (path) {
-                        path.extname = "." + action.ext;
-                    })))
-                    .pipe(gulp.dest(action.dest));
-            })
-        );
-    });
-
     !options.module && gulp.task('post-build', function () {
         if (!options.postBuild.length) return;
         return merge(
