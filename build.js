@@ -30,7 +30,6 @@ module.exports = function (gulp, options) {
         refresh = require('gulp-livereload'),
         async = require('async'),
         livereload = require('connect-livereload'),
-        livereloadport = 35729,
         serverport = options.serverPort,
         server = express();
 
@@ -43,14 +42,6 @@ module.exports = function (gulp, options) {
         variantToRemove = "",
         TEMPORARY_FOLDER = "tmp";
 
-    if (!options.module) {
-        server.use(express.static(getDistDirectory()));
-        server.use(livereload({port: livereloadport}));
-
-        server.all('/*', function (req, res) {
-            res.sendfile('index.html', {root: getDistDirectory()});
-        });
-    }
 
     !options.module && gulp.task('build', ['clean', 'pre-build'], function () {
         var variants = [];
@@ -157,15 +148,6 @@ module.exports = function (gulp, options) {
     gulp.task('watch-test', function () {
         watching = true;
         gulp.series('test');
-    });
-
-    !options.module && gulp.task('serve', function () {
-        if (!currentVariant)
-            currentVariant = getVariantOption("debug-main");
-
-        server.listen(serverport);
-        refresh.listen(livereloadport);
-        console.log('Variant ' + currentVariant + ' listening on http://localhost:' + serverport);
     });
 
     gulp.task('analysis', function (done) {
