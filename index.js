@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     OptionsParser = require('./lib/OptionsParser'),
     BuildHelper = require('./lib/BuildHelper'),
+    TaskRunner = require('./lib/TaskRunner'),
     availableTasks = require('./lib/tasks'),
     _ = require('lodash'),
     chalk = require('chalk'),
@@ -8,22 +9,25 @@ var gulp = require('gulp'),
 
 var optionsParser = new OptionsParser(),
     buildHelper = new BuildHelper(optionsParser),
-    options = optionsParser.parse();
+    options = optionsParser.parse(),
+    taskRunner = new TaskRunner();
 
 _.forEach(availableTasks, function (TaskConstructor) {
-    var task = new TaskConstructor(buildHelper);
+    var task = new TaskConstructor(buildHelper, taskRunner);
     if (options.module && !task.availableToModule)
         return;
     gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
+var registeredTasks = gulp.tree();
+
 gulp.on('start', function (event) {
-    if (event.name === 'wrapper') return;
+    if (_.indexOf(registeredTasks, event.name) < 0) return;
     console.log('Starting', '\'' + chalk.yellow(event.name) + '\'...');
 });
 
 gulp.on('stop', function (event) {
-    if (event.name === 'wrapper') return;
+    if (_.indexOf(registeredTasks, event.name) < 0) return;
     var time = prettyTime(event.duration);
     console.log(
         'Finished', '\'' + chalk.yellow(event.name) + '\'',
@@ -32,7 +36,7 @@ gulp.on('stop', function (event) {
 });
 
 gulp.on('error', function (event) {
-    if (event.name === 'wrapper') return;
+    if (_.indexOf(registeredTasks, event.name) < 0) return;
     var msg = formatError(event);
     var time = prettyTime(event.duration);
     console.log(
@@ -40,17 +44,10 @@ gulp.on('error', function (event) {
         chalk.red('errored after'),
         chalk.blue(time)
     );
-    console.log(msg);
+    console.error(msg);
 });
 
 module.exports = {
-    runTask: function (task) {
-        gulp.parallel(task)(function (error) {
-            if (error) {
-                console.error(error);
-                exit(1);
-            }
-        });
-    },
+    taskRunner: taskRunner,
     buildHelper: buildHelper
 };

@@ -11,7 +11,7 @@ program
     .action(function (command, target) {
         smild.buildHelper.setTarget(target || "main");
         smild.buildHelper.isRelease(program.release || false);
-        smild.runTask(command);
+        smild.taskRunner.run(command);
     });
 
 program.parse(process.argv);
