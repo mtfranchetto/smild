@@ -2,18 +2,22 @@
 
 var smild = require('../'), //Init smild
     program = require('commander'),
-    packageJson = require('../package.json');
+    packageJson = require('../package.json'),
+    command = null,
+    target = null;
 
 program
     .version(packageJson.version)
     .option('-r, --release', 'Enable release mode')
     .option('-m, --module', 'Creates a module on scaffolding')
     .arguments('<command> [target]')
-    .action(function (command, target) {
-        smild.buildHelper.setTarget(target || "main");
-        smild.buildHelper.isRelease(program.release || false);
-        smild.buildHelper.setModule(program.module || false);
-        smild.taskRunner.run(command);
-    });
+    .action(function (_command, _target) {
+        command = _command;
+        target = _target;
+    })
+    .parse(process.argv);
 
-program.parse(process.argv);
+smild.buildHelper.setTarget(target || "main");
+smild.buildHelper.isRelease(program.release || false);
+smild.buildHelper.setModule(program.module || false);
+smild.taskRunner.run(command || "tasks");
