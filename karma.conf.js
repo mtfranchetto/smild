@@ -1,6 +1,7 @@
 var _ = require('lodash'),
     cwd = process.cwd(),
-    options = require('./config').options(),
+    OptionsParser = require('./lib/OptionsParser'),
+    options = new OptionsParser().parse(),
     reporters = ['spec', 'junit'],
     preprocessors = {},
     files = _.flatten([{pattern: options.test}, options.externalTestFiles]);
