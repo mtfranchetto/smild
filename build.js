@@ -22,7 +22,6 @@ module.exports = function (gulp, options) {
         transform = require('vinyl-transform'),
         sass = require('gulp-sass'),
         karma = require('karma').server,
-        manifest = require('gulp-manifest'),
         sourcemaps = require('gulp-sourcemaps'),
         uglify = require('gulp-uglify'),
         plato = require('plato'),
@@ -155,56 +154,4 @@ module.exports = function (gulp, options) {
             recurse: true
         }, _.ary(done, 0));
     });
-
-    !options.module && gulp.task('manifest', function () {
-        if (!isRelease() || !options.manifest)
-            return;
-        gulp.src([getDistDirectory() + '**/*'])
-            .pipe(manifest(options.manifest))
-            .pipe(gulp.dest(getDistDirectory()));
-    });
-
-    gulp.task('default', [!options.module ? 'build' : 'test']);
-
-    function getDirectories(rootDir) {
-        var files = fs.readdirSync(rootDir),
-            directories = [];
-        _.forEach(files, function (file) {
-            if (file[0] != '.') {
-                var filePath = rootDir + '/' + file,
-                    stat = fs.statSync(filePath);
-                if (stat.isDirectory())
-                    directories.push(file);
-            }
-        });
-        return directories;
-    }
-
-    function isRelease() {
-        return currentVariant.indexOf("release") > -1;
-    }
-
-    function getDistDirectory() {
-        return getTargetFolder(DIST_FOLDER);
-    }
-
-    function getTemporaryDirectory() {
-        var folder = isRelease() ? TEMPORARY_FOLDER : DIST_FOLDER; //When running debug use always the dist folder (because revisioning is disabled)
-        return getTargetFolder(folder);
-    }
-
-    function getTargetFolder(folder) {
-        return path.resolve(folder, getVariantPart()) + '/';
-    }
-
-    function getVariantPart() {
-        return currentVariant.slice(currentVariant.indexOf('-') + 1);
-    }
-
-    function getVariantOption(defaultOption) {
-        return minimist(process.argv.slice(2), {
-            string: 'variant',
-            default: {variant: defaultOption || 'release-main'}
-        }).variant;
-    }
 };
