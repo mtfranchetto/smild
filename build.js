@@ -139,11 +139,6 @@ module.exports = function (gulp, options) {
         }, watching ? done : null);
     });
 
-    !options.module && gulp.task('assets', function () {
-        return gulp.src(options.assets + '/**/*')
-            .pipe(gulp.dest(getTemporaryDirectory() + options.assets + '/'));
-    });
-
     !options.module && gulp.task('post-build', function () {
         if (!options.postBuild.length) return;
         return merge(
