@@ -9,15 +9,20 @@ var optionsParser = new OptionsParser(),
     options = optionsParser.parse();
 
 _.forEach(availableTasks, function (TaskConstructor) {
-    var task = new TaskConstructor();
+    var task = new TaskConstructor(buildHelper);
     if (options.module && !task.availableToModule)
         return;
-    gulp.task(task.command, gulp.series.apply(_.union(tasks.dependsOn, _.bind(task.action, task))));
+    gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
 module.exports = {
     runTask: function (task) {
-        gulp.series(task);
+        gulp.parallel(task)(function (error) {
+            if (error) {
+                console.error(error);
+                exit(1);
+            }
+        });
     },
     buildHelper: buildHelper
 };
