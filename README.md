@@ -20,79 +20,110 @@ To wrap up, here's a list of the things available:
 * TDD/BDD support
 * Code coverage
 * JSHint support
+* Documentation generation
+* Project scaffolding
 
 ###Install
-`npm install smild --save-dev`
+`npm install smild -g`
 
 ###Usage
 
-Create a gulpfile.js in the root of your project with the following contents:
+To create a project just type:
+`smild create [projectName]`
 
-`require('smild')(require('gulp'));`
 
 ###Options
 
 Create a _smild_ field into package.json to customize smild. The default options are:
 
     {
-  	   "module": false, //reduced tasks set for module
-       "serverPort": 5000, //express server port to listen on
-       "bundleFilename": "main", //filename of produced files
-       "distribution": "dist", //build folder
-       "bootstrappers": "boot", //bootstrappers/flavors folder
-       "test": "test/*", //
-       "externalTestFiles": [],
-       "coverage": smildOptions && smildOptions.module? "lib/*": "scripts/*",
-       "autoprefixerRules": ["last 2 versions", "> 1%", "ie 8"], //custom rules for autoprefixer
-       "coverageOutput": "coverage/",
-       "runCoverage": true,
-       "testLauncher": "PhantomJS", //or Chrome
-       "testTransforms": ["browserify-shim", "browserify-istanbul"], //browsery transforms to apply before test
-       "singlePage": true,
-       "bundleNoParse": [], //exclude this files from parsing
+         "module": false,
+         "port": 5000,
+         "bundleFilename": "main",
+         "distribution": "dist",
+         "targets": "targets",
+         "babelExtensions": [".es6", ".es"],
+         "styles": "styles",
+         "test": "test/*",
+         "images": "images",
+         "views": "views",
+         "assets": "assets",
+         "externalTestFiles": [],
+         "autoprefixerRules": ["last 2 versions", "> 1%"],
+         "scripts": module ? "lib/*" : "scripts/*",
+         "coverageOutput": "coverage/",
+         "analysisOutput": "analysis/",
+         "runCoverage": true,
+         "testLauncher": "PhantomJS",
+         "testTransforms": [],
+         "preBuild": [], // { source: "", ext: "", dest: ""}
+         "postBuild": [], // { source: "", ext: "", dest: ""}
+         "manifest": null,
+         "revisionExclude": [],
+         "jshint": {
+             "node": true,
+             "browser": true,
+             "esnext": true,
+             "bitwise": true,
+             "camelcase": true,
+             "curly": true,
+             "eqeqeq": true,
+             "immed": true,
+             "indent": 4,
+             "latedef": true,
+             "newcap": true,
+             "noarg": true,
+             "quotmark": "single",
+             "regexp": true,
+             "undef": true,
+             "unused": true,
+             "strict": true,
+             "trailing": true,
+             "smarttabs": true
+         }
     }
 
 ###CLI reference:
 
-`$ gulp build --variant=[variant|all]`
+`$ smild build [target|all]`
 
 Default task, used to package JS, Compass (CSS) files, images and templates.
 
-Optional: specify a custom variant to build (e.g. release-main).
+Optional: specificy a --release option to enable uglifier and revisioning.
 
-`$ gulp watch`
+`$ smild watch-build`
 
 Runs the build task every time a dependency change is detected. [Watchify](https://github.com/substack/watchify) is used in this case.
 
-`$ gulp test`
+`$ smild test`
 
 Run tests with **[Karma](https://github.com/karma-runner/karma)** and **[Jasmine](http://jasmine.github.io/2.0/introduction.html)**.
 
-`$ gulp watch-test`
+`$ smild watch-test`
 
 Runs the build and test tasks every time a dependency change is detected.
 
-`$ gulp serve`
+`$ smild serve`
 
 Exposes the build through an [Express](http://expressjs.com/) application.
 
-`$ gulp lint`
+`$ smild hint`
 
 Run [JSHint](http://www.jshint.com/).
 
-`$ gulp browserify`
+`$ smild browserify`
 
 Packages JavaScript files with Browserify.
 
-`$ gulp styles`
+`$ smild styles`
 
 Packages Compass files.
 
-`$ gulp images`
+`$ smild images`
 
 Packages images.
 
-`$ gulp doc`
+`$ smild doc`
 
 Generate documentation with *markdox*.
 
