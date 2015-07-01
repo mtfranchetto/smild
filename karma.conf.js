@@ -1,12 +1,13 @@
 var _ = require('lodash'),
     cwd = process.cwd(),
-    options = require('./config').options(),
+    OptionsParser = require('./lib/OptionsParser'),
+    options = new OptionsParser().parse(),
     reporters = ['spec', 'junit'],
     preprocessors = {},
     files = _.flatten([{pattern: options.test}, options.externalTestFiles]);
 
 preprocessors[options.test] = ['browserify'];
-preprocessors[options.coverage] = ['coverage'];
+preprocessors[options.scripts] = ['coverage'];
 
 if (options.runCoverage)
     reporters.push('coverage');
