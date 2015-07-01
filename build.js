@@ -21,7 +21,6 @@ module.exports = function (gulp, options) {
         exorcist = require('exorcist'),
         transform = require('vinyl-transform'),
         sass = require('gulp-sass'),
-        karma = require('karma').server,
         sourcemaps = require('gulp-sourcemaps'),
         uglify = require('gulp-uglify'),
         express = require('express'),
@@ -32,7 +31,7 @@ module.exports = function (gulp, options) {
         server = express();
 
     var DIST_FOLDER = options.distribution,
-        KARMA_CONFIG = '/karma.conf.js',
+        KARMA_CONFIG = ,
         BUNDLE_FILENAME = options.bundleFilename,
         watching = false,
         cwd = process.cwd(),
@@ -121,13 +120,6 @@ module.exports = function (gulp, options) {
         return rebundle();
     });
 
-    gulp.task('test', function (done) {
-        karma.start({
-            configFile: __dirname + KARMA_CONFIG,
-            singleRun: !watching
-        }, watching ? done : null);
-    });
-
     !options.module && gulp.task('watch', function () {
         watching = true;
         currentVariant = getVariantOption("debug-main");
@@ -141,10 +133,5 @@ module.exports = function (gulp, options) {
 
             gulp.watch([options.views + '/**/*.html'], {maxListeners: 999}, ['views']);
         });
-    });
-
-    gulp.task('watch-test', function () {
-        watching = true;
-        gulp.series('test');
     });
 };
