@@ -7,7 +7,7 @@ var _ = require('lodash'),
     files = _.flatten([{pattern: options.test}, options.externalTestFiles]);
 
 preprocessors[options.test] = ['browserify'];
-preprocessors[options.coverage] = ['coverage'];
+preprocessors[options.scripts] = ['coverage'];
 
 if (options.runCoverage)
     reporters.push('coverage');
