@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     OptionsParser = require('./lib/OptionsParser'),
     BuildHelper = require('./lib/BuildHelper'),
     TaskRunner = require('./lib/TaskRunner'),
+    Formatter = require('./lib/util/Formatter'),
     availableTasks = require('./lib/tasks'),
     _ = require('lodash'),
     chalk = require('chalk'),
@@ -37,7 +38,7 @@ gulp.on('stop', function (event) {
 
 gulp.on('error', function (event) {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
-    var msg = formatError(event);
+    var msg = Formatter.formatError(event);
     var time = prettyTime(event.duration);
     console.log(
         '\'' + chalk.yellow(event.name) + '\'',
@@ -46,22 +47,6 @@ gulp.on('error', function (event) {
     );
     console.error(msg);
 });
-
-function formatError(e) {
-    if (!e.error) {
-        return e.message;
-    }
-    // PluginError
-    if (typeof e.error.showStack === 'boolean') {
-        return e.error.toString();
-    }
-    // Normal error
-    if (e.error.stack) {
-        return e.error.stack;
-    }
-    // Unknown (string, number, etc.)
-    return new Error(String(e.error)).stack;
-}
 
 module.exports = {
     taskRunner: taskRunner,
