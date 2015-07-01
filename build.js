@@ -30,7 +30,6 @@ module.exports = function (gulp, options) {
         refresh = require('gulp-livereload'),
         async = require('async'),
         livereload = require('connect-livereload'),
-        lrserver = require('tiny-lr')(),
         livereloadport = 35729,
         serverport = options.serverPort,
         server = express();
@@ -138,23 +137,6 @@ module.exports = function (gulp, options) {
             configFile: __dirname + KARMA_CONFIG,
             singleRun: !watching
         }, watching ? done : null);
-    });
-
-    !options.module && gulp.task('views', function () {
-        return merge(
-            gulp.src(options.views + '/**/*.html')
-                .pipe(changed(getTemporaryDirectory() + options.views + '/'))
-                .pipe(gulp.dest(getTemporaryDirectory() + options.views + '/'))
-                .pipe(gulpif(watching, refresh(lrserver))),
-            gulp.src('index.html')
-                .pipe(gulpif(watching, embedlr()))
-                .pipe(gulp.dest(getTemporaryDirectory()))
-        );
-    });
-
-    !options.module && gulp.task('images', function () {
-        return gulp.src(options.images + '/**/*')
-            .pipe(gulp.dest(getTemporaryDirectory() + options.images + '/'));
     });
 
     !options.module && gulp.task('assets', function () {
