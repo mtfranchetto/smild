@@ -4,7 +4,10 @@ var smild = require('../'), //Init smild
     program = require('commander'),
     packageJson = require('../package.json'),
     command = null,
-    target = null;
+    target = null,
+    gulp = require('gulp'),
+    _ = require('lodash'),
+    chalk = require('chalk');
 
 program
     .version(packageJson.version)
@@ -16,6 +19,14 @@ program
         target = _target;
     })
     .parse(process.argv);
+
+if (command && _.indexOf(gulp.tree(), command) < 0) {
+    console.log(chalk.red(command, "task not found."));
+    console.log();
+    console.log("Available tasks:");
+    console.log();
+    command = "tasks";
+}
 
 smild.buildHelper.setTarget(target || "main");
 smild.buildHelper.isRelease(program.release || false);
