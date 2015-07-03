@@ -1,5 +1,7 @@
 #Smild
 
+![smild](http://i62.tinypic.com/xf1cgk.png)
+
 ##The Javascript development system
 
 ###Why
