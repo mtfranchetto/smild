@@ -22,6 +22,7 @@ To wrap up, here's a list of the things available:
 * JSHint support
 * Documentation generation
 * Project scaffolding
+* Cyclomatic complexity
 
 ###Install
 `npm install smild -g`
@@ -126,6 +127,10 @@ Packages images.
 `$ smild doc`
 
 Generate documentation with *markdox*.
+
+`$ smild complexity`
+
+Run cyclomatic complexity analysis with *plato*.
 
 ##Contribute
 
