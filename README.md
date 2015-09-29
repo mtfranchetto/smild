@@ -42,6 +42,7 @@ Create a _smild_ field into package.json to customize smild. The default options
     {
          "module": false,
          "port": 5000,
+         "liveReloadPort": 35729
          "bundleFilename": "main",
          "distribution": "dist",
          "targets": "targets",
