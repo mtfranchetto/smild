@@ -38,6 +38,7 @@
         "gulp-sourcemaps": "~1.5.2",
         "gulp-streamify": "0.0.5",
         "gulp-uglify": "~1.2.0",
+        "gulp-webdriver": "~1.0.1",
         "karma": "~0.12.37",
         "karma-browserify": "~4.2.1",
         "karma-chrome-launcher": "~0.2.0",
