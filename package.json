@@ -1,6 +1,6 @@
 {
     "name": "smild",
-    "version": "2.3.4",
+    "version": "2.4.0",
     "description": "The Javascript development system",
     "repository": {
         "type": "git",
@@ -38,6 +38,7 @@
         "gulp-sourcemaps": "~1.5.2",
         "gulp-streamify": "0.0.5",
         "gulp-uglify": "~1.2.0",
+        "gulp-webdriver": "~1.0.1",
         "karma": "~0.12.37",
         "karma-browserify": "~4.2.1",
         "karma-chrome-launcher": "~0.2.0",
@@ -46,6 +47,7 @@
         "karma-junit-reporter": "~0.2.2",
         "karma-phantomjs-launcher": "~0.2.0",
         "karma-spec-reporter": "0.0.16",
+        "jasmine": "~2.3.2",
         "lodash": "~3.9.3",
         "merge-stream": "~0.1.6",
         "minimist": "~1.1.0",
