@@ -19,7 +19,7 @@
         "del": "~1.2.0",
         "exorcist": "~0.4.0",
         "express": "~4.1.1",
-        "gulp": "gulpjs/gulp#4.0",
+        "gulp": "gulpjs/gulp#3311fca",
         "gulp-autoprefixer": "~2.3.1",
         "gulp-changed": "~1.2.1",
         "gulp-concat": "~2.3.4",
