@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     TaskRunner = require('./lib/TaskRunner'),
     Formatter = require('./lib/util/Formatter'),
     availableTasks = require('./lib/tasks'),
+    TaskUtil = require('./lib/util/TasksUtil'),
     _ = require('lodash'),
     chalk = require('chalk'),
     prettyTime = require('pretty-hrtime');
@@ -20,7 +21,7 @@ _.forEach(availableTasks, function (TaskConstructor) {
     gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
-var registeredTasks = gulp.tree();
+var registeredTasks = TaskUtil.getTaskList();
 
 gulp.on('start', function (event) {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
