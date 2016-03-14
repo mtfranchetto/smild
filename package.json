@@ -9,6 +9,9 @@
     "bin": "./cli/smild",
     "dependencies": {
         "async": "~1.2.1",
+        "babel-core": "^6.4.5",
+        "babel-preset-es2015": "^6.3.13",
+        "babel-preset-stage-1": "^6.3.13",
         "babelify": "~6.1.2",
         "bluebird": "~2.9.30",
         "browserify": "~10.2.4",
