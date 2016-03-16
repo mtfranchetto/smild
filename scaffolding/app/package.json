@@ -1,4 +1,8 @@
 {
     "name": "$$NAME",
-    "version": "0.0.1"
+    "version": "0.0.1",
+    "dependencies": {
+        "babel-preset-es2015": "~6.3.13",
+        "babel-preset-stage-1": "~6.3.13"
+    }
 }
