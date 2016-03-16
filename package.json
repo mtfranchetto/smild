@@ -45,6 +45,7 @@
         "mocha": "~2.4.5",
         "plato": "~1.4.0",
         "pretty-hrtime": "~1.0.0",
+        "tsify": "^0.14.1",
         "vinyl-source-stream": "~1.1.0",
         "vinyl-transform": "~1.0.0",
         "watchify": "~3.7.0"
