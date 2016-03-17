@@ -10,12 +10,11 @@ const gulp = require('gulp'),
 
 const optionsParser = new OptionsParser(),
     buildManager = new BuildManager(optionsParser),
-    options = optionsParser.parse(),
     taskRunner = new TaskRunner();
 
 _.forEach(availableTasks, TaskConstructor => {
     var task = new TaskConstructor(buildManager, taskRunner);
-    if (_.indexOf(task.availableTo, options.projectType) > -1)
+    if (_.indexOf(task.availableTo, buildManager.options.projectType) > -1)
         gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
