@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     OptionsParser = require('./lib/OptionsParser'),
     BuildHelper = require('./lib/BuildHelper'),
     TaskRunner = require('./lib/TaskRunner'),
@@ -9,26 +9,26 @@ var gulp = require('gulp'),
     chalk = require('chalk'),
     prettyTime = require('pretty-hrtime');
 
-var optionsParser = new OptionsParser(),
+const optionsParser = new OptionsParser(),
     buildHelper = new BuildHelper(optionsParser),
     options = optionsParser.parse(),
     taskRunner = new TaskRunner();
 
-_.forEach(availableTasks, function (TaskConstructor) {
+_.forEach(availableTasks, TaskConstructor => {
     var task = new TaskConstructor(buildHelper, taskRunner);
     if (options.module && !task.availableToModule)
         return;
     gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
-var registeredTasks = TaskUtil.getTaskList();
+const registeredTasks = TaskUtil.getTaskList();
 
-gulp.on('start', function (event) {
+gulp.on('start', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
     console.log('Starting', '\'' + chalk.yellow(event.name) + '\'...');
 });
 
-gulp.on('stop', function (event) {
+gulp.on('stop', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
     var time = prettyTime(event.duration);
     console.log(
@@ -37,7 +37,7 @@ gulp.on('stop', function (event) {
     );
 });
 
-gulp.on('error', function (event) {
+gulp.on('error', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
     var msg = Formatter.formatError(event);
     var time = prettyTime(event.duration);
