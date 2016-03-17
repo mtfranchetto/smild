@@ -4,7 +4,6 @@ const gulp = require('gulp'),
     TaskRunner = require('./lib/TaskRunner'),
     Formatter = require('./lib/util/Formatter'),
     availableTasks = require('./lib/tasks'),
-    TaskUtil = require('./lib/util/TasksUtil'),
     _ = require('lodash'),
     chalk = require('chalk'),
     prettyTime = require('pretty-hrtime');
@@ -21,7 +20,7 @@ _.forEach(availableTasks, TaskConstructor => {
     gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
-const registeredTasks = TaskUtil.getTaskList();
+const registeredTasks = buildHelper.getTasksList();
 
 gulp.on('start', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;

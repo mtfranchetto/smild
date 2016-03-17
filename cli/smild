@@ -6,8 +6,7 @@ var program = require('commander'),
     target = null,
     gulp = require('gulp'),
     _ = require('lodash'),
-    chalk = require('chalk'),
-    TaskUtil = require('../lib/util/TasksUtil');
+    chalk = require('chalk');
 
 program
     .version(packageJson.version)
@@ -26,7 +25,7 @@ process.env.DEBUG = !program.release;
 
 var smild = require('../');
 
-if (command && _.indexOf(TaskUtil.getTaskList(), command) < 0) {
+if (command && _.indexOf(smild.buildHelper.getTasksList(), command) < 0) {
     console.log(chalk.red(command, "task not found."));
     console.log();
     console.log("Available tasks:");
