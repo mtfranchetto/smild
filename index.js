@@ -1,6 +1,6 @@
 const gulp = require('gulp'),
     OptionsParser = require('./lib/OptionsParser'),
-    BuildHelper = require('./lib/BuildHelper'),
+    BuildManager = require('./lib/BuildManager'),
     TaskRunner = require('./lib/TaskRunner'),
     Formatter = require('./lib/Formatter'),
     availableTasks = require('./lib/tasks'),
@@ -9,18 +9,18 @@ const gulp = require('gulp'),
     prettyTime = require('pretty-hrtime');
 
 const optionsParser = new OptionsParser(),
-    buildHelper = new BuildHelper(optionsParser),
+    buildManager = new BuildManager(optionsParser),
     options = optionsParser.parse(),
     taskRunner = new TaskRunner();
 
 _.forEach(availableTasks, TaskConstructor => {
-    var task = new TaskConstructor(buildHelper, taskRunner);
+    var task = new TaskConstructor(buildManager, taskRunner);
     if (options.module && !task.availableToModule)
         return;
     gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
-const registeredTasks = buildHelper.getTasksList();
+const registeredTasks = buildManager.getTasksList();
 
 gulp.on('start', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
@@ -50,6 +50,6 @@ gulp.on('error', event => {
 
 module.exports = {
     taskRunner: taskRunner,
-    buildHelper: buildHelper,
+    buildManager: buildManager,
     Task: require('./lib/tasks/Task')
 };
