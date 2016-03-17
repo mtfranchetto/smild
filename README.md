@@ -53,7 +53,8 @@ To create a project just type:
          "manifest": null,
          "revisionExclude": [],
          "onPreBuild": [],
-         "onPostBuild": []
+         "onPostBuild": [],
+         "onRebundle": []
     }
 
 ###CLI reference:
