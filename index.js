@@ -51,5 +51,6 @@ gulp.on('error', event => {
 
 module.exports = {
     taskRunner: taskRunner,
-    buildHelper: buildHelper
+    buildHelper: buildHelper,
+    Task: require('./lib/tasks/Task')
 };
