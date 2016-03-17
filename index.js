@@ -15,9 +15,8 @@ const optionsParser = new OptionsParser(),
 
 _.forEach(availableTasks, TaskConstructor => {
     var task = new TaskConstructor(buildManager, taskRunner);
-    if (options.module && !task.availableToModule)
-        return;
-    gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
+    if (_.indexOf(task.availableTo, options.projectType) > -1)
+        gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
 const registeredTasks = buildManager.getTasksList();

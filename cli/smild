@@ -6,12 +6,13 @@ var program = require('commander'),
     target = null,
     gulp = require('gulp'),
     _ = require('lodash'),
-    chalk = require('chalk');
+    chalk = require('chalk'),
+    ProjectType = require('../lib/ProjectType');
 
 program
     .version(packageJson.version)
     .option('-r, --release', 'Enable release mode')
-    .option('-m, --module', 'Creates a module on scaffolding')
+    .option('-t, --type', 'Specify the project type for scaffolding')
     .arguments('<command> [target]')
     .action(function (_command, _target) {
         command = _command || "tasks";
@@ -35,5 +36,5 @@ if (command && _.indexOf(smild.buildManager.getTasksList(), command) < 0) {
 
 smild.buildManager.setTarget(target);
 smild.buildManager.isRelease(program.release || false);
-smild.buildManager.setModule(program.module || false);
+smild.buildManager.setProjectType(program.type || ProjectType.FRONTEND);
 smild.taskRunner.run(command);
