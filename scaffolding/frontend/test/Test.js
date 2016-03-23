@@ -1,6 +1,6 @@
 describe("Dummy", function () {
 
     it("should equal true", function () {
-        expect(true).toBe(true);
+        expect(true).to.be(true);
     });
 });
