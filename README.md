@@ -22,6 +22,7 @@ To wrap up, here's a list of the things available:
 * Doc generation
 * Project scaffolding
 * Code static analysis
+* Nodejs support
 
 ###Install
 `npm install smild -g`
@@ -52,6 +53,7 @@ To create a project just type:
          "scripts": "scripts/*",
          "manifest": null,
          "revisionExclude": [],
+         "nodemon": {},
          "onPreBuild": [],
          "onPostBuild": [],
          "onRebundle": []
@@ -68,6 +70,7 @@ Optional: specificy a --release option to enable uglifier and revisioning.
 `$ smild watch-build`
 
 Runs the build task every time a dependency change is detected. [Watchify](https://github.com/substack/watchify) is used in this case.
+With a nodejs project it uses Nodemon to keep the app rebuilding.
 
 `$ smild test`
 
