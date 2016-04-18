@@ -1,5 +1,4 @@
 const gulp = require('gulp'),
-    OptionsParser = require('./lib/OptionsParser'),
     BuildManager = require('./lib/BuildManager'),
     TaskRunner = require('./lib/TaskRunner'),
     Formatter = require('./lib/Formatter'),
@@ -8,8 +7,7 @@ const gulp = require('gulp'),
     chalk = require('chalk'),
     prettyTime = require('pretty-hrtime');
 
-const optionsParser = new OptionsParser(),
-    buildManager = new BuildManager(optionsParser),
+const buildManager = new BuildManager(),
     taskRunner = new TaskRunner();
 
 _.forEach(availableTasks, TaskConstructor => {
