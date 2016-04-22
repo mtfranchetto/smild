@@ -1,34 +1,29 @@
-var gulp = require('gulp'),
-    OptionsParser = require('./lib/OptionsParser'),
-    BuildHelper = require('./lib/BuildHelper'),
+const gulp = require('gulp'),
+    BuildManager = require('./lib/BuildManager'),
     TaskRunner = require('./lib/TaskRunner'),
-    Formatter = require('./lib/util/Formatter'),
+    Formatter = require('./lib/Formatter'),
     availableTasks = require('./lib/tasks'),
-    TaskUtil = require('./lib/util/TasksUtil'),
     _ = require('lodash'),
     chalk = require('chalk'),
     prettyTime = require('pretty-hrtime');
 
-var optionsParser = new OptionsParser(),
-    buildHelper = new BuildHelper(optionsParser),
-    options = optionsParser.parse(),
+const buildManager = new BuildManager(),
     taskRunner = new TaskRunner();
 
-_.forEach(availableTasks, function (TaskConstructor) {
-    var task = new TaskConstructor(buildHelper, taskRunner);
-    if (options.module && !task.availableToModule)
-        return;
-    gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
+_.forEach(availableTasks, TaskConstructor => {
+    var task = new TaskConstructor(buildManager, taskRunner);
+    if (_.indexOf(task.availableTo, buildManager.options.projectType) > -1)
+        gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
 });
 
-var registeredTasks = TaskUtil.getTaskList();
+const registeredTasks = buildManager.getTasksList();
 
-gulp.on('start', function (event) {
+gulp.on('start', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
     console.log('Starting', '\'' + chalk.yellow(event.name) + '\'...');
 });
 
-gulp.on('stop', function (event) {
+gulp.on('stop', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
     var time = prettyTime(event.duration);
     console.log(
@@ -37,7 +32,7 @@ gulp.on('stop', function (event) {
     );
 });
 
-gulp.on('error', function (event) {
+gulp.on('error', event => {
     if (_.indexOf(registeredTasks, event.name) < 0) return;
     var msg = Formatter.formatError(event);
     var time = prettyTime(event.duration);
@@ -51,5 +46,5 @@ gulp.on('error', function (event) {
 
 module.exports = {
     taskRunner: taskRunner,
-    buildHelper: buildHelper
+    buildManager: buildManager
 };
