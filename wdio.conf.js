@@ -1,5 +1,5 @@
 exports.config = {
-
+    
     //
     // ==================
     // Specify Test Files
@@ -10,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test-e2e/**/*.js'
+        './e2e-test/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -30,7 +30,7 @@ exports.config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'firefox'
     }],
     //
     // ===================
@@ -49,7 +49,7 @@ exports.config = {
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", the base url gets prepended.
-    baseUrl: '',
+    baseUrl: 'http://localhost',
     //
     // Default timeout for all waitForXXX commands.
     waitforTimeout: 10000,
@@ -81,28 +81,20 @@ exports.config = {
     // Mocha: `$ npm install mocha`
     // Jasmine: `$ npm install jasmine`
     // Cucumber: `$ npm install cucumber`
-    framework: 'jasmine',
+    framework: 'mocha',
     //
     // Test reporter for stdout.
     // The following are supported: dot (default), spec and xunit
     // see also: http://webdriver.io/guide/testrunner/reporters.html
     reporter: 'spec',
-
+    
     //
-    // Options to be passed to Jasmine.
-    jasmineNodeOpts: {
-        //
-        // Jasmine default timeout
-        defaultTimeoutInterval: 10000,
-        //
-        // The Jasmine framework allows it to intercept each assertion in order to log the state of the application
-        // or website depending on the result. For example it is pretty handy to take a screenshot everytime
-        // an assertion fails.
-        expectationResultHandler: function (passed, assertion) {
-            // do something
-        }
+    // Options to be passed to Mocha.
+    // See the full list at http://mochajs.org/
+    mochaOpts: {
+        ui: 'bdd'
     },
-
+    
     //
     // =====
     // Hooks
@@ -111,25 +103,25 @@ exports.config = {
     // will wait until that promise got resolved to continue.
     //
     // Gets executed before all workers get launched.
-    onPrepare: function () {
+    onPrepare: function() {
         // do something
     },
     //
     // Gets executed before test execution begins. At this point you will have access to all global
     // variables like `browser`. It is the perfect place to define custom commands.
-    before: function () {
+    before: function() {
         // do something
     },
     //
     // Gets executed after all tests are done. You still have access to all global variables from
     // the test.
-    after: function (failures, pid) {
+    after: function(failures, pid) {
         // do something
     },
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
-    onComplete: function () {
+    onComplete: function() {
         // do something
     }
 };

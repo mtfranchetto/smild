@@ -15,16 +15,16 @@ To wrap up, here's a list of the things available:
 * Files watchers
 * Live reloading
 * CSS automatic vendor prefixes
-* Compass support
-* Build variants
+* SASS support
+* Multi target builds
 * Code uglify
 * Source maps
 * TDD/BDD support
 * Code coverage
-* JSHint support
-* Documentation generation
+* Doc generation
 * Project scaffolding
-* Cyclomatic complexity
+* Code static analysis
+* Nodejs support
 
 ###Install
 `npm install smild -g`
@@ -37,91 +37,58 @@ To create a project just type:
 
 ###Options
 
-Create a _smild_ field into package.json to customize smild. The default options are:
-
     {
-         "module": false,
+         "projectType": "frontend",
          "port": 5000,
-         "liveReloadPort": 35729
+         "liveReloadPort": 35729,
          "bundleFilename": "main",
          "distribution": "dist",
          "targets": "targets",
-         "babelExtensions": [".es6", ".es"],
+         "babel": {},
+         "typescript": false,
          "styles": "styles",
-         "test": "test/*",
+         "test": "test/**/*",
          "images": "images",
          "views": "views",
          "assets": "assets",
-         "externalTestFiles": [],
          "autoprefixerRules": ["last 2 versions", "> 1%"],
-         "scripts": module ? "lib/*" : "scripts/*",
-         "coverageOutput": "coverage/",
-         "analysisOutput": "analysis/",
-         "runCoverage": true,
-         "testLauncher": "PhantomJS",
-         "testTransforms": [],
-         "preBuild": [], // { source: "", ext: "", dest: ""}
-         "postBuild": [], // { source: "", ext: "", dest: ""}
+         "scripts": "scripts/*",
          "manifest": null,
          "revisionExclude": [],
-         "jshint": {
-             "node": true,
-             "browser": true,
-             "esnext": true,
-             "bitwise": true,
-             "camelcase": true,
-             "curly": true,
-             "eqeqeq": true,
-             "immed": true,
-             "indent": 4,
-             "latedef": true,
-             "newcap": true,
-             "noarg": true,
-             "quotmark": "single",
-             "regexp": true,
-             "undef": true,
-             "unused": true,
-             "strict": true,
-             "trailing": true,
-             "smarttabs": true
-         }
+         "nodemon": {},
+         "onPreBuild": [],
+         "onPostBuild": [],
+         "onRebundle": []
     }
 
 ###CLI reference:
 
 `$ smild build [target|all]`
 
-Default task, used to package JS, Compass (CSS) files, images and templates.
+Default task, used to package JS, SASS files, images and templates.
 
 Optional: specificy a --release option to enable uglifier and revisioning.
 
 `$ smild watch-build`
 
 Runs the build task every time a dependency change is detected. [Watchify](https://github.com/substack/watchify) is used in this case.
+With a nodejs project it uses Nodemon to keep the app rebuilding.
 
 `$ smild test`
 
-Run tests with **[Karma](https://github.com/karma-runner/karma)** and **[Jasmine](http://jasmine.github.io/2.0/introduction.html)**.
-
-`$ smild watch-test`
-
-Runs the build and test tasks every time a dependency change is detected.
+Run tests with **Mocha**
 
 `$ smild serve`
 
 Exposes the build through an [Express](http://expressjs.com/) application.
 
-`$ smild hint`
-
-Run [JSHint](http://www.jshint.com/).
-
-`$ smild browserify`
+`$ smild js`
 
 Packages JavaScript files with Browserify.
 
 `$ smild styles`
 
-Packages Compass files.
+Packages SASS files.
 
 `$ smild images`
 
@@ -129,9 +96,9 @@ Packages images.
 
 `$ smild doc`
 
-Generate documentation with *markdox*.
+Generate documentation with *Mocha doc*.
 
-`$ smild complexity`
+`$ smild analyze`
 
 Run cyclomatic complexity analysis with *plato*.
 
