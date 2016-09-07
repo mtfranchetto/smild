@@ -1,6 +1,6 @@
 {
     "name": "smild",
-    "version": "3.2.2",
+    "version": "3.2.3",
     "description": "The Javascript development system",
     "repository": {
         "type": "git",
@@ -39,7 +39,7 @@
         "gulp-sourcemaps": "~1.6.0",
         "gulp-streamify": "~1.0.2",
         "gulp-typescript": "~2.13.0",
-        "gulp-uglify": "~1.5.3",
+        "gulp-uglify": "~2.0.0",
         "gulp-webdriver": "^2.0.1",
         "isparta": "~4.0.0",
         "lodash": "^4.9.0",
