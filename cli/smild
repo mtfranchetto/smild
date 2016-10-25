@@ -23,6 +23,9 @@ program
 //Environment variables to be injected also in smildfile
 process.env.TARGET = target;
 process.env.DEBUG = !program.release;
+process.on('uncaughtException', (err) => {
+    console.error("Something went wrong during the build", err);
+});
 
 var smild = require('../');
 
