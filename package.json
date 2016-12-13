@@ -40,7 +40,6 @@
         "gulp-streamify": "~1.0.2",
         "gulp-typescript": "~2.13.0",
         "gulp-uglify": "~2.0.0",
-        "gulp-webdriver": "^2.0.1",
         "isparta": "~4.0.0",
         "lodash": "^4.9.0",
         "merge-stream": "~1.0.0",
