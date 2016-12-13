@@ -92,10 +92,6 @@ Packages SASS files.
 
 Packages images.
 
-`$ smild doc`
-
-Generate documentation with *Mocha doc*.
-
 `$ smild analyze`
 
 Run cyclomatic complexity analysis with *plato*.
