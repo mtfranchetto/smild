@@ -1,6 +1,10 @@
-import IBuildHelper from "./IBuildHelper";
+export interface IBuildHelper {
+    getOptions():any;
+    getDistFolder():string;
+    getTempFolder():string;
+}
 
-class BuildHelper implements IBuildHelper {
+export class BuildHelper implements IBuildHelper {
 
     getOptions(): any {
         return undefined;
@@ -15,5 +19,3 @@ class BuildHelper implements IBuildHelper {
     }
 
 }
-
-export default BuildHelper
