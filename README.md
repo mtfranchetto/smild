@@ -42,8 +42,6 @@ To create a project just type:
          "bundleFilename": "main",
          "distribution": "dist",
          "targets": "targets",
-         "babel": {},
-         "typescript": false,
          "styles": "styles",
          "test": "test/**/*",
          "images": "images",
