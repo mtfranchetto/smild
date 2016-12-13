@@ -1,7 +1,7 @@
 import ISettingsParser from "./ISettingsParser";
 import DefaultSettings from "./DefaultSettings";
 import * as _ from "lodash";
-const path = require("path");
+import * as path from "path";
 
 class SmildSettingsParser implements ISettingsParser {
 

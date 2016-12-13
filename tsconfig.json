@@ -1,8 +1,9 @@
 {
-    "compilerOptions": {
-        "jsx": "react",
-        "target": "es5",
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
-    }
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs"
+  }
 }
