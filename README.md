@@ -55,8 +55,7 @@ To create a project just type:
          "revisionExclude": [],
          "nodemon": {},
          "onPreBuild": [],
-         "onPostBuild": [],
-         "onRebundle": []
+         "onPostBuild": []
     }
 
 ###CLI reference:
