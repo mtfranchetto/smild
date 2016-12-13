@@ -92,10 +92,6 @@ Packages SASS files.
 
 Packages images.
 
-`$ smild analyze`
-
-Run cyclomatic complexity analysis with *plato*.
-
 ##Contribute
 
 I am using [Git Flow](https://github.com/nvie/gitflow).
