@@ -15,7 +15,7 @@ program
     .option('-t, --type [projectType]', 'Specify the project type for scaffolding')
     .arguments('<command> [target]')
     .action(function (_command, _target) {
-        command = _command || "tasks";
+        command = _command;
         target = _target || "main"
     })
     .parse(process.argv);
@@ -28,10 +28,7 @@ var smild = require('../');
 
 if (command && _.indexOf(smild.buildManager.getTasksList(), command) < 0) {
     console.log(chalk.red(command, "task not found."));
-    console.log();
-    console.log("Available tasks:");
-    console.log();
-    command = "tasks";
+    return;
 }
 
 smild.buildManager.setTarget(target);

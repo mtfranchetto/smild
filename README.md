@@ -42,8 +42,6 @@ To create a project just type:
          "bundleFilename": "main",
          "distribution": "dist",
          "targets": "targets",
-         "babel": {},
-         "typescript": false,
          "styles": "styles",
          "test": "test/**/*",
          "images": "images",
@@ -55,8 +53,7 @@ To create a project just type:
          "revisionExclude": [],
          "nodemon": {},
          "onPreBuild": [],
-         "onPostBuild": [],
-         "onRebundle": []
+         "onPostBuild": []
     }
 
 ###CLI reference:
@@ -91,14 +88,6 @@ Packages SASS files.
 `$ smild images`
 
 Packages images.
-
-`$ smild doc`
-
-Generate documentation with *Mocha doc*.
-
-`$ smild analyze`
-
-Run cyclomatic complexity analysis with *plato*.
 
 ##Contribute
 
