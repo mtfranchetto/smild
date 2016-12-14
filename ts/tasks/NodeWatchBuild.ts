@@ -1,10 +1,10 @@
-import {IBuildHelper} from "../BuildHelper";
+import {buildHelper as helper, taskRunner} from "../Container";
 const gulp = require('gulp');
 const nodemon = require("gulp-nodemon");
 import * as path from "path";
 import {merge} from "lodash";
 
-export default (helper: IBuildHelper) => {
+export default function NodeWatchBuild() => {
     let settings = helper.getSettings();
     nodemon(merge({
         script: 'bootstrapper.ts',

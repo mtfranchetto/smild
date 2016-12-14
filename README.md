@@ -47,7 +47,7 @@ To create a project just type:
          "images": "images",
          "views": "views",
          "assets": "assets",
-         "autoprefixerRules": ["last 2 versions", "> 1%"],
+         "autoprefixer": ["last 2 versions", "> 1%"],
          "scripts": "scripts/*",
          "manifest": null,
          "revisionExclude": [],

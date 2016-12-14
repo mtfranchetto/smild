@@ -1,14 +1,10 @@
-export interface ITaskRunner {
-    run(task: string): Promise<void>;
-}
-
 const gulp = require("gulp");
 
-export class TaskRunner implements ITaskRunner {
+class TaskRunner {
 
-    run(task: string): Promise<void> {
+    run(task: string|Function): Promise<void> {
         return new Promise((resolve, reject) => {
-            gulp.parallel(task)(function (error) {
+            gulp.parallel(task)(error => {
                 if (error) reject(error);
                 else resolve();
             });
@@ -26,3 +22,5 @@ export class TaskRunner implements ITaskRunner {
         process.exit(code);
     }
 }
+
+export default TaskRunner

@@ -1,4 +1,4 @@
-import {IBuildHelper} from "../BuildHelper";
+import {buildHelper as helper, taskRunner} from "../Container";
 import * as path from "path";
 import * as fs from "fs";
 const gulp = require('gulp'),
@@ -9,7 +9,7 @@ const gulp = require('gulp'),
     sass = require('gulp-sass'),
     refresh = require('gulp-livereload');
 
-export default (helper: IBuildHelper) => {
+export default function Styles() => {
     let settings = helper.getSettings();
     let bootstrapperPath = path.resolve(settings.targets, helper.getCurrentTarget(), 'bootstrapper.scss');
     if (!fs.existsSync(bootstrapperPath)) {
@@ -23,7 +23,7 @@ export default (helper: IBuildHelper) => {
         return stream
             .pipe(concat('main.css'))
             .pipe(applySass())
-            .pipe(autoprefixer({browsers: this._buildManager.options.autoprefixerRules}))
+            .pipe(autoprefixer({browsers: settings.autoprefixer}))
             .pipe(minify())
             .pipe(gulp.dest(helper.getTempFolder() + 'css/'));
     }
@@ -33,12 +33,12 @@ export default (helper: IBuildHelper) => {
             .pipe(sourcemaps.init())
             .pipe(concat('main.css'))
             .pipe(applySass())
-            .pipe(autoprefixer({browsers: this._buildManager.options.autoprefixerRules}))
+            .pipe(autoprefixer({browsers: settings.autoprefixerRules}))
             .pipe(sourcemaps.write())
             .pipe(gulp.dest(helper.getDistFolder() + 'css/'))
             .pipe(refresh({
-                start: this._buildManager.isWatching(),
-                port: this._buildManager.options.liveReloadPort
+                start: helper.isWatching(),
+                port: settings.liveReloadPort
             }));
     }
 

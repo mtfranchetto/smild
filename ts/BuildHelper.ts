@@ -2,28 +2,18 @@ import ISettingsParser from "./settings/ISettingsParser";
 const gulp = require("gulp");
 import * as fs from "fs";
 import * as path from "path";
+import {ProjectType} from "./ProjectType";
 
-export interface IBuildHelper {
-    getSettings(): any;
-    getDistFolder(): string;
-    getTempFolder(): string;
-    isRelease(): boolean;
-    isWatching(): boolean;
-    getCurrentTarget(): string;
-    setTarget(target: string);
-    getTargets(): string[];
-    enableWatch();
-    enableRelease();
-}
-
-export class BuildHelper implements IBuildHelper {
+class BuildHelper {
     private target: string = null;
     private release = false;
     private watching = false;
     private settings = null;
+    private projectType:ProjectType = null;
 
     constructor(settingsParser: ISettingsParser) {
         this.settings = settingsParser.parse();
+        this.projectType = this.settings.projectType;
     }
 
     getSettings(): any {
@@ -75,7 +65,7 @@ export class BuildHelper implements IBuildHelper {
                     directories.push(file);
             }
         });
-        
+
         return directories;
     }
 
@@ -87,7 +77,13 @@ export class BuildHelper implements IBuildHelper {
         this.release = true;
     }
 
-    getTasksList() {
-        return gulp.tree().nodes;
+    setProjectType(type:ProjectType) {
+        this.projectType = type;
+    }
+
+    getProjectType():ProjectType {
+        return this.projectType;
     }
 }
+
+export default BuildHelper

@@ -1,8 +1,8 @@
-import {IBuildHelper} from "../BuildHelper";
+import {buildHelper as helper, taskRunner} from "../Container";
 const gulp = require('gulp');
 const RevAll = require('gulp-rev-all');
 
-export default (helper: IBuildHelper) => {
+export default function Revision() => {
     let settings = helper.getSettings();
     if (!helper.isRelease()) return Promise.resolve();
     if (settings.revisionExclude === "*") {

@@ -1,8 +1,8 @@
-import {IBuildHelper} from "../BuildHelper";
+import {buildHelper as helper, taskRunner} from "../Container";
 const gulp = require('gulp');
 const manifest = require("gulp-manifest");
 
-export default (helper: IBuildHelper) => {
+export default function Manifest() => {
     let settings = helper.getSettings();
     if (!helper.isRelease() || !settings.manifest) return Promise.resolve();
     return gulp.src(helper.getDistFolder() + '**/*')

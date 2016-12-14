@@ -1,8 +1,8 @@
-import {IBuildHelper} from "../BuildHelper";
+import {buildHelper as helper, taskRunner} from "../Container";
 import * as express from "express";
 import {cyan} from "chalk";
 
-export default (helper: IBuildHelper) => {
+export default function Serve() => {
     let settings = helper.getSettings(),
         server = express();
 

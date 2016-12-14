@@ -1,1 +1,1 @@
-export type ProjectType = "frontend" | "frontend-module" | "nodejs";
+export type ProjectType = "frontend" | "module" | "nodejs";

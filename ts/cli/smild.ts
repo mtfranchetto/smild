@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
 import * as chalk from "chalk";
-import ProjectType from "../ProjectType";
-import {TaskRunner} from "../TaskRunner";
-import {BuildHelper} from "../BuildHelper";
 import * as _ from "lodash";
+import * as Mappings from "../tasks/Mappings";
+import {buildHelper, taskRunner} from "../Container";
 const prettyTime = require('pretty-hrtime');
 const gulp = require("gulp");
 
@@ -28,36 +27,26 @@ program
 process.env.TARGET = target;
 process.env.DEBUG = !program.release;
 
-const buildManager = new BuildHelper(),
-    taskRunner = new TaskRunner();
-
-_.forEach(availableTasks, TaskConstructor => {
-    var task = new TaskConstructor(buildManager, taskRunner);
-    if (_.indexOf(task.availableTo, buildManager.options.projectType) > -1)
-        gulp.task(task.command, gulp.series.apply(gulp, _.union(task.dependsOn, [_.bind(task.action, task)])));
-});
-
-const registeredTasks = buildManager.getTasksList();
-
 gulp.on('start', event => {
-    if (_.indexOf(registeredTasks, event.name) < 0) return;
-    console.log('Starting', '\'' + chalk.yellow(event.name) + '\'...');
+    if (_.has(Mappings, event.name))
+        console.log('Starting', '\'' + chalk.yellow(event.name) + '\'...');
 });
 
 gulp.on('stop', event => {
-    if (_.indexOf(registeredTasks, event.name) < 0) return;
-    console.log(
-        'Finished', '\'' + chalk.yellow(event.name) + '\'',
-        'after', chalk.blue(prettyTime(event.duration))
-    );
+    if (_.has(Mappings, event.name))
+        console.log(
+            'Finished', '\'' + chalk.yellow(event.name) + '\'',
+            'after', chalk.blue(prettyTime(event.duration))
+        );
 });
 
-if (command && _.indexOf(smild.buildManager.getTasksList(), command) < 0) {
-    console.log(chalk.red(command, "task not found."));
+if (command && !_.has(Mappings, command)) {
+    console.log(chalk.red(command, "not found."));
     return;
 }
 
-smild.buildManager.setTarget(target);
-smild.buildManager.isRelease(program.release || false);
-smild.buildManager.setProjectType(program.type || ProjectType.FRONTEND);
-smild.taskRunner.run(command);
+if (program.release)
+    buildHelper.enableRelease();
+buildHelper.setTarget(target);
+buildHelper.setProjectType(program.type || "frontend");
+taskRunner.run(Mappings[command]);
