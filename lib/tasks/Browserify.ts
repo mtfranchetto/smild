@@ -17,7 +17,7 @@ const watchify = require('watchify'),
 export default function Browserify() {
     let browserifySettings = {
             entries: [getBootstrapperPath()],
-            basedir: process.env.cwd(),
+            basedir: process.cwd(),
             debug: !helper.isRelease(),
             cache: {},
             packageCache: {},

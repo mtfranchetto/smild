@@ -50,12 +50,12 @@ class BuildHelper {
         this.target = target;
         process.env.TARGET = target;
         process.env.NODE_ENV = this.isRelease() ? "production" : "development";
-        process.env.CWD = process.env.cwd();
+        process.env.CWD = process.cwd();
         process.env.PACKAGE_VERSION = this.settings.projectPackage.version;
     }
 
     getTargets(): string[] {
-        let rootDir = path.resolve(process.env.cwd(), this.settings.targets),
+        let rootDir = path.resolve(process.cwd(), this.settings.targets),
             files = fs.readdirSync(rootDir),
             directories = [];
         _.forEach(files, function (file) {
