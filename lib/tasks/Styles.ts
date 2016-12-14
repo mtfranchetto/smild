@@ -9,7 +9,7 @@ const gulp = require('gulp'),
     sass = require('gulp-sass'),
     refresh = require('gulp-livereload');
 
-export default function Styles() => {
+export default function Styles() {
     let settings = helper.getSettings();
     let bootstrapperPath = path.resolve(settings.targets, helper.getCurrentTarget(), 'bootstrapper.scss');
     if (!fs.existsSync(bootstrapperPath)) {

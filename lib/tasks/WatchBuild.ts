@@ -5,7 +5,7 @@ import Serve from "./Serve";
 import Styles from "./Styles";
 const gulp = require("gulp");
 
-export default function WatchBuild() => {
+export default function WatchBuild() {
     let settings = helper.getSettings(),
         target = helper.getCurrentTarget();
     helper.enableWatch();

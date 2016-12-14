@@ -10,8 +10,7 @@ const gulp = require("gulp");
 let program = require("commander"),
     packageJson = require('../../package.json'),
     command = null,
-    target = null,
-    gulp = require('gulp');
+    target = null;
 
 program
     .version(packageJson.version)
@@ -42,11 +41,10 @@ gulp.on('stop', event => {
 
 if (command && !_.has(Mappings, command)) {
     console.log(chalk.red(command, "not found."));
-    return;
+} else {
+    buildHelper.setTarget(target);
+    buildHelper.setProjectType(program.type || "frontend");
+    if (program.release)
+        buildHelper.enableRelease();
+    taskRunner.run(Mappings[command]);
 }
-
-if (program.release)
-    buildHelper.enableRelease();
-buildHelper.setTarget(target);
-buildHelper.setProjectType(program.type || "frontend");
-taskRunner.run(Mappings[command]);

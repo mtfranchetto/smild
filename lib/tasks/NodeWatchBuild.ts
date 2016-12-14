@@ -4,7 +4,7 @@ const nodemon = require("gulp-nodemon");
 import * as path from "path";
 import {merge} from "lodash";
 
-export default function NodeWatchBuild() => {
+export default function NodeWatchBuild() {
     let settings = helper.getSettings();
     nodemon(merge({
         script: 'bootstrapper.ts',

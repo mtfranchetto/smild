@@ -2,7 +2,8 @@ import ISettingsParser from "./settings/ISettingsParser";
 const gulp = require("gulp");
 import * as fs from "fs";
 import * as path from "path";
-import {ProjectType} from "./ProjectType";
+import * as _ from "lodash";
+import ProjectType from "./ProjectType";
 
 class BuildHelper {
     private target: string = null;

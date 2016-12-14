@@ -14,7 +14,7 @@ const watchify = require('watchify'),
     refresh = require('gulp-livereload'),
     buffer = require('vinyl-buffer');
 
-export default function Browserify() => {
+export default function Browserify() {
     let browserifySettings = {
             entries: [getBootstrapperPath()],
             basedir: process.env.cwd(),

@@ -9,7 +9,7 @@ import Browserify from "./Browserify";
 import Revision from "./Revision";
 import Manifest from "./Manifest";
 
-export default function Build() => {
+export default function Build() {
     let targets: string[] = [];
     if (helper.isWatching() || helper.getCurrentTarget() !== 'all') {
         targets = [helper.getCurrentTarget()];
