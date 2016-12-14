@@ -1,12 +1,11 @@
 import ProjectType from "../ProjectType";
 
-export default (projectType) => {
-    projectType = projectType || ProjectType.FRONTEND;
+export default (projectType: ProjectType) => {
+    projectType = projectType || "frontend";
     return {
         "projectType": projectType,
         "port": 5000,
         "liveReloadPort": 35729,
-        "bundleFilename": "main",
         "distribution": "dist",
         "targets": "targets",
         "styles": "styles",
@@ -15,7 +14,7 @@ export default (projectType) => {
         "views": "views",
         "assets": "assets",
         "autoprefixerRules": ["last 2 versions", "> 1%"],
-        "scripts": projectType === ProjectType.FRONTEND ? "scripts/*" : "lib/*",
+        "scripts": projectType === "frontend" ? "scripts/*" : "lib/*",
         "manifest": null,
         "revisionExclude": [],
         "nodemon": {},

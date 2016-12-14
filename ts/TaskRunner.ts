@@ -1,7 +1,10 @@
-import ITaskRunner from "./ITaskRunner";
+export interface ITaskRunner {
+    run(task: string): Promise<void>;
+}
+
 const gulp = require("gulp");
 
-class GulpTaskRunner implements ITaskRunner {
+export class TaskRunner implements ITaskRunner {
 
     run(task: string): Promise<void> {
         return new Promise((resolve, reject) => {
@@ -22,7 +25,4 @@ class GulpTaskRunner implements ITaskRunner {
         }
         process.exit(code);
     }
-
 }
-
-export default GulpTaskRunner

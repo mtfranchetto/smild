@@ -1,5 +1,5 @@
 import {IBuildHelper} from "./BuildHelper";
-import ITaskRunner from "./ITaskRunner";
+import {ITaskRunner} from "./TaskRunner";
 
 interface Task {
     (helper:IBuildHelper, taskRunner?:ITaskRunner);

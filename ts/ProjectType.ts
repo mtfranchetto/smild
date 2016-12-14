@@ -1,5 +1,1 @@
-export default {
-    FRONTEND: "frontend",
-    FRONTEND_MODULE: "frontend-module",
-    NODEJS: "nodejs"
-}
+export type ProjectType = "frontend" | "frontend-module" | "nodejs";
