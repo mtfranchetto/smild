@@ -43,13 +43,16 @@
     "lodash": "^4.17.2",
     "mocha": "~2.4.5",
     "pretty-hrtime": "~1.0.0",
-    "ts-node": "^0.7.1",
-    "tsify": "^0.14.2",
-    "typescript": "1.8.7",
+    "ts-node": "^1.7.2",
+    "tsify": "^2.0.3",
+    "typescript": "^2.1.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "~1.1.0",
     "vinyl-transform": "~1.0.0",
     "watchify": "~3.7.0"
+  },
+  "scripts": {
+    "build": "tsc --outDir ./dist"
   },
   "engines": {
     "node": ">=5"
