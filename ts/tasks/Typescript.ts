@@ -1,7 +1,7 @@
 import {IBuildHelper} from "../BuildHelper";
 import * as browserify from "browserify";
 import * as path from "path";
-import TypescriptSettingsParser from "../options/TypescriptSettingsParser";
+import TypescriptSettingsParser from "../settings/TypescriptSettingsParser";
 const watchify = require('watchify'),
     gulp = require("gulp"),
     source = require('vinyl-source-stream'),
@@ -38,7 +38,7 @@ export default (helper: IBuildHelper) => {
             console.error(err.message);
             this.emit("end");
         })
-        .pipe(source(smildSettings.bundleFilename + '.js'));
+        .pipe(source('main.js'));
 
     function getBootstrapperPath() {
         let target = helper.getCurrentTarget();
@@ -48,7 +48,7 @@ export default (helper: IBuildHelper) => {
     function rebundleDevelopment(bundleStream) {
         return bundleStream
             .pipe(transform(() => {
-                return exorcist(helper.getTempFolder() + 'js/' + smildSettings.bundleFilename + '.map.js');
+                return exorcist(helper.getTempFolder() + 'js/main.map.js');
             }))
             .pipe(gulp.dest(helper.getTempFolder() + 'js'))
             .pipe(refresh({

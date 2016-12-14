@@ -1,5 +1,4 @@
 import ProjectType from "../ProjectType";
-import * as path from "path";
 
 export default (projectType) => {
     projectType = projectType || ProjectType.FRONTEND;
