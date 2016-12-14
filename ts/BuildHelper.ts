@@ -1,7 +1,13 @@
 export interface IBuildHelper {
-    getOptions():any;
+    getSettings():any;
     getDistFolder():string;
     getTempFolder():string;
+    isRelease():boolean;
+    isWatching():boolean;
+    getCurrentTarget():string;
+    setTarget(target:string);
+    getTargets():string[];
+    enableWatch();
 }
 
 export class BuildHelper implements IBuildHelper {
