@@ -9,8 +9,8 @@ const gulp = require("gulp");
 
 export const frontend = {
     "clean": Clean,
-    "build": Build,
-    "watch-build": gulp.series(Clean, WatchBuild),
+    "build": gulp.series(Clean, Build),
+    "watch-build": WatchBuild,
     "test": Test,
     "new": Scaffolding
 };

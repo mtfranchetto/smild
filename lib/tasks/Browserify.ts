@@ -15,7 +15,8 @@ const watchify = require('watchify'),
     buffer = require('vinyl-buffer');
 
 export default function Browserify() {
-    let browserifySettings = {
+    let smildSettings = helper.getSettings(),
+        browserifySettings = {
             entries: [getBootstrapperPath()],
             basedir: process.cwd(),
             debug: !helper.isRelease(),
@@ -23,7 +24,6 @@ export default function Browserify() {
             packageCache: {},
             fullPaths: true
         },
-        smildSettings = helper.getSettings(),
         bundleStream = helper.isWatching() ? watchify(browserify(browserifySettings), {
             poll: /^win/.test(process.platform)
         }) : browserify(browserifySettings);
@@ -48,9 +48,9 @@ export default function Browserify() {
     function rebundleDevelopment(bundleStream) {
         return bundleStream
             .pipe(transform(() => {
-                return exorcist(helper.getTempFolder() + 'js/main.map.js');
+                return exorcist(helper.getTempFolder() + '/js/main.map.js');
             }))
-            .pipe(gulp.dest(helper.getTempFolder() + 'js'))
+            .pipe(gulp.dest(helper.getTempFolder() + '/js'))
             .pipe(refresh({
                 start: helper.isWatching(),
                 port: smildSettings.liveReloadPort

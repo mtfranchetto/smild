@@ -11,7 +11,7 @@ const gulp = require('gulp'),
 
 export default function Styles() {
     let settings = helper.getSettings();
-    let bootstrapperPath = path.resolve(settings.targets, helper.getCurrentTarget(), 'bootstrapper.scss');
+    let bootstrapperPath = path.posix.resolve(settings.targets, helper.getCurrentTarget(), 'bootstrapper.scss');
     if (!fs.existsSync(bootstrapperPath)) {
         console.warn("Styles bootstrapper not found at path", bootstrapperPath, ", skipping styles build process.");
         return Promise.resolve();
@@ -25,7 +25,7 @@ export default function Styles() {
             .pipe(applySass())
             .pipe(autoprefixer({browsers: settings.autoprefixer}))
             .pipe(minify())
-            .pipe(gulp.dest(helper.getTempFolder() + 'css/'));
+            .pipe(gulp.dest(helper.getTempFolder() + '/css'));
     }
 
     function bundleDevelopment(stream) {
@@ -35,7 +35,7 @@ export default function Styles() {
             .pipe(applySass())
             .pipe(autoprefixer({browsers: settings.autoprefixerRules}))
             .pipe(sourcemaps.write())
-            .pipe(gulp.dest(helper.getDistFolder() + 'css/'))
+            .pipe(gulp.dest(helper.getDistFolder() + '/css'))
             .pipe(refresh({
                 start: helper.isWatching(),
                 port: settings.liveReloadPort
