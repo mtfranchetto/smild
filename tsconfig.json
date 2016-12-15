@@ -5,5 +5,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs"
-  }
+  },
+  "include": [
+    "lib"
+  ],
+  "exclude": [
+    "scaffolding"
+  ]
 }

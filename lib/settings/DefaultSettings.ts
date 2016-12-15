@@ -9,7 +9,7 @@ export default  {
     images: "images",
     assets: "assets",
     autoprefixer: ["last 2 versions", "> 1%"],
-    scripts: "scripts/*",
+    scripts: "scripts/**/*.ts",
     manifest: null,
     revisionExclude: [],
     nodemon: {},
