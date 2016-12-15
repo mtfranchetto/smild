@@ -17,7 +17,7 @@ class SmildSettingsParser implements ISettingsParser {
         } catch (error) {
             smildFile = {};
         }
-        return _.assign(DefaultSettings(smildFile.projectType), smildFile, {
+        return _.assign(DefaultSettings, smildFile, {
             projectPackage: packageJson
         });
     }
