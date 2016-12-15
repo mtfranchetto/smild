@@ -22,7 +22,7 @@ export const module = {
     "new": Scaffolding
 };
 
-export const node = {
+export const nodejs = {
     "clean": Clean,
     "build": Typescript,
     "watch-build": NodeWatchBuild,

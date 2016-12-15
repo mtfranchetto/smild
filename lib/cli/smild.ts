@@ -26,7 +26,8 @@ process.env.TARGET = target;
 process.env.DEBUG = !program.release;
 
 buildHelper.setTarget(target);
-buildHelper.setProjectType(program.type || "frontend");
+if (program.type)
+    buildHelper.setProjectType(program.type);
 if (program.release)
     buildHelper.enableRelease();
 
@@ -35,6 +36,6 @@ if (command && !hasCommandRegistered(command))
 else
     taskRunner.run(Mappings[buildHelper.getProjectType()][command], command);
 
-function hasCommandRegistered(taskName:string) {
+function hasCommandRegistered(taskName: string) {
     return _.has(Mappings[buildHelper.getProjectType()], taskName);
 }
