@@ -60,7 +60,7 @@ export default function Browserify() {
         return bundleStream
             .pipe(streamify(uglify(smildSettings.uglifyjs)))
             .pipe(buffer())
-            .pipe(gulp.dest(helper.getTempFolder() + 'js'));
+            .pipe(gulp.dest(helper.getTempFolder() + '/js'));
     }
 
     return helper.isRelease() ? rebundleRelease(bundleStream) : rebundleDevelopment(bundleStream);

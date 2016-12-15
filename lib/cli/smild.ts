@@ -4,6 +4,7 @@ import * as chalk from "chalk";
 import * as _ from "lodash";
 import * as Mappings from "../tasks/Mappings";
 import {buildHelper, taskRunner} from "../Container";
+import Util from "../Util";
 const gulp = require("gulp");
 
 let program = require("commander"),
@@ -21,6 +22,15 @@ program
         target = _target || "main"
     })
     .parse(process.argv);
+
+gulp.on('error', event => {
+    if (hasCommandRegistered(event.name))
+        console.log(
+            '\'' + chalk.yellow(event.name) + '\'',
+            chalk.red('errored')
+        );
+    console.error(Util.formatError(event));
+});
 
 process.env.TARGET = target;
 process.env.DEBUG = !program.release;

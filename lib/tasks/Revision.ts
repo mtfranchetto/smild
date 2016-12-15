@@ -7,7 +7,7 @@ export default function Revision() {
     let settings = helper.getSettings();
     if (!helper.isRelease()) return Promise.resolve();
     if (settings.revisionExclude === "*") {
-        return gulp.src(helper.getTempFolder() + '**')
+        return gulp.src(helper.getTempFolder() + '/**')
             .pipe(gulp.dest(helper.getDistFolder()));
     }
     let excludedFiles = _.union(
@@ -17,7 +17,7 @@ export default function Revision() {
             dontRenameFile: excludedFiles,
             dontUpdateReference: excludedFiles
         });
-    return gulp.src(helper.getTempFolder() + '**')
+    return gulp.src(helper.getTempFolder() + '/**')
         .pipe(revTransform.revision())
         .pipe(gulp.dest(helper.getDistFolder()));
 }
