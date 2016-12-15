@@ -7,7 +7,6 @@ const watchify = require('watchify'),
     source = require('vinyl-source-stream'),
     streamify = require('gulp-streamify'),
     uglify = require('gulp-uglify'),
-    header = require('gulp-header'),
     transform = require('vinyl-transform'),
     exorcist = require('exorcist'),
     tsify = require('tsify'),
@@ -61,10 +60,6 @@ export default function Browserify() {
         return bundleStream
             .pipe(streamify(uglify(smildSettings.uglifyjs)))
             .pipe(buffer())
-            .pipe(header('/*\n\n${name} : ${version}\n\n*/\n\n', {
-                name: smildSettings.projectPackage.name,
-                version: smildSettings.projectPackage.version
-            }))
             .pipe(gulp.dest(helper.getTempFolder() + 'js'));
     }
 
