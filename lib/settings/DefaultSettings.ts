@@ -5,7 +5,7 @@ export default  {
     distribution: "dist",
     targets: "targets",
     styles: "styles",
-    test: " test/**/*.ts",
+    test: "test/**/*.ts",
     images: "images",
     assets: "assets",
     autoprefixer: ["last 2 versions", "> 1%"],
