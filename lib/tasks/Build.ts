@@ -9,6 +9,7 @@ import Browserify from "./Browserify";
 import Revision from "./Revision";
 import Manifest from "./Manifest";
 import CopyIndex from "./CopyIndex";
+import {PreBuild, PostBuild} from "./Hooks";
 
 export default function Build() {
     let targets: string[] = [];
@@ -21,7 +22,7 @@ export default function Build() {
         .mapSeries((target: string) => {
             helper.setTarget(target);
             console.log(cyan("Building target", target));
-            return taskRunner.run(gulp.series(gulp.parallel([CopyIndex, Styles, Images, Assets, Browserify]), Revision, Manifest))
+            return taskRunner.run(gulp.series(PreBuild, gulp.parallel([CopyIndex, Styles, Images, Assets, Browserify]), Revision, Manifest, PostBuild))
                 .then(() => console.log(cyan("Finished target", target)));
         });
 }

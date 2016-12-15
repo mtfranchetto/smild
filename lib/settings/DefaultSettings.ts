@@ -1,3 +1,5 @@
+import {VoidHook} from "../tasks/Hooks";
+
 export default  {
     projectType: "frontend",
     port: 5000,
@@ -14,6 +16,6 @@ export default  {
     revisionExclude: [],
     nodemon: {},
     uglifyjs: {},
-    onPreBuild: [],
-    onPostBuild: []
+    preBuild: VoidHook,
+    postBuild: VoidHook
 }
