@@ -3,7 +3,7 @@ const gulp = require("gulp");
 const run = require("gulp-run");
 import * as path from "path";
 
-export default function Test(cb) {
+export default function Test() {
     let settings = helper.getSettings(),
         modulesPath = path.resolve(__dirname, "../../node_modules"),
         nyc = path.join(modulesPath, '.bin/nyc'),
