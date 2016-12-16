@@ -11,7 +11,7 @@ export default  {
     images: "images",
     assets: "assets",
     autoprefixer: ["last 2 versions", "> 1%"],
-    scripts: "scripts/**/*.ts",
+    scripts: "scripts/**/*.{ts,tsx}",
     manifest: null,
     revisionExclude: [],
     nodemon: {},
