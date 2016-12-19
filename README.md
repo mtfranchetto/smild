@@ -2,7 +2,7 @@
 
 ![smild](http://i62.tinypic.com/xf1cgk.png)
 
-##The Javascript development system
+##The Typescript development system
 
 Isomorphic tool to scaffold, build and test frontend/backend projects. Here's what you'll receive with the package:
 
