@@ -64,6 +64,10 @@ On a NodeJS project *nodemon* is used to keep the app rebuilding.
 
 Run tests with **Mocha**
 
+`$ smild coverage`
+
+Get projection coverage with **nyc**
+
 ##Contribute
 
 I am using [Git Flow](https://github.com/nvie/gitflow).
