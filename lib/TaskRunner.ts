@@ -7,7 +7,7 @@ class TaskRunner {
         let start = +new Date();
         if (description)
             console.log('Starting', chalk.yellow(description));
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             gulp.parallel(task)(error => {
                 if (error) return reject(error);
                 if (description)
