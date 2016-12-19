@@ -17,5 +17,8 @@ export default function Test() {
     nycSettings += " --sourceMap true --instrument true";
     return run(`${nyc} ${nycSettings} --require ${tsNode} ${mocha} '${settings.test}'`)
         .exec()
-        .on("error", (error) => console.error(error));
+        .on("error", (error) => {
+            console.error(error);
+            process.exit(1);
+        });
 }
