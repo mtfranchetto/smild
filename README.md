@@ -4,27 +4,18 @@
 
 ##The Javascript development system
 
-###Why
-The idea behind it's simple: enable **code reuse** and maximize **efficiency**.
+Isomorphic tool to scaffold, build and test frontend/backend projects. Here's what you'll receive with the package:
 
-By using a set of tools the build system can improve code reusing by requiring external modules using a package manager and build the app continuously using files watchers.
-
-To wrap up, here's a list of the things available:
-
-* JavaScript bundle
-* Files watchers
+* Typescript bundling
 * Live reloading
-* CSS automatic vendor prefixes
-* SASS support
+* Sass support
 * Multi target builds
-* Code uglify
+* Minification
 * Source maps
-* TDD/BDD support
+* BDD support
 * Code coverage
-* Doc generation
-* Project scaffolding
-* Code static analysis
-* Nodejs support
+* Scaffolding
+* NodeJS support
 
 ###Install
 `npm install smild -g`
@@ -32,75 +23,46 @@ To wrap up, here's a list of the things available:
 ###Usage
 
 To create a project just type:
-`smild create [projectName]`
+`smild new [projectName] --type [frontend|module|nodejs]`
 
-
-###Options
+###Default settings
 
     {
-         "projectType": "frontend",
-         "port": 5000,
-         "liveReloadPort": 35729,
-         "bundleFilename": "main",
-         "distribution": "dist",
-         "targets": "targets",
-         "babel": {},
-         "typescript": false,
-         "styles": "styles",
-         "test": "test/**/*",
-         "images": "images",
-         "views": "views",
-         "assets": "assets",
-         "autoprefixerRules": ["last 2 versions", "> 1%"],
-         "scripts": "scripts/*",
-         "manifest": null,
-         "revisionExclude": [],
-         "nodemon": {},
-         "onPreBuild": [],
-         "onPostBuild": [],
-         "onRebundle": []
+        projectType: "frontend",
+        port: 5000,
+        liveReloadPort: 35729,
+        distribution: "dist",
+        targets: "targets",
+        styles: "styles",
+        test: "test/**/*.ts",
+        images: "images",
+        assets: "assets",
+        autoprefixer: ["last 2 versions", "> 1%"],
+        scripts: "scripts/**/*.{ts,tsx}",
+        manifest: null,
+        revisionExclude: [],
+        nodemon: {},
+        uglifyjs: {},
+        preBuild: VoidHook,
+        postBuild: VoidHook
     }
 
 ###CLI reference:
 
 `$ smild build [target|all]`
 
-Default task, used to package JS, SASS files, images and templates.
+Bundle the application or the module.
 
-Optional: specificy a --release option to enable uglifier and revisioning.
+Optional: specify a --release option to enable minification and revisioning.
 
 `$ smild watch-build`
 
-Runs the build task every time a dependency change is detected. [Watchify](https://github.com/substack/watchify) is used in this case.
-With a nodejs project it uses Nodemon to keep the app rebuilding.
+Runs the build task every time a dependency change is detected with *watchify*.
+On a NodeJS project *nodemon* is used to keep the app rebuilding.
 
 `$ smild test`
 
 Run tests with **Mocha**
-
-`$ smild serve`
-
-Exposes the build through an [Express](http://expressjs.com/) application.
-
-`$ smild js`
-
-Packages JavaScript files with Browserify.
-
-`$ smild styles`
-
-Packages SASS files.
-
-`$ smild images`
-
-Packages images.
-
-`$ smild doc`
-
-Generate documentation with *Mocha doc*.
-
-`$ smild analyze`
-
-Run cyclomatic complexity analysis with *plato*.
 
 ##Contribute
 
