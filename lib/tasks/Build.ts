@@ -6,7 +6,6 @@ import Images from "./Images";
 import Assets from "./Assets";
 import Browserify from "./Browserify";
 import Revision from "./Revision";
-import Manifest from "./Manifest";
 import CopyIndex from "./CopyIndex";
 import {PreBuild, PostBuild} from "./Hooks";
 import {map} from "lodash";
@@ -21,7 +20,7 @@ export default function Build() {
     return Promise.all(map(targets, async function (target: string) {
         helper.setTarget(target);
         console.log(cyan("Building target", target));
-        await taskRunner.run(gulp.series(PreBuild, gulp.parallel([CopyIndex, Styles, Images, Assets, Browserify]), Revision, Manifest, PostBuild));
+        await taskRunner.run(gulp.series(PreBuild, gulp.parallel([CopyIndex, Styles, Images, Assets, Browserify]), Revision, PostBuild));
         console.log(cyan("Finished target", target));
     }));
 }
