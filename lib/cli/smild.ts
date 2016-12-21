@@ -41,10 +41,12 @@ if (program.type)
 if (program.release)
     buildHelper.enableRelease();
 
-if (command && !hasCommandRegistered(command))
+if (command && !hasCommandRegistered(command)) {
     console.log(chalk.red(command, "not found."));
-else
+    process.exit(1);
+} else {
     taskRunner.run(Mappings[buildHelper.getProjectType()][command], command);
+}
 
 function hasCommandRegistered(taskName: string) {
     return _.has(Mappings[buildHelper.getProjectType()], taskName);
