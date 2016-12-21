@@ -30,14 +30,7 @@ export default function Browserify() {
     bundleStream = bundleStream.plugin(tsify, new TypescriptSettingsParser().parse().compilerOptions);
 
     if (helper.isWatching())
-        bundleStream.on('update', () => this.rebundle(bundleStream));
-
-    bundleStream = bundleStream.bundle()
-        .on('error', function (err) {
-            console.error(err.message);
-            this.emit("end");
-        })
-        .pipe(source('main.js'));
+        bundleStream.on('update', () => rebundleDevelopment(bundleStream));
 
     function getBootstrapperPath() {
         let target = helper.getCurrentTarget();
@@ -45,7 +38,12 @@ export default function Browserify() {
     }
 
     function rebundleDevelopment(bundleStream) {
-        return bundleStream
+        return bundleStream.bundle()
+            .on('error', function (err) {
+                console.error(err.message);
+                this.emit("end");
+            })
+            .pipe(source('main.js'))
             .pipe(transform(() => {
                 return exorcist(helper.getTempFolder() + '/js/main.map.js');
             }))
@@ -57,7 +55,12 @@ export default function Browserify() {
     }
 
     function rebundleRelease(bundleStream) {
-        return bundleStream
+        return bundleStream.bundle()
+            .on('error', function (err) {
+                console.error(err.message);
+                this.emit("end");
+            })
+            .pipe(source('main.js'))
             .pipe(streamify(uglify(smildSettings.uglifyjs)))
             .pipe(buffer())
             .pipe(gulp.dest(helper.getTempFolder() + '/js'));
