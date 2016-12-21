@@ -12,7 +12,6 @@ export default  {
     assets: "assets",
     autoprefixer: ["last 2 versions", "> 1%"],
     scripts: "scripts/**/*.{ts,tsx}",
-    manifest: null,
     revisionExclude: [],
     nodemon: {},
     uglifyjs: {},
