@@ -45,7 +45,17 @@ if (command && !hasCommandRegistered(command)) {
     console.log(chalk.red(command, "not found."));
     process.exit(1);
 } else {
-    taskRunner.run(Mappings[buildHelper.getProjectType()][command], command);
+    run(command);
+}
+
+async function run(command:string) {
+    let start = +new Date();
+    console.log('Starting', chalk.yellow(command));
+    await taskRunner.run(Mappings[buildHelper.getProjectType()][command]);
+    console.log(
+        'Finished', chalk.yellow(command),
+        'after', chalk.yellow(((+new Date() - start) / 1000).toFixed(1) + 's')
+    );
 }
 
 function hasCommandRegistered(taskName: string) {
