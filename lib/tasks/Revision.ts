@@ -12,12 +12,11 @@ export default function Revision() {
     }
     let excludedFiles = _.union(
         ['favicon.ico', 'index.html'],
-        _.map(settings.revisionExclude, (rule:any) => rule.regexp ? new RegExp(rule.pattern) : rule.pattern)),
-        revTransform = new RevAll({
+        _.map(settings.revisionExclude, (rule: any) => rule.regexp ? new RegExp(rule.pattern) : rule.pattern));
+    return gulp.src(helper.getTempFolder() + '/**')
+        .pipe(RevAll.revision({
             dontRenameFile: excludedFiles,
             dontUpdateReference: excludedFiles
-        });
-    return gulp.src(helper.getTempFolder() + '/**')
-        .pipe(revTransform.revision())
+        }))
         .pipe(gulp.dest(helper.getDistFolder()));
 }

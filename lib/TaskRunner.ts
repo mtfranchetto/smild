@@ -1,20 +1,11 @@
 const gulp = require("gulp");
-import * as chalk from "chalk";
 
 class TaskRunner {
 
-    run(task: Function, description?:string): Promise<void> {
-        let start = +new Date();
-        if (description)
-            console.log('Starting', chalk.yellow(description));
+    run(task: Function): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             gulp.parallel(task)(error => {
                 if (error) return reject(error);
-                if (description)
-                    console.log(
-                        'Finished', chalk.yellow(description),
-                        'after', chalk.yellow(((+new Date() - start) / 1000).toFixed(1) + 's')
-                    );
                 resolve();
             });
         }).catch(error => this.exit(1));
