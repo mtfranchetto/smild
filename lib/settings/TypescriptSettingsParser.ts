@@ -8,7 +8,9 @@ class TypescriptSettingsParser implements ISettingsParser {
         try {
             return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'tsconfig.json'), 'utf8'));
         } catch (error) {
-            return JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'tsconfig.json'), 'utf8'));
+            console.log("Error while reading tsconfig.json");
+            console.error(error);
+            return {};
         }
     }
 
