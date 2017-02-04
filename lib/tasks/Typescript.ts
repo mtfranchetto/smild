@@ -1,4 +1,4 @@
-import {buildHelper as helper, taskRunner} from "../Container";
+import {buildHelper as helper} from "../Container";
 const gulp = require("gulp");
 const ts = require("gulp-typescript");
 
