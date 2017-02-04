@@ -6,7 +6,7 @@ import Styles from "./Styles";
 import Clean from "./Clean";
 const gulp = require("gulp");
 
-export default function WatchBuild() {
+export default function FrontendWatchBuild() {
     let settings = helper.getSettings(),
         target = helper.getCurrentTarget();
     helper.enableWatch();
