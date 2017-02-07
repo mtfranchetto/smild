@@ -6,5 +6,10 @@ export default function Typescript() {
     let settings = helper.getSettings(),
         tsProject = ts.createProject("tsconfig.json");
 
-    return gulp.src(settings.scripts).pipe(tsProject()).js.pipe(gulp.dest(settings.distribution));
+    return gulp.src(settings.scripts)
+        .pipe(tsProject())
+        .on("error", function (error) {
+            process.exit(1);
+        })
+        .js.pipe(gulp.dest(settings.distribution));
 }
