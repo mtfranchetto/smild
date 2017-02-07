@@ -10,6 +10,7 @@ import ModuleWatchBuild from "./ModuleWatchBuild";
 const gulp = require("gulp");
 
 export const frontend = {
+    "clean": Clean,
     "build": gulp.series(Clean, Build),
     "watch-build": FrontendWatchBuild,
     "test": Test,
@@ -18,6 +19,7 @@ export const frontend = {
 };
 
 export const module = {
+    "clean": Clean,
     "build": Typescript,
     "watch-build": ModuleWatchBuild,
     "test": Test,
@@ -26,6 +28,7 @@ export const module = {
 };
 
 export const nodejs = {
+    "clean": Clean,
     "build": Typescript,
     "watch-build": NodeWatchBuild,
     "test": Test,
