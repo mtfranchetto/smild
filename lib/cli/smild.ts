@@ -19,7 +19,7 @@ program
     .arguments('<command> [target]')
     .action(function (_command, _target) {
         command = _command;
-        target = _target || "main"
+        target = _target || (command !== "new" ? "main" : null); //Don't set default target if scaffolding
     })
     .parse(process.argv);
 
@@ -48,7 +48,7 @@ if (command && !hasCommandRegistered(command)) {
     run(command);
 }
 
-async function run(command:string) {
+async function run(command: string) {
     let start = +new Date();
     console.log('Starting', chalk.yellow(command));
     await taskRunner.run(Mappings[buildHelper.getProjectType()][command]);
