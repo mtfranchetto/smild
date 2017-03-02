@@ -1,6 +1,5 @@
 node_modules
 lib
-tsconfig.json
 .git
 .idea
 .travis.yml
