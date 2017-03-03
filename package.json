@@ -44,7 +44,7 @@
     "nyc": "~10.0.0",
     "ts-node": "~1.7.2",
     "tsify": "~2.0.3",
-    "typescript": "~2.2.1",
+    "typescript": "~2.1.0",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.1.0",
     "vinyl-transform": "~1.0.0",
