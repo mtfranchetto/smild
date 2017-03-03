@@ -8,7 +8,7 @@ import Browserify from "./Browserify";
 import Revision from "./Revision";
 import CopyIndex from "./CopyIndex";
 import {PreBuild, PostBuild} from "./Hooks";
-import {map} from "lodash";
+import * as bluebird from "bluebird";
 
 export default function Build() {
     let targets: string[] = [];
@@ -17,12 +17,13 @@ export default function Build() {
     } else {
         targets = helper.getTargets();
     }
-    return Promise.all(map(targets, async function (target: string) {
-        helper.setTarget(target);
-        console.log(cyan("Building target", target));
-        await taskRunner.run(gulp.series(PreBuild, gulp.parallel([CopyIndex, Styles, Images, Assets, Browserify]), Revision, PostBuild));
-        console.log(cyan("Finished target", target));
-    }));
+    return bluebird.resolve(targets)
+        .mapSeries(async function (target: string) {
+            helper.setTarget(target);
+            console.log(cyan("Building target", target));
+            await taskRunner.run(gulp.series(PreBuild, gulp.parallel([CopyIndex, Styles, Images, Assets, Browserify]), Revision, PostBuild));
+            console.log(cyan("Finished target", target));
+        });
 }
 
 
