@@ -58,10 +58,6 @@ export default function Browserify() {
 
     function rebundleRelease(bundleStream) {
         return bundleStream.bundle()
-            .on('error', function (err) {
-                console.error(err.message);
-                this.emit("end");
-            })
             .pipe(source('main.js'))
             .pipe(streamify(uglify(smildSettings.uglifyjs)))
             .pipe(buffer())
