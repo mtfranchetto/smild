@@ -1,7 +1,7 @@
 import * as browserify from "browserify";
 import * as path from "path";
 import TypescriptSettingsParser from "../settings/TypescriptSettingsParser";
-import {buildHelper as helper, taskRunner} from "../Container";
+import {buildHelper as helper, taskRunner, buildHelper} from "../Container";
 const watchify = require('watchify'),
     gulp = require("gulp"),
     source = require('vinyl-source-stream'),
@@ -24,8 +24,8 @@ export default function Browserify() {
             fullPaths: true
         },
         bundleStream = helper.isWatching() ? watchify(browserify(browserifySettings), {
-            poll: /^win/.test(process.platform)
-        }) : browserify(browserifySettings);
+                poll: /^win/.test(process.platform)
+            }) : browserify(browserifySettings);
 
     bundleStream = bundleStream.plugin(tsify, new TypescriptSettingsParser().parse().compilerOptions);
 
@@ -38,11 +38,13 @@ export default function Browserify() {
     }
 
     function rebundleDevelopment(bundleStream) {
-        return bundleStream.bundle()
-            .on('error', function (err) {
+        let bundle = bundleStream.bundle();
+        if (buildHelper.isWatching())
+            bundle = bundle.on('error', function (err) {
                 console.error(err.message);
                 this.emit("end");
-            })
+            });
+        return bundle
             .pipe(source('main.js'))
             .pipe(transform(() => {
                 return exorcist(helper.getTempFolder() + '/js/main.map.js');

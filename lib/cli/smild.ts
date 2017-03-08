@@ -6,6 +6,7 @@ import * as Mappings from "../tasks/Mappings";
 import {buildHelper, taskRunner} from "../Container";
 import Util from "../Util";
 const gulp = require("gulp");
+import {all as allTasks} from "../tasks/Exports";
 
 let program = require("commander"),
     packageJson = require('../../package.json'),
@@ -29,7 +30,9 @@ gulp.on('error', event => {
             '\'' + chalk.yellow(event.name) + '\'',
             chalk.red('errored')
         );
-    console.error(Util.formatError(event));
+    let registeredTask = _.find<any>(allTasks, task => task.name === event.name);
+    if (registeredTask)
+        console.error(Util.formatError(event));
 });
 
 process.env.TARGET = target;
