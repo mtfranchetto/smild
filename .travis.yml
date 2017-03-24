@@ -11,6 +11,5 @@ deploy:
   api_key:
     secure: UP72rQYx6QSpdLTzTCj7A+ui4Lhlz6Y7fFOghFoTUWt2Cuhn/7rxVowGEU0YYDYOx5H2Wefp8GrWyXaUqFPVms9Wf3VRp1FbwIAJYuP8Iq2DNhofAUPQYUwhCAp8Uiebvg8sws1aayBKZmBXR1c6ybxwZ2x97W4icJ4nUYdOfFiJgR/egQVJX3CB8MzRE3MI+glD1iwFBudApSF44fuCc24kIGxp8IepcVUz+jtngQlgYusonFDUbZzFOcltXFuEmcC1caJjcopFslEsLbz9SPJD0lf4Op4QPMYXJsflM6nmxNI/xOOs5I8ahfvZYy5EMrxJ9fDCSxrC2KF+SloJ+XTHFqnNfL8SD+QndxyefvfEI+DyoVpyaIx5H+XboBkk6ceR8WIbt5kFmQ8HqmYeOkZwd1XHJi1xouhcwHlWdm7Rt6Svd9UqMjP4Ndd8lgmr9iA44n2Y1/VMIZINGmVB3/S9EYketPsCP+/q/v8taUX4uHa0WQ76pUpgjVVCDOvrH5OYjMg0on5AUNr76p6AmKk2OON7v76thxo5gf8AlqE8wjaZI5VJbl0f+THDdl+1Gon6FQXGy8TKXkjeIPFC1/vv77o47kqcMF1Ggl5eIpRjo6CbpD2Fv1bFC/Ki3EjGh3nD79mwPoTuK21OFilwo2Ef1v8weFvqhVyRAnNJfBw=
   on:
-    branch: master
     repo: mtfranchetto/smild
-    tags: false
+    tags: true

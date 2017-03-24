@@ -1,8 +1,8 @@
-#Smild
+# Smild
 
 ![smild](http://i62.tinypic.com/xf1cgk.png)
 
-##The Typescript development system
+## The Typescript development system
 
 Isomorphic tool to scaffold, build and test frontend/backend projects. Here's what you'll receive with the package:
 
@@ -17,15 +17,15 @@ Isomorphic tool to scaffold, build and test frontend/backend projects. Here's wh
 * Scaffolding
 * NodeJS support
 
-###Install
+### Install
 `npm install smild -g`
 
-###Usage
+### Usage
 
 To create a project just type:
 `smild new [projectName] --type [frontend|module|nodejs]`
 
-###Default settings
+### Default settings
 
     {
         projectType: "frontend",
@@ -46,7 +46,7 @@ To create a project just type:
         postBuild: VoidHook
     }
 
-###CLI reference:
+### CLI reference:
 
 `$ smild build [target|all]`
 
@@ -67,6 +67,6 @@ Run tests with **Mocha**
 
 Get projection coverage with **nyc**
 
-##Contribute
+## Contribute
 
 I am using [Git Flow](https://github.com/nvie/gitflow).

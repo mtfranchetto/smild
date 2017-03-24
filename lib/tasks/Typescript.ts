@@ -9,7 +9,8 @@ export default function Typescript() {
     return gulp.src(settings.scripts)
         .pipe(tsProject())
         .on("error", function (error) {
-            process.exit(1);
+            if (!helper.isWatching())
+                process.exit(1);
         })
         .js.pipe(gulp.dest(settings.distribution));
 }
