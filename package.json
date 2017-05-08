@@ -1,6 +1,6 @@
 {
   "name": "smild",
-  "version": "4.3.8",
+  "version": "4.4.0",
   "description": "The Javascript development system",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "commander": "~2.9.0",
     "del": "~2.2.0",
     "exorcist": "~0.4.0",
-    "express": "~4.13.4",
+    "express": "~4.15.2",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-autoprefixer": "~3.1.0",
     "gulp-clean-css": "~2.0.10",
@@ -44,7 +44,7 @@
     "nyc": "~10.0.0",
     "ts-node": "~1.7.2",
     "tsify": "~2.0.3",
-    "typescript": "~2.1.0",
+    "typescript": "~2.3.2",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.1.0",
     "vinyl-transform": "~1.0.0",
