@@ -1,3 +1,7 @@
+# 4.5.0
+
+Watch every sass file
+
 # 4.4.0
 
 Add support for typescript 2.3.x
