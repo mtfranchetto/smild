@@ -1,3 +1,7 @@
+# 4.6.0
+
+Add custom location support for bootstrapping css
+
 # 4.5.0
 
 Watch every sass file
