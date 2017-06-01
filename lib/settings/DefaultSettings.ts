@@ -6,7 +6,7 @@ export default  {
     liveReloadPort: 35729,
     distribution: "dist",
     targets: "targets",
-    styles: "styles",
+    bootstrapperStyles: "",
     test: "test/**/*.ts",
     images: "images",
     assets: "assets",

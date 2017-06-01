@@ -11,7 +11,10 @@ const gulp = require('gulp'),
 
 export default function Styles() {
     let settings = helper.getSettings();
-    let bootstrapperPath = path.posix.resolve(settings.targets, helper.getCurrentTarget(), 'bootstrapper.scss');
+    let bootstrapperBasePath = (settings.bootstrapperStyles) ? settings.bootstrapperStyles :
+        path.posix.resolve(settings.targets, helper.getCurrentTarget());
+
+    let bootstrapperPath = path.posix.resolve(bootstrapperBasePath, 'bootstrapper.scss');
     if (!fs.existsSync(bootstrapperPath)) {
         console.warn("Styles bootstrapper not found at path", bootstrapperPath, ", skipping styles build process.");
         return Promise.resolve();
@@ -44,20 +47,7 @@ export default function Styles() {
 
     function applySass() {
         return sass({
-            includePaths: ['./'],
-            importer: (file, prev, done) => {
-                var cssExtension = '.css';
-                if (file.indexOf(cssExtension, file.length - cssExtension.length) !== -1) {
-                    try {
-                        var fileContents = fs.readFileSync(path.resolve(bootstrapperPath, '..', file), 'utf8'); //Resolve relative paths from bootstrapper file
-                        done({contents: fileContents});
-                    } catch (error) {
-                        done(error);
-                    }
-                } else {
-                    done({file: file});
-                }
-            }
+            includePaths: ['./']
         }).on('error', sass.logError)
     }
 
