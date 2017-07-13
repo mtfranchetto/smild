@@ -42,7 +42,7 @@
     "mocha": "~3.2.0",
     "nodemon": "~1.11.0",
     "nyc": "~11.0.2",
-    "ts-node": "~1.7.2",
+    "ts-node": "~3.2.0",
     "tsify": "~2.0.3",
     "typescript": "~2.4.1",
     "vinyl-buffer": "~1.0.0",
