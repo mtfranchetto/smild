@@ -1,6 +1,6 @@
 {
   "name": "smild",
-  "version": "4.6.0",
+  "version": "4.7.0",
   "description": "The Javascript development system",
   "repository": {
     "type": "git",
@@ -41,10 +41,10 @@
     "lodash": "~4.17.2",
     "mocha": "~3.2.0",
     "nodemon": "~1.11.0",
-    "nyc": "~10.0.0",
+    "nyc": "~11.0.2",
     "ts-node": "~1.7.2",
     "tsify": "~2.0.3",
-    "typescript": "~2.3.2",
+    "typescript": "~2.4.1",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.1.0",
     "vinyl-transform": "~1.0.0",

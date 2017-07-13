@@ -1,3 +1,7 @@
+# 4.7.0
+
+Bump typescript to 2.4.*
+
 # 4.6.0
 
 Add custom location support for bootstrapping css
