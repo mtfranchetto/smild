@@ -1,3 +1,7 @@
+# 4.7.1
+
+Fix ts-node problem
+
 # 4.7.0
 
 Bump typescript to 2.4.*
