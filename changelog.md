@@ -1,3 +1,8 @@
+# 4.8.0
+
+* Remove global scss watch (set watch folders manually using watchStyles)
+* Add sass-module-loader
+
 # 4.7.1
 
 Fix ts-node problem

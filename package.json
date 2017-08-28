@@ -1,6 +1,6 @@
 {
   "name": "smild",
-  "version": "4.7.1",
+  "version": "4.8.0",
   "description": "The Javascript development system",
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "mocha": "~3.2.0",
     "nodemon": "~1.11.0",
     "nyc": "~11.0.2",
+    "sass-module-importer": "~1.4.0",
     "ts-node": "~3.2.0",
     "tsify": "~2.0.3",
     "typescript": "~2.4.1",
