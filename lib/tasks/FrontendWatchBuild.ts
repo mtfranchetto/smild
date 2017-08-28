@@ -15,9 +15,8 @@ export default function FrontendWatchBuild() {
         let bootstrapperBasePath = (settings.bootstrapperStyles) ? settings.bootstrapperStyles :
             path.posix.resolve(settings.targets, helper.getCurrentTarget());
 
-        let bootstrapperPath = path.posix.resolve(bootstrapperBasePath, 'bootstrapper.scss');
         let watchFolders = map(settings.watchStyles, folder => path.resolve(process.cwd(), folder) + "/**/*.{scss, css}");
 
-        gulp.watch(union([bootstrapperPath], watchFolders), gulp.parallel(Styles));
+        gulp.watch(union([bootstrapperBasePath], watchFolders), gulp.parallel(Styles));
     });
 }
