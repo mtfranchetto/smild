@@ -1,6 +1,7 @@
 import {buildHelper as helper, taskRunner} from "../Container";
 import * as path from "path";
 import * as fs from "fs";
+
 const gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
@@ -8,6 +9,7 @@ const gulp = require('gulp'),
     minify = require('gulp-clean-css'),
     sass = require('gulp-sass'),
     refresh = require('gulp-livereload');
+import * as moduleImporter from 'sass-module-importer';
 
 export default function Styles() {
     let settings = helper.getSettings();
@@ -47,7 +49,7 @@ export default function Styles() {
 
     function applySass() {
         return sass({
-            includePaths: ['./']
+            importer: moduleImporter({basedir: process.cwd()})
         }).on('error', sass.logError)
     }
 
