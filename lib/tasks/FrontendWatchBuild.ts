@@ -4,11 +4,20 @@ import Build from "./Build";
 import Serve from "./Serve";
 import Styles from "./Styles";
 import Clean from "./Clean";
+
 const gulp = require("gulp");
+import {union, map} from "lodash";
 
 export default function FrontendWatchBuild() {
     helper.enableWatch();
     taskRunner.run(gulp.series(Clean, Build, Serve)).then(() => {
-        gulp.watch(path.resolve(process.cwd()) + '/**/*.scss',  gulp.parallel(Styles));
+        let settings = helper.getSettings();
+        let bootstrapperBasePath = (settings.bootstrapperStyles) ? settings.bootstrapperStyles :
+            path.posix.resolve(settings.targets, helper.getCurrentTarget());
+
+        let bootstrapperPath = path.posix.resolve(bootstrapperBasePath, 'bootstrapper.scss');
+        let watchFolders = map(settings.watchStyles, folder => path.resolve(process.cwd(), folder) + "/**/*.{scss, css}");
+
+        gulp.watch(union([bootstrapperPath], watchFolders), gulp.parallel(Styles));
     });
 }

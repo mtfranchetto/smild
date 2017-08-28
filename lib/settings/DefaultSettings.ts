@@ -7,6 +7,7 @@ export default  {
     distribution: "dist",
     targets: "targets",
     bootstrapperStyles: "",
+    watchStyles: [],
     test: "test/**/*.ts",
     images: "images",
     assets: "assets",
