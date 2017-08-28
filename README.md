@@ -34,6 +34,9 @@ To create a project just type:
         distribution: "dist",
         targets: "targets",
         bootstrapperStyles: "",
+        watchStyles: [
+           "styles"
+        ],
         test: "test/**/*.ts",
         images: "images",
         assets: "assets",
