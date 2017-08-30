@@ -12,5 +12,5 @@ export default function Typescript() {
             if (!helper.isWatching())
                 process.exit(1);
         })
-        .js.pipe(gulp.dest(settings.distribution));
+        .pipe(gulp.dest(settings.distribution));
 }
