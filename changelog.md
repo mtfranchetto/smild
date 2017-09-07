@@ -1,3 +1,7 @@
+# 4.8.1
+
+Add dts generation support
+
 # 4.8.0
 
 * Remove global scss watch (set watch folders manually using watchStyles)
