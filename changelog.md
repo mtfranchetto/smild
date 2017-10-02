@@ -1,3 +1,7 @@
+# 4.9.0
+
+Add support for uglify-es
+
 # 4.8.1
 
 Add dts generation support
