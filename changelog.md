@@ -1,3 +1,6 @@
+# 4.9.1
+Change uglify's default settings to have in minify result only ascii characters
+
 # 4.9.0
 
 Add support for uglify-es
