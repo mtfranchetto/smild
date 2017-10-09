@@ -17,7 +17,11 @@ export default  {
     scripts: "scripts/**/*.{ts,tsx}",
     revisionExclude: [],
     nodemon: {},
-    uglifyjs: {},
+    uglifyjs: {
+        output: {
+            "ascii_only": true
+        }
+    },
     preBuild: VoidHook,
     postBuild: VoidHook
 }
