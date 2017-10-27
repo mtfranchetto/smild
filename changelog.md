@@ -1,3 +1,7 @@
+# 4.10.0
+
+Bump typescript to 2.5.*
+
 # 4.9.1
 Change uglify's default settings to have in minify result only ascii characters
 
