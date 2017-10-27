@@ -1,6 +1,6 @@
 {
   "name": "smild",
-  "version": "4.9.1",
+  "version": "4.10.0",
   "description": "The Javascript development system",
   "repository": {
     "type": "git",
@@ -45,7 +45,7 @@
     "sass-module-importer": "~1.4.0",
     "ts-node": "~3.2.0",
     "tsify": "~2.0.3",
-    "typescript": "~2.4.1",
+    "typescript": "~2.5.3",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.1.0",
     "vinyl-transform": "~1.0.0",
