@@ -9,5 +9,6 @@ export default function Test() {
             compilers: {
                 ts: require('ts-node/register')
             }
-        }));
+        }))
+        .on("error", () => process.exit(1));
 }
