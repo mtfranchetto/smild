@@ -1,3 +1,7 @@
+# 4.10.1
+
+Add test error handler
+
 # 4.10.0
 
 Bump typescript to 2.5.*
