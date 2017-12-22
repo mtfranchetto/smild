@@ -1,5 +1,5 @@
 import ISettingsParser from "./settings/ISettingsParser";
-const gulp = require("gulp");
+const gulp = require("gulp4");
 import * as fs from "fs";
 import * as path from "path";
 import * as _ from "lodash";

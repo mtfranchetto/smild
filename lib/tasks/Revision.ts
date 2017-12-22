@@ -1,6 +1,6 @@
 import {buildHelper as helper, taskRunner} from "../Container";
 import * as _ from "lodash";
-const gulp = require('gulp');
+const gulp = require("gulp4");
 const RevAll = require('gulp-rev-all');
 
 export default function Revision() {

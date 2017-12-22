@@ -1,5 +1,5 @@
 import {buildHelper as helper, taskRunner} from "../Container";
-const gulp = require("gulp");
+const gulp = require("gulp4");
 const run = require("gulp-run");
 import * as path from "path";
 

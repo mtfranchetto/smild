@@ -1,6 +1,6 @@
 import {buildHelper as helper, taskRunner} from "../Container";
 import * as path from "path";
-const gulp = require('gulp');
+const gulp = require("gulp4");
 
 export default function Images() {
     let settings = helper.getSettings();

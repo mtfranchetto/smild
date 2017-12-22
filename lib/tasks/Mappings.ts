@@ -7,7 +7,7 @@ import FrontendWatchBuild from "./FrontendWatchBuild";
 import Scaffolding from "./Scaffolding";
 import Coverage from "./Coverage";
 import ModuleWatchBuild from "./ModuleWatchBuild";
-const gulp = require("gulp");
+const gulp = require("gulp4");
 
 export const frontend = {
     "clean": Clean,

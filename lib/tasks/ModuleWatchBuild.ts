@@ -1,6 +1,6 @@
 import {buildHelper as helper, taskRunner} from "../Container";
 import Typescript from "./Typescript";
-const gulp = require("gulp");
+const gulp = require("gulp4");
 import {magenta} from "chalk";
 
 export default function ModuleWatchBuild() {
