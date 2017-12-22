@@ -5,7 +5,7 @@ import Serve from "./Serve";
 import Styles from "./Styles";
 import Clean from "./Clean";
 
-const gulp = require("gulp");
+const gulp = require("gulp4");
 import {union, map} from "lodash";
 
 export default function FrontendWatchBuild() {

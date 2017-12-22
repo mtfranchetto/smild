@@ -1,3 +1,7 @@
+# 4.10.2
+
+Fix a gulp build error
+
 # 4.10.1
 
 Add test error handler
