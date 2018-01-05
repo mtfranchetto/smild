@@ -1,5 +1,5 @@
 import {buildHelper as helper, taskRunner} from "../Container";
-const gulp = require("gulp");
+const gulp = require("gulp4");
 const mocha = require("gulp-mocha");
 
 export default function Test() {
@@ -9,5 +9,6 @@ export default function Test() {
             compilers: {
                 ts: require('ts-node/register')
             }
-        }));
+        }))
+        .on("error", () => process.exit(1));
 }

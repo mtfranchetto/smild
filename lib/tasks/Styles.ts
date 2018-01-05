@@ -2,7 +2,7 @@ import {buildHelper as helper, taskRunner} from "../Container";
 import * as path from "path";
 import * as fs from "fs";
 
-const gulp = require('gulp'),
+const gulp = require("gulp4"),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
     autoprefixer = require('gulp-autoprefixer'),

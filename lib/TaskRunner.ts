@@ -1,4 +1,4 @@
-const gulp = require("gulp");
+const gulp = require("gulp4");
 
 class TaskRunner {
 

@@ -1,5 +1,5 @@
 import {buildHelper as helper} from "../Container";
-const gulp = require('gulp');
+const gulp = require("gulp4");
 const replace = require('gulp-replace');
 import * as path from "path";
 

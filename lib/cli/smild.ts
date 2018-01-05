@@ -5,7 +5,7 @@ import * as _ from "lodash";
 import * as Mappings from "../tasks/Mappings";
 import {buildHelper, taskRunner} from "../Container";
 import Util from "../Util";
-const gulp = require("gulp");
+const gulp = require("gulp4");
 import {all as allTasks} from "../tasks/Exports";
 
 let program = require("commander"),

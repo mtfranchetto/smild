@@ -44,7 +44,11 @@ To create a project just type:
         scripts: "scripts/**/*.{ts,tsx}",
         revisionExclude: [],
         nodemon: {},
-        uglifyjs: {},
+        uglifyjs: {
+            output: {
+                "ascii_only": true
+            }
+        },
         preBuild: VoidHook,
         postBuild: VoidHook
     }

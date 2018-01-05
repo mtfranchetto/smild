@@ -1,3 +1,19 @@
+# 4.10.3
+
+Fix a gulp build error increasing gulp-autoprefixer version
+
+# 4.10.2
+
+Fix a gulp build error
+
+# 4.10.1
+
+Add test error handler
+
+# 4.10.0
+
+Bump typescript to 2.5.*
+
 # 4.9.1
 Change uglify's default settings to have in minify result only ascii characters
 

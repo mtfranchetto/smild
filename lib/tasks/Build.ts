@@ -1,6 +1,6 @@
 import {buildHelper as helper, taskRunner} from "../Container";
 import {cyan} from "chalk";
-const gulp = require("gulp");
+const gulp = require("gulp4");
 import Styles from "./Styles";
 import Images from "./Images";
 import Assets from "./Assets";

@@ -3,7 +3,7 @@ import * as path from "path";
 import TypescriptSettingsParser from "../settings/TypescriptSettingsParser";
 import {buildHelper as helper, taskRunner, buildHelper} from "../Container";
 const watchify = require('watchify'),
-    gulp = require("gulp"),
+    gulp = require("gulp4"),
     source = require('vinyl-source-stream'),
     streamify = require('gulp-streamify'),
     uglify = require('gulp-uglify-es').default,
