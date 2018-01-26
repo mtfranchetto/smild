@@ -15,7 +15,7 @@ class SmildSettingsParser implements ISettingsParser {
         try {
             smildFile = require(path.join(process.cwd(), 'smildfile.js'));
         } catch (error) {
-            smildFile = {};
+            smildFile = packageJson.smild ? packageJson.smild : {};
         }
         return _.assign(DefaultSettings, smildFile, {
             projectPackage: packageJson
