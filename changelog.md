@@ -1,3 +1,7 @@
+# 4.11.0
+
+Smild configuration also using a package.json field
+
 # 4.10.3
 
 Fix a gulp build error increasing gulp-autoprefixer version
