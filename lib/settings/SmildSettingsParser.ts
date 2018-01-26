@@ -7,7 +7,7 @@ class SmildSettingsParser implements ISettingsParser {
 
     parse(): any {
         let smildFile = null,
-            packageJson = {};
+            packageJson = {} as any;
         try {
             packageJson = require(path.join(process.cwd(), 'package.json'));
         } catch (error) {
