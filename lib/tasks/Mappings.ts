@@ -7,6 +7,7 @@ import FrontendWatchBuild from "./FrontendWatchBuild";
 import Scaffolding from "./Scaffolding";
 import Coverage from "./Coverage";
 import ModuleWatchBuild from "./ModuleWatchBuild";
+import { PreBuild, PostBuild } from "./Hooks";
 const gulp = require("gulp4");
 
 export const frontend = {
@@ -20,7 +21,7 @@ export const frontend = {
 
 export const module = {
     "clean": Clean,
-    "build": Typescript,
+    "build": gulp.series(PreBuild, Typescript, PostBuild),
     "watch-build": ModuleWatchBuild,
     "test": Test,
     "coverage": Coverage,
@@ -29,7 +30,7 @@ export const module = {
 
 export const nodejs = {
     "clean": Clean,
-    "build": Typescript,
+    "build": gulp.series(PreBuild, Typescript, PostBuild),
     "watch-build": NodeWatchBuild,
     "test": Test,
     "coverage": Coverage,
