@@ -11,6 +11,9 @@ export default function Test() {
                 ts: require('ts-node/register')
             }
         }))
+        .once('end', function () {
+            process.exit();
+        })
         .on("error", (error) => {
             console.error(Util.formatError(error));
             process.exit(1)
