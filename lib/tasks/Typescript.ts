@@ -4,7 +4,7 @@ const ts = require("gulp-typescript");
 
 export default function Typescript() {
     let settings = helper.getSettings(),
-        tsProject = ts.createProject("tsconfig.json");
+        tsProject = ts.createProject("tsconfig.json", {typescript: require(settings.typescriptPath)});
 
     return gulp.src(settings.scripts)
         .pipe(tsProject())

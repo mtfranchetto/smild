@@ -27,7 +27,10 @@ export default function Browserify() {
                 poll: /^win/.test(process.platform)
             }) : browserify(browserifySettings);
 
-    bundleStream = bundleStream.plugin(tsify, new TypescriptSettingsParser().parse().compilerOptions);
+    bundleStream = bundleStream.plugin(tsify, {
+        project: new TypescriptSettingsParser().parse(),
+        typescript: require(smildSettings.typescriptPath)
+    });
 
     if (helper.isWatching())
         bundleStream.on('update', () => rebundleDevelopment(bundleStream));

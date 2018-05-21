@@ -50,7 +50,8 @@ To create a project just type:
             }
         },
         preBuild: VoidHook,
-        postBuild: VoidHook
+        postBuild: VoidHook,
+        typescriptPath: // path to a custom typescript compiler
     }
 
 ### CLI reference:
