@@ -1,3 +1,7 @@
+# 4.14.0
+
+Provide a custom typescript compiler
+
 # 4.12.0
 
 Add prebuild and postbuild process also in NodeJS and module project's type
