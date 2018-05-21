@@ -23,5 +23,6 @@ export default  {
         }
     },
     preBuild: VoidHook,
-    postBuild: VoidHook
+    postBuild: VoidHook,
+    typescriptPath: require.resolve("typescript")
 }
