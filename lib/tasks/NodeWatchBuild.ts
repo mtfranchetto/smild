@@ -10,7 +10,7 @@ export default function NodeWatchBuild() {
         script: 'bootstrapper.ts',
         ext: 'js json ts',
         execMap: {
-            "ts": path.resolve(__dirname, "../../node_modules/ts-node/dist/bin.js")
+            "ts": path.resolve(__dirname, "../../node_modules/ts-node/dist/bin.js") + " --compiler " + settings.typescriptPath
         }
     }, settings.nodemon)).on('restart', (files) => {
         console.log(chalk.yellow("Restarting NodeJS..."));

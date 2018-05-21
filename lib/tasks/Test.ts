@@ -8,7 +8,9 @@ export default function Test() {
         .pipe(mocha({
             reporter: 'spec',
             compilers: {
-                ts: require('ts-node/register')
+                ts: require('ts-node').register({
+                    compiler: helper.getSettings().typescriptPath
+                })
             }
         }))
         .once('end', function () {
