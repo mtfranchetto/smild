@@ -8,6 +8,7 @@ import Scaffolding from "./Scaffolding";
 import Coverage from "./Coverage";
 import ModuleWatchBuild from "./ModuleWatchBuild";
 import { PreBuild, PostBuild } from "./Hooks";
+import Browserify from "./Browserify";
 const gulp = require("gulp4");
 
 export const frontend = {
@@ -16,7 +17,8 @@ export const frontend = {
     "watch-build": FrontendWatchBuild,
     "test": Test,
     "coverage": Coverage,
-    "new": Scaffolding
+    "new": Scaffolding,
+    "js": Browserify
 };
 
 export const module = {
