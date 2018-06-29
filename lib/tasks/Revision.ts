@@ -16,7 +16,8 @@ export default function Revision() {
     return gulp.src(helper.getTempFolder() + '/**')
         .pipe(RevAll.revision({
             dontRenameFile: excludedFiles,
-            dontUpdateReference: excludedFiles
+            dontUpdateReference: excludedFiles,
+            dontSearchFile: [/.*\.pdf/]
         }))
         .pipe(gulp.dest(helper.getDistFolder()));
 }
