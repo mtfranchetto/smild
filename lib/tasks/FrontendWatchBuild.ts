@@ -13,7 +13,7 @@ export default function FrontendWatchBuild() {
     taskRunner.run(gulp.series(Clean, Build, Serve)).then(() => {
         let settings = helper.getSettings();
         let bootstrapperBasePath = (settings.bootstrapperStyles) ? settings.bootstrapperStyles :
-            path.posix.resolve(settings.targets, helper.getCurrentTarget());
+            path.resolve(process.cwd(), settings.targets, helper.getCurrentTarget());
 
         let watchFolders = map(settings.watchStyles, folder => path.resolve(process.cwd(), folder) + "/**/*.{scss, css}");
 

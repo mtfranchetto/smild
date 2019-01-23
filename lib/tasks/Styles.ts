@@ -14,9 +14,9 @@ import * as moduleImporter from 'sass-module-importer';
 export default function Styles() {
     let settings = helper.getSettings();
     let bootstrapperBasePath = (settings.bootstrapperStyles) ? settings.bootstrapperStyles :
-        path.posix.resolve(settings.targets, helper.getCurrentTarget());
+        path.resolve(process.cwd(), settings.targets, helper.getCurrentTarget());
 
-    let bootstrapperPath = path.posix.resolve(bootstrapperBasePath, 'bootstrapper.scss');
+    let bootstrapperPath = path.resolve(bootstrapperBasePath, 'bootstrapper.scss');
     if (!fs.existsSync(bootstrapperPath)) {
         console.warn("Styles bootstrapper not found at path", bootstrapperPath, ", skipping styles build process.");
         return Promise.resolve();
